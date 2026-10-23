@@ -1,0 +1,322 @@
+<title>PawPlanet Privacy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --bg:#FBF6F0; --panel:#FFFFFF; --ink:#2E2A27; --muted:#79706A;
+    --line:#ECE2D8; --accent:#E7898A; --accent-ink:#B85E62; --grass:#7FB27A;
+    --shadow:0 1px 2px rgba(60,45,40,.04),0 10px 30px rgba(120,90,80,.07);
+    --maxw:44rem;
+  }
+  :root:not([data-theme="light"]){}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1B1817; --panel:#252120; --ink:#EFE8E2; --muted:#A79C94;
+      --line:#37302C; --accent:#E7898A; --accent-ink:#F0A9AA; --grass:#8FBE8A;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.32);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1B1817; --panel:#252120; --ink:#EFE8E2; --muted:#A79C94;
+    --line:#37302C; --accent:#E7898A; --accent-ink:#F0A9AA; --grass:#8FBE8A;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.32);
+  }
+  *{box-sizing:border-box}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:clamp(1.5rem,4vw,3.5rem) clamp(1.15rem,4vw,2rem) 4rem;}
+  header.masthead{display:flex; flex-direction:column; gap:1.1rem; padding-bottom:1.6rem; border-bottom:1px solid var(--line); margin-bottom:2.2rem;}
+  .brand{display:flex; align-items:center; gap:.7rem;}
+  .paw{width:2.6rem;height:2.6rem;flex:0 0 auto;border-radius:50%;
+    background:radial-gradient(circle at 50% 38%,#FBE3E1,#F3C7C6);
+    display:grid;place-items:center;box-shadow:var(--shadow);}
+  .paw svg{width:1.5rem;height:1.5rem;display:block}
+  h1{font-family:"Zen Maru Gothic",sans-serif; font-weight:700; font-size:clamp(1.6rem,4.4vw,2.1rem);
+    margin:0; line-height:1.2; text-wrap:balance; letter-spacing:.01em;}
+  h1 .sub{display:block;font-family:"Noto Sans JP",sans-serif;font-weight:500;font-size:.92rem;color:var(--accent-ink);letter-spacing:.02em;margin-top:.35rem}
+  .meta{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;font-size:.82rem;color:var(--muted)}
+  .meta b{color:var(--ink);font-weight:500}
+  .langtabs{display:inline-flex;gap:.25rem;background:var(--panel);border:1px solid var(--line);
+    border-radius:999px;padding:.25rem;box-shadow:var(--shadow);align-self:flex-start}
+  .langtabs button{font:inherit;font-size:.83rem;font-weight:500;cursor:pointer;border:0;background:transparent;
+    color:var(--muted);padding:.32rem .95rem;border-radius:999px;transition:all .15s}
+  .langtabs button[aria-selected="true"]{background:var(--accent);color:#fff}
+  .langtabs button:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px}
+  .lede{font-size:1.02rem;color:var(--muted);margin:0 0 2rem;padding:1rem 1.15rem;
+    background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--grass);border-radius:.7rem}
+  section.item{padding:1.4rem 0;border-top:1px solid var(--line)}
+  section.item:first-of-type{border-top:0;padding-top:.4rem}
+  h2{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:1.14rem;margin:0 0 .5rem;
+    display:flex;align-items:baseline;gap:.6rem}
+  h2 .no{font-size:.78rem;color:var(--accent-ink);font-weight:700;font-variant-numeric:tabular-nums}
+  p{margin:.5rem 0}
+  .facts{list-style:none;margin:.7rem 0 0;padding:0;display:grid;gap:.55rem}
+  .facts li{display:flex;gap:.6rem;align-items:flex-start;font-size:.96rem}
+  .facts li::before{content:"";flex:0 0 auto;width:.5rem;height:.5rem;margin-top:.62rem;border-radius:2px;
+    background:var(--grass)}
+  .facts li.no::before{background:var(--accent);border-radius:50%}
+  a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px}
+  .contact{margin-top:2.2rem;padding:1.3rem 1.35rem;background:var(--panel);border:1px solid var(--line);
+    border-radius:.9rem;box-shadow:var(--shadow)}
+  .contact h2{margin-bottom:.3rem}
+  footer{margin-top:2.4rem;padding-top:1.3rem;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted);
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem}
+  [hidden]{display:none!important}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="langtabs" role="tablist" aria-label="Language">
+      <button role="tab" id="tab-ja" aria-selected="true" aria-controls="doc-ja">日本語</button>
+      <button role="tab" id="tab-en" aria-selected="false" aria-controls="doc-en">English</button>
+    </div>
+    <div class="brand">
+      <span class="paw" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="#C86B6E"><circle cx="7" cy="9.2" r="2"/><circle cx="12" cy="7.4" r="2.2"/><circle cx="17" cy="9.2" r="2"/><path d="M12 11.2c-3 0-5.4 2.2-5.4 4.6 0 1.9 1.7 2.7 3.4 2.7 1 0 1.4-.3 2-.3s1 .3 2 .3c1.7 0 3.4-.8 3.4-2.7 0-2.4-2.4-4.6-5.4-4.6z"/></svg>
+      </span>
+      <h1 id="title-ja">PawPlanet プライバシーポリシー<span class="sub">歩いて育てる、世界一周ペット</span></h1>
+      <h1 id="title-en" hidden>PawPlanet Privacy Policy<span class="sub">Walk, grow pets, tour the world</span></h1>
+    </div>
+    <div class="meta">
+      <span><b>アプリ / App</b> PawPlanet — iOS / Android (com.pawplanet.app)</span>
+      <span><b id="upd-ja">最終更新</b><b id="upd-en" hidden>Last updated</b> 2026-10-23</span>
+    </div>
+  </header>
+
+  <!-- ============ 日本語 ============ -->
+  <div id="doc-ja" role="tabpanel" aria-labelledby="tab-ja">
+    <p class="lede">PawPlanet は、あなたの歩数に合わせてペットが育つおさんぽ育成アプリです。<b>氏名・メールアドレス・正確な位置情報は収集しません</b>。あなたのデータは基本的に端末内にとどまり、<b>ランキング・フレンドに参加したとき、引き継ぎコードを発行したとき、アプリ内のご意見フォームを使ったときだけ</b>、必要な情報を当社サーバー（Supabase）へ送ります。このページは、その扱いを分かりやすくまとめたものです。</p>
+
+    <section class="item">
+      <h2><span class="no">01</span>収集しない情報</h2>
+      <p>PawPlanet は、氏名・メールアドレス・電話番号・<b>正確な位置情報（GPS）</b>・連絡先といった情報を収集しません。通常のプレイに会員登録やログインは不要で、あなたのプレイに関する情報は原則として端末内で完結します。ランキング・フレンド、引き継ぎ、ご意見の扱いは第02・05・10項をご覧ください。</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">02</span>ランキング・フレンド機能（任意参加）</h2>
+      <p>ランキングやフレンドは<b>あなたが「参加する」を選んだ場合のみ</b>有効になります。参加すると、以下の情報が当社サーバー（Supabase）に保存され、他の利用者に表示されます。</p>
+      <ul class="facts">
+        <li><b>表示名</b>（飼い主のなまえ。未設定ならペットの名前）、ペットの名前・種類・レベル・色・<b>きせかえ</b>（頭の飾り・オーラ）</li>
+        <li>お庭の見た目（背景・飾り・今日の歩数）、獲得バッジ、図鑑の数</li>
+        <li>今週・前週・累計の<b>歩数</b>、ランキング用のポイントと週ごとの順位</li>
+        <li>ゲーム内の旅で今いる<b>都市</b>（実際の居場所ではありません）</li>
+        <li>友だち追加に使う<b>フレンドコード</b>（氏名・メールは含みません）</li>
+        <li><b>パウパス</b>に加入中であること（期限）。加入中はランキング・フレンドで王冠マークとして表示されます</li>
+        <li>友だち・グループ（名前・目標・メモ・期間中の歩数）・応援・ギフト・招待（誰が招待したか）の記録</li>
+      </ul>
+      <p>ログインは<b>匿名</b>で行われ、氏名やメールアドレスは一切ひもづきません。参加は任意です。設定の「ランキングに参加する」をオフにすると、ランキングにあなたの名前と歩数が表示されなくなり、歩数の送信も止まります（記録は消えず、いつでも戻せます）。サーバー上のデータの削除をご希望の場合は、第10項をご覧ください。</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">03</span>コミュニティと安全（表示名の管理）</h2>
+      <p>ランキング・フレンドでは、利用者どうしが表示名を見ることができます。健全な環境を保つため、当社は<b>不適切なコンテンツに対して寛容な姿勢をとりません</b>。</p>
+      <ul class="facts">
+        <li>露骨・攻撃的な表示名は自動的にフィルタし、安全な代替名に置き換えます</li>
+        <li>各画面から不快な利用者を<b>通報</b>できます（support 宛にメールが届きます）</li>
+        <li>不快な利用者を<b>非表示（ブロック）</b>にでき、あなたの画面から消えます</li>
+        <li class="no">通報は確認のうえ、必要に応じて表示名の削除等の対応を行います</li>
+      </ul>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">04</span>ヘルスケア（歩数）データ</h2>
+      <p>ペットの育成と旅の進行のために、iOS では Apple の <b>HealthKit</b>、Android では <b>ヘルスコネクト（Health Connect）</b>から<b>歩数を「読み取り」だけ</b>行います。歩数の書き込みは行いません。</p>
+      <ul class="facts">
+        <li>読み取った歩数は、育成・旅の計算に使います</li>
+        <li>ランキングに参加している場合は、<b>今週・前週・累計の合計歩数</b>、今日の歩数（フレンドのお庭に表示）、グループの期間中の合計歩数を、匿名IDに紐づけて当社サーバーへ送ります</li>
+        <li>引き継ぎコードを発行した場合は、セーブデータの一部として<b>日付ごとの歩数の合計と最高記録</b>も当社サーバーに保存されます（第05項）</li>
+        <li>ランキングを公平に保つため（不正防止）、歩数がとくに多い日や手入力の歩数が多い日に限り、<b>その日の合計歩数・いちばん歩いた1時間の歩数とその時間帯・手入力された歩数</b>を送ることがあります。これは確認のための記録にだけ使い、これを理由に自動で記録を消したりアカウントを止めたりすることはありません</li>
+        <li>歩いた区間・位置、計測に使った機器の名前は保存しません。第三者への提供はありません</li>
+        <li>広告・分析・プロファイリングには一切利用しません</li>
+        <li class="no">利用にはあなたの許可が必要で、いつでも設定アプリ（Android はヘルスコネクト）から取り消せます。許可しなくてもアプリは利用できます</li>
+      </ul>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">05</span>データの保存場所と引き継ぎ</h2>
+      <p>ペットやコレクション、設定などのセーブデータは、あなたの<b>端末内</b>に保存されます。iOS では、iCloud にサインインしている場合は <b>iCloud（Appleのサービス）</b>にも保存され、Apple のプライバシー方針のもとで同期されます。Android では、端末の設定により <b>Google のバックアップ</b>の対象になることがあります。当社がこれらの内容を閲覧することはありません。</p>
+      <p><b>引き継ぎコード</b>（設定の「データの引き継ぎ」）を発行すると、iPhone と Android のあいだでもデータを移せるよう、<b>セーブデータ一式</b>（飼い主のなまえ・ペット・持ち物・旅・歩数の記録・購入の記録など）を当社サーバーに保存し、その後もこまめに更新します。合言葉は暗号化して保存し、当社にもわかりません。コードと合言葉を入力した端末へデータが移り、ランキングの記録や友だちも新しい端末へ移ります。引き継ぎのデータは、最後の更新から <b>1 年</b>で自動的に削除されます。</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">06</span>アプリ内課金</h2>
+      <p>アイテムやプレミアム機能の購入は、<b>Apple（App Store）または Google（Google Play）</b>が処理します。<b>パウパス</b>は月額の自動更新サブスクリプションで、管理と解約は各ストアのアカウント設定で行います。ランキングに参加している場合は、王冠マークの表示のため、加入状態（期限）を当社サーバーへ送ります。クレジットカード番号などの決済情報を当社が受け取ったり保存したりすることはありません。</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">07</span>通知</h2>
+      <p>お世話のリマインドなどの通知を送ることがあります。通知は任意で、許可しなくてもアプリは遊べますし、設定アプリからいつでもオフにできます。</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">08</span>広告と第三者のサービス</h2>
+      <ul class="facts">
+        <li>本アプリには広告用のSDK（<b>Unity LevelPlay／Unity Ads</b>）が含まれます。広告を配信する場合、端末の識別子（iOS の IDFV、Android の広告ID・App Set ID など）・IPアドレスとそこから推定されるおおよその地域・端末の情報・アプリ内購入の有無・広告の表示と操作の記録が Unity に送られ、広告の配信・効果測定・不正防止に使われます。詳しくは <a href="https://unity.com/legal/privacy-policy">Unity のプライバシーポリシー</a>をご覧ください</li>
+        <li>Android では、端末の「設定」→「Google」→「広告」から広告IDを削除またはリセットできます</li>
+        <li>広告は、「動画を見てごほうびをもらう」ボタンを押したときなどに表示されます。パウパスに加入中は、広告を見ずにごほうびを受け取れます</li>
+        <li>トラッキングの許可（ATT）は求めません。ヘルスケアのデータを広告に使うことはありません</li>
+        <li>データの保管と処理は、委託先（Supabase、Unity、設定ファイルの配信に GitHub）が行います</li>
+        <li class="no">あなたのデータを第三者に販売することはありません</li>
+      </ul>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">09</span>お子様の利用</h2>
+      <p>本アプリは<b>13歳未満のお子様を主な対象としていません</b>。氏名などの個人を特定する情報は収集しません。13歳未満のお子様の情報が送られていることにお気づきの保護者の方は、下記お問い合わせ先までご連絡ください。削除いたします。</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">10</span>ご意見・データの削除</h2>
+      <p><b>ご意見フォーム</b> — 設定の「不具合報告・ご意見」から送られた本文は、アプリの版・OSの版・機種名とともに保存し、メールで転送することがあります。</p>
+      <p><b>手順1：アプリ内でリセット</b> — 「設定」→「データをリセット」を選ぶと、端末内のセーブデータ（ペット・パウ・旅の記録など）が消え、新しい匿名アカウントに切り替わります。直前のデータとアカウントの鍵は、<b>14 日間</b>だけ端末内に控えとして残り、その間は「リセットを元に戻す」で戻せます。サーバー上のデータは自動では消えません。アプリを端末から削除すると端末内のセーブデータは消えますが、iOS ではアカウントの鍵・フレンドコード・引き継ぎコードがキーチェーンに残り、再インストールすると同じアカウントに戻ります（iCloud 同期分は端末の iCloud 設定から削除できます）。</p>
+      <p><b>手順2：サーバー上のデータの削除を依頼</b> — 当社サーバーに保存されたデータ（表示名・ペット名・歩数・フレンドコード・引き継ぎデータ・ご意見等）の削除をご希望の場合は、下記お問い合わせ先へ<b>アプリ内の「フレンドコード」または「引き継ぎコード」を添えて</b>ご連絡ください。<b>受付から 30 日以内</b>に削除します。氏名・メールアドレスの提出は不要です。</p>
+      <p><b>保持期間</b> — サーバー上のプロフィール（表示名・歩数・ポイント等）とご意見は、削除依頼があるまで保持します。週間ランキングの履歴・リーグの記録・あなた宛てのお知らせは <b>90 日</b>でアプリから見えなくなり、その後は過去の記録の確認・お問い合わせへの対応・不正の調査のための控えとして保管し、<b>記録から 1 年</b>で自動的に削除します。ギフト・応援の記録は <b>60 日</b>、招待の判定記録は <b>180 日</b>で自動的に削除されます。引き継ぎデータは最後の更新から <b>1 年</b>で引き継ぎに使えなくなります（データの復旧のご相談に備えて控えを保管し、削除のご依頼があれば削除します）。日々のバックアップは <b>90 日</b>で自動的に消去されます。</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">11</span>本ポリシーの変更</h2>
+      <p>機能追加などに伴い、本ポリシーを更新することがあります。重要な変更がある場合は、このページの更新日を改めてお知らせします。</p>
+    </section>
+
+    <div class="contact">
+      <h2>お問い合わせ</h2>
+      <p>本ポリシーやプライバシーに関するご質問は、下記までご連絡ください。</p>
+      <p><a href="mailto:yoshitetsugames21@gmail.com">yoshitetsugames21@gmail.com</a></p>
+    </div>
+  </div>
+
+  <!-- ============ English ============ -->
+  <div id="doc-en" role="tabpanel" aria-labelledby="tab-en" hidden>
+    <p class="lede">PawPlanet is a cozy pet-raising app where your pet grows with the steps you take. It <b>collects no name, email, or precise location</b>. Your data stays, as a rule, on your device. Information is sent to our server (Supabase) <b>only when you join the leaderboards/friends, issue a transfer code, or send feedback in the app</b>. This page explains how that works.</p>
+
+    <section class="item">
+      <h2><span class="no">01</span>Information we don't collect</h2>
+      <p>PawPlanet does not collect your name, email, phone number, <b>precise location (GPS)</b>, or contacts. Ordinary play requires no account or sign-in, and information about your play stays on your device. For leaderboards/friends, data transfer and feedback, see sections 02, 05 and 10.</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">02</span>Leaderboards &amp; friends (opt-in)</h2>
+      <p>Leaderboards and friends are enabled <b>only if you choose to join</b>. When you join, the following is stored on our server (Supabase) and shown to other users:</p>
+      <ul class="facts">
+        <li>Your <b>display name</b> (owner name, or your pet's name if unset), your pet's name, species, level, color and <b>dress-up</b> (head accessory, aura)</li>
+        <li>Your garden's look (background, decorations, today's steps), badges and collection counts</li>
+        <li>Your weekly, previous-week and lifetime <b>step counts</b>, ranking points and weekly ranks</li>
+        <li>The <b>city</b> your in-game journey is currently in (not your real location)</li>
+        <li>A <b>friend code</b> used to add friends (it contains no name or email)</li>
+        <li>Whether you have an active <b>PawPass</b> (its expiry), shown as a crown on the leaderboards and friends</li>
+        <li>Your friends, groups (name, goal, note, steps during the mission), cheers, gifts and who invited you</li>
+      </ul>
+      <p>Sign-in is <b>anonymous</b> — no name or email is ever linked. Joining is optional. Turn off "Join the rankings" in Settings to stop showing your name and steps on the leaderboards and stop sending steps (your records are kept, and you can rejoin anytime). To request deletion of server data, see section 10.</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">03</span>Community &amp; safety (display names)</h2>
+      <p>On the leaderboards and friends feature, users can see each other's display names. To keep this space healthy, we have <b>zero tolerance for objectionable content</b>.</p>
+      <ul class="facts">
+        <li>Explicit or abusive display names are filtered automatically and replaced with a safe alternative</li>
+        <li>You can <b>report</b> an offensive user from any of these screens (this emails our support)</li>
+        <li>You can <b>hide (block)</b> an offensive user so they disappear from your view</li>
+        <li class="no">Reports are reviewed and acted on — including removing display names as needed</li>
+      </ul>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">04</span>Health (step count) data</h2>
+      <p>To grow your pet and advance your journey, the app <b>reads your step count only</b>, via Apple <b>HealthKit</b> on iOS and <b>Health Connect</b> on Android. It never writes health data.</p>
+      <ul class="facts">
+        <li>Steps are used to calculate growth and travel</li>
+        <li>If you join the leaderboards, your <b>weekly, previous-week and lifetime totals</b>, today's steps (shown in your garden to friends) and group-mission totals are sent to our server, linked to an anonymous ID</li>
+        <li>If you issue a transfer code, your <b>per-day step totals and personal bests</b> are stored on our server as part of your save data (section 05)</li>
+        <li>To keep the leaderboards fair (fraud prevention), only on days with unusually high or manually entered steps, we may send <b>that day's total, the step count of your busiest hour and which hour it was, and the manually entered amount</b>. This is used only for review records; we never automatically delete your records or suspend accounts because of it</li>
+        <li>We do not store routes, location, or the names of the devices that measured your steps. Nothing is shared with third parties</li>
+        <li>It is never used for advertising, analytics, or profiling</li>
+        <li class="no">Access requires your permission and can be revoked anytime in Settings (Health Connect on Android). The app works without it</li>
+      </ul>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">05</span>Where your data lives &amp; data transfer</h2>
+      <p>Save data — your pets, collections, and settings — is stored <b>on your device</b>. On iOS, if you are signed in to iCloud, it is also saved to <b>iCloud (an Apple service)</b> and synced under Apple's privacy terms. On Android, it may be included in your <b>Google backup</b>, depending on your device settings. We cannot view these copies.</p>
+      <p>If you issue a <b>transfer code</b> (Settings &gt; Data Transfer), your <b>full save data</b> (owner name, pets, items, journey, step records, purchase records, etc.) is stored on our server and kept up to date, so it can be moved to another iPhone or Android device. Your passcode is stored encrypted and we cannot see it. Entering the code and passcode on a device moves your data there, along with your leaderboard records and friends. Transfer data is deleted automatically <b>one year</b> after its last update.</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">06</span>In-app purchases</h2>
+      <p>Purchases of items and premium features are processed by <b>Apple (App Store) or Google (Google Play)</b>. <b>PawPass</b> is an auto-renewing monthly subscription that you manage and cancel in your store account. If you join the leaderboards, your subscription status (expiry) is sent to our server to show the crown. We never receive or store payment details such as card numbers.</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">07</span>Notifications</h2>
+      <p>We may send reminders (for example, to care for your pet). Notifications are optional; the app works without them, and you can turn them off anytime in Settings.</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">08</span>Ads &amp; third-party services</h2>
+      <ul class="facts">
+        <li>The app includes an ad SDK (<b>Unity LevelPlay / Unity Ads</b>). When ads are served, device identifiers (IDFV on iOS; advertising ID and App Set ID on Android), IP address and the approximate region inferred from it, device information, whether in-app purchases were made, and ad impressions/interactions are sent to Unity and used for ad delivery, measurement and fraud prevention. See <a href="https://unity.com/legal/privacy-policy">Unity's Privacy Policy</a></li>
+        <li>On Android, you can delete or reset your advertising ID in Settings → Google → Ads</li>
+        <li>Ads appear, for example, when you tap a "watch a video for a reward" button. With PawPass you get those rewards without watching ads</li>
+        <li>We do not request tracking permission (ATT), and health data is never used for ads</li>
+        <li>Data is stored and processed by our service providers (Supabase, Unity, and GitHub for configuration files)</li>
+        <li class="no">We never sell your data</li>
+      </ul>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">09</span>Children</h2>
+      <p>The app is <b>not primarily directed at children under 13</b>. We do not collect information that identifies you, such as your name. If you are a parent and believe your child under 13 has sent us information, please contact us and we will delete it.</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">10</span>Feedback &amp; deleting your data</h2>
+      <p><b>Feedback form</b> — Messages sent from "Feedback &amp; Bug Report" in Settings are stored with the app version, OS version and device model, and may be forwarded to us by email.</p>
+      <p><b>Step 1: Reset in the app</b> — Open <b>Settings → Reset data</b>. This erases the save data on your device (pets, Paw, journey records) and switches you to a new anonymous account. Your previous data and account keys are kept on the device for <b>14 days</b> so you can undo the reset. Server data is not deleted automatically. Uninstalling the app erases on-device save data, but on iOS your account keys, friend code and transfer code remain in the Keychain and restore the same account if you reinstall (iCloud copies can be removed from your iCloud settings).</p>
+      <p><b>Step 2: Request server-side deletion</b> — To have data stored on our server (display name, pet name, steps, friend code, transfer data, feedback, etc.) deleted, contact us at the address below <b>with the friend code or transfer code shown in the app</b>. We delete it <b>within 30 days</b> of your request. No name or email is required.</p>
+      <p><b>Retention</b> — Your server profile (display name, steps, points, etc.) and feedback are kept until you request deletion. Weekly ranking history, league records and announcements addressed to you disappear from the app after <b>90 days</b>; after that they are kept as an archive for reviewing past records, answering inquiries and investigating fraud, and are deleted automatically <b>one year</b> after the record date. Gift and cheer records are deleted after <b>60 days</b>, and invite records after <b>180 days</b>. Transfer data can no longer be used for transfers <b>one year</b> after its last update (we keep an archive copy so we can help you recover your data, and delete it on request). Daily backups are purged automatically after <b>90 days</b>.</p>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">11</span>Changes to this policy</h2>
+      <p>We may update this policy as features change. For significant changes, we will update the date shown on this page.</p>
+    </section>
+
+    <div class="contact">
+      <h2>Contact</h2>
+      <p>For any questions about this policy or your privacy, please reach out:</p>
+      <p><a href="mailto:yoshitetsugames21@gmail.com">yoshitetsugames21@gmail.com</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 PawPlanet</span>
+    <span>com.pawplanet.app</span>
+  </footer>
+</div>
+
+<script>
+  (function(){
+    var tabs={ja:document.getElementById('tab-ja'),en:document.getElementById('tab-en')};
+    var docs={ja:document.getElementById('doc-ja'),en:document.getElementById('doc-en')};
+    var titles={ja:document.getElementById('title-ja'),en:document.getElementById('title-en')};
+    var upd={ja:document.getElementById('upd-ja'),en:document.getElementById('upd-en')};
+    function set(lang){
+      var other=lang==='ja'?'en':'ja';
+      tabs[lang].setAttribute('aria-selected','true');
+      tabs[other].setAttribute('aria-selected','false');
+      docs[lang].hidden=false; docs[other].hidden=true;
+      titles[lang].hidden=false; titles[other].hidden=true;
+      upd[lang].hidden=false; upd[other].hidden=true;
+      document.documentElement.lang=lang;
+      try{localStorage.setItem('pp_priv_lang',lang);}catch(e){}
+    }
+    tabs.ja.addEventListener('click',function(){set('ja');});
+    tabs.en.addEventListener('click',function(){set('en');});
+    var saved; try{saved=localStorage.getItem('pp_priv_lang');}catch(e){}
+    if(saved==='en') set('en');
+  })();
+</script>

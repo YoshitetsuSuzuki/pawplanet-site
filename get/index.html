@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PawPlanet をダウンロード</title>
+<meta name="description" content="歩いて育てる、世界一周ペット。PawPlanet（iPhone / Android）">
+<meta property="og:title" content="PawPlanet — 歩いて育てる、世界一周ペット">
+<meta property="og:description" content="毎日の歩数で、かわいいペットが育つ。iPhone / Android 対応の無料アプリ。">
+<script>
+  // ・招待コード付き（?c=XXXXXXXX）：コードを大きく見せて「コピーしてストアへ」「アプリで開く」を出す（自動では飛ばない）。
+  // ・コード無し：端末を見てそのままストアへ（iPhone/iPad → App Store、Android → Google Play、PC はボタン表示）。
+  var IOS = "https://apps.apple.com/app/id6808814090";
+  var ANDROID = "https://play.google.com/store/apps/details?id=com.pawplanet.app";
+  // Google Play で公開されるまでは false（Android の人には「もうすぐ公開」を出し、ストアへは送らない）。公開されたら true に。
+  var ANDROID_LIVE = true;
+  var ua = navigator.userAgent || "";
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  var CODE = (function () {
+    var m = /[?&]c=([^&#]+)/.exec(location.search);
+    var c = m ? decodeURIComponent(m[1]).toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
+    return /^[A-HJ-NP-Z2-9]{8}$/.test(c) ? c : "";   // フレンドコードの形（8文字・紛らわしい0/O/1/I なし）だけ受け付ける
+  })();
+  // グループ招待（?g=XXXXXX）：グループコード（6文字・同じ文字種）。招待コードより後ろの扱い（両方あれば招待コードを優先）
+  var GROUP = CODE ? "" : (function () {
+    var m = /[?&]g=([^&#]+)/.exec(location.search);
+    var g = m ? decodeURIComponent(m[1]).toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
+    return /^[A-HJ-NP-Z2-9]{6}$/.test(g) ? g : "";
+  })();
+  if (!CODE && !GROUP) {
+    if (isIOS) location.replace(IOS);
+    else if (isAndroid && ANDROID_LIVE) location.replace(ANDROID);
+  }
+</script>
+<style>
+  :root{--bg:#FBF6F0;--panel:#fff;--ink:#2E2A27;--muted:#79706A;--line:#ECE2D8;--pink:#C15E77;--soft:#FFF1F4;color-scheme:light}
+  @media (prefers-color-scheme: dark){:root{--bg:#1B1817;--panel:#252120;--ink:#EFE8E2;--muted:#A79C94;--line:#37302C;--pink:#FFAFC2;--soft:#3a2a2e;color-scheme:dark}}
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{height:100%}
+  body{margin:0;min-height:100svh;display:grid;place-items:center;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","PingFang SC","PingFang TC","Microsoft YaHei","Segoe UI",sans-serif;padding:12px 16px}
+  .card{max-width:24rem;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px 18px 14px;text-align:center}
+  .pets{display:flex;justify-content:center;align-items:flex-end;gap:2px;height:88px;margin:-2px 0 2px}
+  .pets img{width:84px;height:84px;object-fit:contain;animation:hop 2.6s ease-in-out infinite}
+  .pets img:nth-child(2){width:96px;height:96px;animation-delay:.35s}
+  .pets img:nth-child(3){animation-delay:.7s}
+  @keyframes hop{0%,70%,100%{transform:translateY(0)}80%{transform:translateY(-7px)}90%{transform:translateY(0)}}
+  @media (prefers-reduced-motion: reduce){.pets img{animation:none}}
+  h1{font-size:1.4rem;margin:.1rem 0 .15rem;color:var(--pink)}
+  .tag{color:var(--muted);margin:0 0 .8rem;line-height:1.5;font-size:.92rem}
+  .invite{background:var(--soft);border-radius:16px;padding:12px 12px 8px;margin:0 0 .6rem}
+  .invite .lbl{font-size:.8rem;color:var(--muted)}
+  .invite .code{font-size:1.8rem;font-weight:800;letter-spacing:.12em;margin:.1rem 0;font-family:ui-monospace,Menlo,monospace}
+  .invite .bonus{font-size:.88rem;font-weight:700;color:var(--pink)}
+  .steps{text-align:left;font-size:.84rem;color:var(--muted);margin:.4rem 0 .5rem;padding-left:1.2rem;line-height:1.55}
+  button.btn,a.btn{display:block;width:100%;border:0;cursor:pointer;text-decoration:none;font:inherit;font-weight:700;font-size:.95rem;
+    padding:12px 14px;border-radius:999px;margin:8px 0;background:var(--ink);color:var(--bg)}
+  a.btn.sub{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+  .toast{font-size:.85rem;color:var(--pink);min-height:1.2em}
+  .soon{color:var(--muted);font-size:.9rem;line-height:1.6;margin:.4rem 0}
+  .foot{display:flex;justify-content:center;gap:14px;margin-top:.5rem;font-size:.82rem}
+  .foot a{color:var(--muted)}
+  .langs{display:flex;justify-content:center;gap:6px;margin-top:.5rem}
+  .langs button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;font:inherit;font-size:.75rem;padding:3px 9px;cursor:pointer}
+  .langs button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink);font-weight:700}
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="pets" aria-hidden="true">
+      <img src="img/pauwan.webp" alt="" width="84" height="84">
+      <img src="img/draco.webp" alt="" width="96" height="96">
+      <img src="img/nyanti.webp" alt="" width="84" height="84">
+    </div>
+    <h1>PawPlanet</h1>
+    <p class="tag" data-i="tag"></p>
+
+    <section id="invite" class="invite" hidden>
+      <div class="lbl" data-i="lbl" data-g="glbl"></div>
+      <div class="code" id="code"></div>
+      <div class="bonus" data-i="bonus" data-g="gbonus"></div>
+      <ol class="steps">
+        <li data-i="step1"></li>
+        <li data-i="step2" data-g="gstep2"></li>
+      </ol>
+      <button class="btn" id="copyGo" data-i="copyGo"></button>
+      <a class="btn sub" id="openApp" href="#" data-i="openApp" data-g="gopenApp"></a>
+      <div class="toast" id="toast"></div>
+    </section>
+
+    <div id="stores">
+      <a class="btn" href="https://apps.apple.com/app/id6808814090">App Store（iPhone）</a>
+      <a class="btn" id="playBtn" href="https://play.google.com/store/apps/details?id=com.pawplanet.app">Google Play（Android）</a>
+      <p class="soon" id="androidSoon" data-i="soon" hidden></p>
+    </div>
+    <div class="foot">
+      <a href="../" data-i="about"></a>
+      <a href="../privacy" data-i="privacy"></a>
+    </div>
+    <div class="langs" id="langs">
+      <button type="button" data-l="ja">日本語</button>
+      <button type="button" data-l="en">English</button>
+      <button type="button" data-l="zh-Hans">简体</button>
+      <button type="button" data-l="zh-Hant">繁體</button>
+    </div>
+  </main>
+<script>
+  // 4か国語（アプリと同じ：日本語・英語・簡体字・繁体字）。端末の言語で自動選択、下のボタンで切替。
+  var T = {
+    "ja": {
+      title: "PawPlanet をダウンロード",
+      tag: "歩いて育てる、世界一周ペット。",
+      lbl: "友だちからの招待コード",
+      bonus: "コードを入れると、あなたに +150 パウ 🎁",
+      step1: "下のボタンでコードをコピーして、アプリを入手",
+      step2: "アプリの「フレンド」で、コードを貼り付けて追加",
+      copyGo: "コードをコピーしてアプリを入手",
+      openApp: "アプリを持っている人：そのまま友だちに追加",
+      copied: "コピーしました：",
+      memo: "コードをメモしてください：",
+      soon: "Android 版はもうすぐ公開です。お楽しみに！",
+      about: "PawPlanet について",
+      privacy: "プライバシー",
+      glbl: "グループへの招待",
+      gbonus: "仲間と毎週の歩数を競おう！ 🏃",
+      gstep2: "アプリの「グループ」で「コードで参加」に貼り付け",
+      gopenApp: "アプリを持っている人：そのままグループに参加"
+    },
+    "en": {
+      title: "Get PawPlanet",
+      tag: "Walk to grow your pet around the world.",
+      lbl: "Invite code from your friend",
+      bonus: "Enter the code to get +150 Paw 🎁",
+      step1: "Copy the code with the button below and get the app",
+      step2: "In the app, open Friends and paste the code",
+      copyGo: "Copy the code and get the app",
+      openApp: "Already have the app? Add your friend now",
+      copied: "Copied: ",
+      memo: "Please note the code: ",
+      soon: "The Android version is coming soon!",
+      about: "About PawPlanet",
+      privacy: "Privacy",
+      glbl: "Group invite",
+      gbonus: "Compete with your group every week! 🏃",
+      gstep2: "In the app, open Group → Join with a code and paste it",
+      gopenApp: "Already have the app? Join the group now"
+    },
+    "zh-Hans": {
+      title: "下载 PawPlanet",
+      tag: "用步数养成宠物，一起环游世界。",
+      lbl: "好友的邀请码",
+      bonus: "输入邀请码，即可获得 +150 爪币 🎁",
+      step1: "用下方按钮复制邀请码，然后下载应用",
+      step2: "在应用的“好友”中粘贴邀请码并添加",
+      copyGo: "复制邀请码并下载应用",
+      openApp: "已安装应用？直接添加好友",
+      copied: "已复制：",
+      memo: "请记下邀请码：",
+      soon: "Android 版即将推出，敬请期待！",
+      about: "关于 PawPlanet",
+      privacy: "隐私",
+      glbl: "群组邀请",
+      gbonus: "和伙伴们每周比拼步数吧！🏃",
+      gstep2: "在应用的“群组”中选择“用代码加入”并粘贴",
+      gopenApp: "已安装应用？直接加入群组"
+    },
+    "zh-Hant": {
+      title: "下載 PawPlanet",
+      tag: "用步數養成寵物，一起環遊世界。",
+      lbl: "好友的邀請碼",
+      bonus: "輸入邀請碼，即可獲得 +150 爪幣 🎁",
+      step1: "用下方按鈕複製邀請碼，然後下載 App",
+      step2: "在 App 的「好友」中貼上邀請碼並新增",
+      copyGo: "複製邀請碼並下載 App",
+      openApp: "已安裝 App？直接新增好友",
+      copied: "已複製：",
+      memo: "請記下邀請碼：",
+      soon: "Android 版即將推出，敬請期待！",
+      about: "關於 PawPlanet",
+      privacy: "隱私",
+      glbl: "群組邀請",
+      gbonus: "和夥伴們每週比拼步數吧！🏃",
+      gstep2: "在 App 的「群組」中選擇「用代碼加入」並貼上",
+      gopenApp: "已安裝 App？直接加入群組"
+    }
+  };
+  function pickLang() {
+    var list = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "ja"]);
+    for (var i = 0; i < list.length; i++) {
+      var l = (list[i] || "").toLowerCase();
+      if (l.indexOf("ja") === 0) return "ja";
+      if (l.indexOf("zh") === 0) return /hant|tw|hk|mo/.test(l) ? "zh-Hant" : "zh-Hans";
+      if (l.indexOf("en") === 0) return "en";
+    }
+    return "en";
+  }
+  var LANG = pickLang();
+  function apply(lang) {
+    LANG = lang;
+    var t = T[lang];
+    document.documentElement.lang = lang;
+    document.title = t.title;
+    var els = document.querySelectorAll("[data-i]");
+    for (var i = 0; i < els.length; i++) {
+      var k = (GROUP && els[i].getAttribute("data-g")) || els[i].getAttribute("data-i");
+      els[i].textContent = t[k] || "";
+    }
+    var bs = document.querySelectorAll("#langs button");
+    for (var j = 0; j < bs.length; j++) bs[j].setAttribute("aria-pressed", bs[j].getAttribute("data-l") === lang ? "true" : "false");
+  }
+  document.getElementById("langs").addEventListener("click", function (e) {
+    var l = e.target && e.target.getAttribute && e.target.getAttribute("data-l");
+    if (l && T[l]) apply(l);
+  });
+  apply(LANG);
+
+  if (!ANDROID_LIVE) {
+    document.getElementById("playBtn").hidden = true;
+    document.getElementById("androidSoon").hidden = false;
+  }
+  var SHOWN = CODE || GROUP;
+  if (SHOWN) {
+    document.getElementById("invite").hidden = false;
+    document.getElementById("code").textContent = SHOWN;
+    document.getElementById("openApp").href = CODE ? ("pawplanet://addfriend?code=" + CODE) : ("pawplanet://joingroup?code=" + GROUP);
+    // スマホではストアのボタンを「コピーしてストアへ」1つにまとめる（PC は両方のストアを残す）
+    if (isIOS || isAndroid) document.getElementById("stores").hidden = true;
+    if (isAndroid && !ANDROID_LIVE) {
+      // Android 版の公開前：コードは見せるが、ストアのボタンの代わりに「もうすぐ公開」を出す
+      document.getElementById("copyGo").hidden = true;
+      document.getElementById("stores").hidden = false;
+    }
+    var store = isIOS ? IOS : (isAndroid && ANDROID_LIVE ? ANDROID : null);
+    document.getElementById("copyGo").addEventListener("click", function () {
+      var done = function (ok) {
+        document.getElementById("toast").textContent = (ok ? T[LANG].copied : T[LANG].memo) + SHOWN;
+        if (store) setTimeout(function () { location.href = store; }, ok ? 600 : 1800);
+      };
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(SHOWN).then(function () { done(true); }, function () { done(false); });
+        } else { done(false); }
+      } catch (e) { done(false); }
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PawPlanet — 歩いて育てる、世界一周ペット</title>
+<meta name="description" content="毎日の歩数で、かわいいペットが育つ。日本一周・世界一周を旅して、ご当地の名産品を集めよう。iPhone向け無料アプリ PawPlanet。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --bg:#FBF6F0; --panel:#FFFFFF; --panel2:#FFFDFB; --ink:#2E2A27; --muted:#79706A;
+    --line:#ECE2D8; --line2:#E4D5C9;
+    --pink:#FF9EB5; --pink-ink:#C15E77; --blue:#9ED3FF; --blue-ink:#3E92D0;
+    --yellow:#FFD36E; --mint:#B7E4C7; --mint-ink:#4CA772; --lav:#CDB4F6; --lav-ink:#8A62D6;
+    --shadow:0 1px 2px rgba(60,45,40,.04),0 12px 32px rgba(120,90,80,.08);
+    --shadow-sm:0 6px 16px -8px rgba(120,90,80,.22);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1B1817; --panel:#252120; --panel2:#2C2725; --ink:#EFE8E2; --muted:#A79C94;
+      --line:#37302C; --line2:#453B35;
+      --pink-ink:#FFAFC2; --blue-ink:#AEDBFF; --mint-ink:#B7E4C7; --lav-ink:#D6C4FA;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 36px rgba(0,0,0,.34);
+      --shadow-sm:0 8px 18px -10px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1B1817; --panel:#252120; --panel2:#2C2725; --ink:#EFE8E2; --muted:#A79C94;
+    --line:#37302C; --line2:#453B35;
+    --pink-ink:#FFAFC2; --blue-ink:#AEDBFF; --mint-ink:#B7E4C7; --lav-ink:#D6C4FA;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 36px rgba(0,0,0,.34);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.8;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:52rem;margin:0 auto;padding:0 clamp(1.15rem,4vw,2rem);}
+  a{color:var(--pink-ink)}
+  h2{font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:clamp(1.3rem,3.6vw,1.7rem);margin:0 0 .4rem;text-wrap:balance}
+  .sec-sub{color:var(--muted);margin:0 0 1.6rem}
+
+  /* hero */
+  .hero{position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 120% at 12% 0%, color-mix(in srgb,var(--pink) 32%, transparent), transparent 56%),
+      radial-gradient(120% 120% at 92% 6%, color-mix(in srgb,var(--blue) 28%, transparent), transparent 52%),
+      radial-gradient(120% 120% at 70% 100%, color-mix(in srgb,var(--mint) 22%, transparent), transparent 55%),
+      var(--panel);
+    border-bottom:1px solid var(--line);}
+  .hero .wrap{padding-top:clamp(2.2rem,6vw,3.6rem);padding-bottom:clamp(2.4rem,6vw,3.6rem);text-align:center}
+  .brand{display:inline-flex;align-items:center;gap:.6rem;font-family:"Mochiy Pop One",sans-serif;color:var(--pink-ink);font-size:1.05rem}
+  .paw{width:2.4rem;height:2.4rem;border-radius:50%;
+    background:radial-gradient(circle at 50% 38%,#FBE3E1,#F3C7C6);display:grid;place-items:center;box-shadow:var(--shadow-sm)}
+  .paw svg{width:1.35rem;height:1.35rem}
+  .hero h1{font-family:"Mochiy Pop One",sans-serif;font-weight:400;line-height:1.22;
+    font-size:clamp(1.9rem,6vw,3.1rem);margin:1rem 0 .5rem;letter-spacing:.01em}
+  .hero h1 .hl{color:var(--pink-ink)}
+  .hero p.pitch{font-size:clamp(1rem,2.4vw,1.15rem);color:var(--muted);max-width:34rem;margin:0 auto 1.6rem}
+  .cta{display:inline-flex;align-items:center;gap:.6rem;background:var(--ink);color:var(--bg);
+    font-family:"Zen Maru Gothic",sans-serif;font-weight:700;text-decoration:none;
+    padding:.85rem 1.5rem;border-radius:999px;box-shadow:var(--shadow);font-size:1.02rem}
+  .cta:hover{transform:translateY(-2px)}
+  .cta svg{width:1.2rem;height:1.2rem;fill:currentColor}
+  .langs{margin-top:1.1rem;display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+  .langs span{font-size:.78rem;font-weight:700;color:var(--muted);background:var(--panel);border:1px solid var(--line2);border-radius:999px;padding:.28rem .8rem}
+
+  section{padding:clamp(2.4rem,6vw,3.6rem) 0}
+  /* how it works */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:1.1rem;padding:1.5rem 1.3rem;text-align:center;box-shadow:var(--shadow-sm)}
+  .step .em{font-size:2.2rem;line-height:1}
+  .step h3{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:1.05rem;margin:.7rem 0 .3rem}
+  .step p{margin:0;color:var(--muted);font-size:.92rem}
+  .step .n{font-family:"Mochiy Pop One",sans-serif;color:var(--pink-ink);font-size:.85rem}
+
+  /* features */
+  .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:1.1rem;padding:1.4rem;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--c)}
+  .card .em{font-size:1.6rem;line-height:1}
+  .card h3{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:1.05rem;margin:.6rem 0 .3rem}
+  .card p{margin:0;color:var(--muted);font-size:.92rem}
+  .c-pink{--c:var(--pink)} .c-blue{--c:var(--blue)} .c-mint{--c:var(--mint)}
+  .c-yellow{--c:var(--yellow)} .c-lav{--c:var(--lav)}
+
+  .band{background:var(--panel2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+  /* support / contact */
+  .contact{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;padding:1.15rem 1.3rem;
+    background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--mint);border-radius:.9rem;box-shadow:var(--shadow-sm)}
+  .contact b{font-family:"Zen Maru Gothic",sans-serif}
+  .contact a{font-weight:700;text-decoration:none;font-size:1.05rem}
+  .faq{list-style:none;margin:1.2rem 0 0;padding:0;display:grid;gap:.8rem}
+  .faq li{background:var(--panel);border:1px solid var(--line);border-radius:.9rem;padding:1.05rem 1.2rem;box-shadow:var(--shadow-sm)}
+  .q{font-weight:700;margin:0 0 .3rem;display:flex;gap:.5rem;align-items:baseline}
+  .q .mk{color:var(--pink-ink);font-family:"Zen Maru Gothic",sans-serif}
+  .a{margin:0;color:var(--muted);font-size:.95rem}
+
+  footer{border-top:1px solid var(--line);padding:1.6rem 0 2.6rem;font-size:.82rem;color:var(--muted)}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 1rem;align-items:center}
+  footer a{text-decoration:none}
+  @media (prefers-reduced-motion:no-preference){.cta,.step,.card{transition:transform .18s ease}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="brand">
+      <span class="paw" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#C86B6E"><circle cx="7" cy="9.2" r="2"/><circle cx="12" cy="7.4" r="2.2"/><circle cx="17" cy="9.2" r="2"/><path d="M12 11.2c-3 0-5.4 2.2-5.4 4.6 0 1.9 1.7 2.7 3.4 2.7 1 0 1.4-.3 2-.3s1 .3 2 .3c1.7 0 3.4-.8 3.4-2.7 0-2.4-2.4-4.6-5.4-4.6z"/></svg></span>
+      PawPlanet
+    </span>
+    <h1>歩いて育てる、<br><span class="hl">世界一周ペット。</span></h1>
+    <p class="pitch">毎日の歩数が、そのまま冒険に。かわいいペットを育てながら、日本一周や世界一周を旅して、ご当地の名産品を集めよう。いつものお散歩が、もっと楽しくなる iPhone アプリ。</p>
+    <a class="cta" href="https://apps.apple.com/app/id6808814090">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.417 2.2-1.11 2.99-.756.86-2.02 1.53-3.06 1.45-.13-1.09.42-2.24 1.09-2.98.75-.83 2.08-1.47 3.08-1.46zM20.5 17.02c-.55 1.27-.81 1.84-1.52 2.96-.99 1.56-2.38 3.5-4.11 3.51-1.53.01-1.93-.99-4-.98-2.07.01-2.5.99-4.04.98-1.72-.02-3.04-1.77-4.03-3.33C-.02 15.9-.26 11.2 1.44 8.72c1.2-1.79 3.1-2.84 4.88-2.84 1.82 0 2.96 1 4.47 1 1.46 0 2.35-1 4.46-1 1.59 0 3.28.87 4.48 2.37-3.94 2.16-3.3 7.8.77 8.77z"/></svg>
+      App Store で入手
+    </a>
+    <div class="langs">
+      <span>🇯🇵 日本語</span><span>🇺🇸 English</span><span>🇨🇳 简体中文</span><span>🇹🇼 繁體中文</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>3ステップで、はじまる</h2>
+    <p class="sec-sub">むずかしい操作は不要。歩くだけ。</p>
+    <div class="steps">
+      <div class="step"><div class="em">👟</div><div class="n">STEP 1</div><h3>歩く</h3><p>iPhone の歩数を読み取り。いつもの通勤・お散歩がそのままゲームに。</p></div>
+      <div class="step"><div class="em">🐶</div><div class="n">STEP 2</div><h3>ペットが育つ</h3><p>歩いた分だけレベルアップして進化。全43種＋レア色違いも。</p></div>
+      <div class="step"><div class="em">🗾</div><div class="n">STEP 3</div><h3>旅して集める</h3><p>156都市を旅して、ご当地の名産品をコレクション。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2>PawPlanet の楽しみ</h2>
+    <p class="sec-sub">歩く動機が、自然と続く仕掛け。</p>
+    <div class="feat">
+      <div class="card c-pink"><div class="em">🐾</div><h3>43種のペット育成</h3><p>歩数で育てて進化。運が良ければレアな色違い「シャイニー」に出会える。</p></div>
+      <div class="card c-blue"><div class="em">🗺️</div><h3>日本一周・世界一周</h3><p>行きたいルートを選んで、156都市を歩いてめぐる旅へ。</p></div>
+      <div class="card c-yellow"><div class="em">🍡</div><h3>ご当地名産品コレクション</h3><p>街に着くたび名産品をゲット。図鑑を埋める楽しさ。</p></div>
+      <div class="card c-mint"><div class="em">🎉</div><h3>達成を画像でシェア</h3><p>到達・達成のお祝いカードを、Instagram のストーリーにそのまま投稿。</p></div>
+      <div class="card c-lav"><div class="em">👫</div><h3>フレンド＆グループ</h3><p>友だちと応援・ギフト。最大3つのグループでいっしょに目標を追える。</p></div>
+      <div class="card c-pink"><div class="em">🏆</div><h3>週間世界ランキング</h3><p>毎週の世界ランキングに挑戦。上位には報酬も。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="support">
+  <div class="wrap">
+    <h2>サポート</h2>
+    <p class="sec-sub">ご質問・ご不明な点は、下記の窓口までお気軽にどうぞ。</p>
+    <div class="contact">
+      <b>お問い合わせ</b>
+      <a href="mailto:yoshitetsugames21@gmail.com">yoshitetsugames21@gmail.com</a>
+      <span style="color:var(--muted);font-size:.85rem">（日本語・English どちらでも）</span>
+    </div>
+    <ul class="faq">
+      <li>
+        <p class="q"><span class="mk">Q.</span>機種変更したらデータは引き継がれますか？</p>
+        <p class="a">同じ Apple ID で iCloud にサインインしていれば、セーブデータは自動的に引き継がれます。新しい端末で PawPlanet を開くだけで復元されます。特別なログインは不要です。</p>
+      </li>
+      <li>
+        <p class="q"><span class="mk">Q.</span>歩数がペットに反映されません。</p>
+        <p class="a">「ヘルスケア」アプリの歩数を読み取っています。初回起動時の許可ダイアログで「許可」を選んでください。許可がまだの場合は、ホーム画面の案内、または iOS の「設定 ▸ プライバシーとセキュリティ ▸ ヘルスケア ▸ PawPlanet」からオンにできます。</p>
+      </li>
+      <li>
+        <p class="q"><span class="mk">Q.</span>購入したプレミアム／パウが反映されません。</p>
+        <p class="a">通信環境をご確認のうえ、ショップ画面の「購入を復元」をお試しください。買い切りのプレミアムはいつでも復元できます。それでも反映されない場合は、上記メールまでご連絡ください。</p>
+      </li>
+      <li>
+        <p class="q"><span class="mk">Q.</span>課金は安全ですか？</p>
+        <p class="a">すべての購入は Apple（App Store）を通じて処理され、クレジットカード情報などを当方が受け取ることはありません。</p>
+      </li>
+      <li>
+        <p class="q"><span class="mk">Q.</span>データはどう扱われますか？</p>
+        <p class="a">個人を特定する情報は収集していません。歩数は端末内で読み取るだけで外部には送信されません。詳しくは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 PawPlanet</span>
+    <span><a href="privacy.html">プライバシーポリシー</a> ・ <a href="mailto:yoshitetsugames21@gmail.com">お問い合わせ</a></span>
+    <span>com.pawplanet.app</span>
+  </div>
+</footer>
+
+</body>
+</html>
