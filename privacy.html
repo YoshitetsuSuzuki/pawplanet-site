@@ -329,6 +329,8 @@
     tabs.ja.addEventListener('click',function(){set('ja');});
     tabs.en.addEventListener('click',function(){set('en');});
     var saved; try{saved=localStorage.getItem('pp_priv_lang');}catch(e){}
-    if(saved==='en') set('en');
+    var q=(location.search.match(/[?&]lang=([^&#]+)/)||[])[1];   // 紹介ページ・アプリから ?lang=xx で開いたとき
+    if(q) set(q.toLowerCase().indexOf('ja')===0?'ja':'en');
+    else if(saved==='en') set('en');
   })();
 </script>

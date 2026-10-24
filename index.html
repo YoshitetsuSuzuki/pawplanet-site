@@ -16,7 +16,27 @@
     --yellow:#FFD36E; --mint:#B7E4C7; --mint-ink:#4CA772; --lav:#CDB4F6; --lav-ink:#8A62D6;
     --shadow:0 1px 2px rgba(60,45,40,.04),0 12px 32px rgba(120,90,80,.08);
     --shadow-sm:0 6px 16px -8px rgba(120,90,80,.22);
+    /* font stacks (ja + Latin languages). CJK/Korean system fonts are listed as fallbacks. */
+    --f-body:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo","PingFang SC","Microsoft YaHei","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --f-round:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic","PingFang SC","Microsoft YaHei","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --f-pop:"Mochiy Pop One","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic","PingFang SC","Microsoft YaHei","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --h1-weight:400;
   }
+  /* Chinese / Korean: the Japanese web fonts would mix Japanese glyph shapes into the text,
+     so these languages use their own system fonts (and a bolder headline instead of Mochiy Pop One). */
+  :root:lang(zh-Hans){
+    --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Noto Sans CJK SC","Source Han Sans SC",sans-serif;
+    --f-round:var(--f-body); --f-pop:var(--f-body); --h1-weight:800;
+  }
+  :root:lang(zh-Hant){
+    --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Microsoft JhengHei","Noto Sans TC","Noto Sans CJK TC","Source Han Sans TC",sans-serif;
+    --f-round:var(--f-body); --f-pop:var(--f-body); --h1-weight:800;
+  }
+  :root:lang(ko){
+    --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;
+    --f-round:var(--f-body); --f-pop:var(--f-body); --h1-weight:800;
+  }
+  :lang(ko) body{word-break:keep-all}
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
       --bg:#1B1817; --panel:#252120; --panel2:#2C2725; --ink:#EFE8E2; --muted:#A79C94;
@@ -34,11 +54,11 @@
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.8;
+    font-family:var(--f-body);line-height:1.8;
     -webkit-font-smoothing:antialiased;}
   .wrap{max-width:52rem;margin:0 auto;padding:0 clamp(1.15rem,4vw,2rem);}
   a{color:var(--pink-ink)}
-  h2{font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:clamp(1.3rem,3.6vw,1.7rem);margin:0 0 .4rem;text-wrap:balance}
+  h2{font-family:var(--f-round);font-weight:900;font-size:clamp(1.3rem,3.6vw,1.7rem);margin:0 0 .4rem;text-wrap:balance}
   .sec-sub{color:var(--muted);margin:0 0 1.6rem}
 
   /* hero */
@@ -54,25 +74,29 @@
   .paw{width:2.4rem;height:2.4rem;border-radius:50%;
     background:radial-gradient(circle at 50% 38%,#FBE3E1,#F3C7C6);display:grid;place-items:center;box-shadow:var(--shadow-sm)}
   .paw svg{width:1.35rem;height:1.35rem}
-  .hero h1{font-family:"Mochiy Pop One",sans-serif;font-weight:400;line-height:1.22;
-    font-size:clamp(1.9rem,6vw,3.1rem);margin:1rem 0 .5rem;letter-spacing:.01em}
+  .hero h1{font-family:var(--f-pop);font-weight:var(--h1-weight);line-height:1.22;
+    font-size:clamp(1.9rem,6vw,3.1rem);margin:1rem 0 .5rem;letter-spacing:.01em;text-wrap:balance}
   .hero h1 .hl{color:var(--pink-ink)}
   .hero p.pitch{font-size:clamp(1rem,2.4vw,1.15rem);color:var(--muted);max-width:34rem;margin:0 auto 1.6rem}
   .cta{display:inline-flex;align-items:center;gap:.6rem;background:var(--ink);color:var(--bg);
-    font-family:"Zen Maru Gothic",sans-serif;font-weight:700;text-decoration:none;
+    font-family:var(--f-round);font-weight:700;text-decoration:none;
     padding:.85rem 1.5rem;border-radius:999px;box-shadow:var(--shadow);font-size:1.02rem}
   .cta:hover{transform:translateY(-2px)}
-  .cta svg{width:1.2rem;height:1.2rem;fill:currentColor}
+  .cta svg{width:1.2rem;height:1.2rem;fill:currentColor;flex:none}
   .ctas{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center}
   .langs{margin-top:1.1rem;display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
-  .langs span{font-size:.78rem;font-weight:700;color:var(--muted);background:var(--panel);border:1px solid var(--line2);border-radius:999px;padding:.28rem .8rem}
+  .langs button{font:inherit;font-size:.78rem;font-weight:700;line-height:1.8;color:var(--muted);background:var(--panel);border:1px solid var(--line2);border-radius:999px;padding:.28rem .8rem;cursor:pointer;
+    -webkit-tap-highlight-color:transparent}
+  .langs button:hover{color:var(--ink);border-color:var(--pink)}
+  .langs button[aria-pressed="true"]{color:var(--pink-ink);border-color:var(--pink);background:color-mix(in srgb,var(--pink) 16%,var(--panel))}
+  .langs button:focus-visible{outline:2px solid var(--pink-ink);outline-offset:2px}
 
   section{padding:clamp(2.4rem,6vw,3.6rem) 0}
   /* how it works */
   .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
   .step{background:var(--panel);border:1px solid var(--line);border-radius:1.1rem;padding:1.5rem 1.3rem;text-align:center;box-shadow:var(--shadow-sm)}
   .step .em{font-size:2.2rem;line-height:1}
-  .step h3{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:1.05rem;margin:.7rem 0 .3rem}
+  .step h3{font-family:var(--f-round);font-weight:700;font-size:1.05rem;margin:.7rem 0 .3rem}
   .step p{margin:0;color:var(--muted);font-size:.92rem}
   .step .n{font-family:"Mochiy Pop One",sans-serif;color:var(--pink-ink);font-size:.85rem}
 
@@ -81,7 +105,7 @@
   .card{background:var(--panel);border:1px solid var(--line);border-radius:1.1rem;padding:1.4rem;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
   .card::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--c)}
   .card .em{font-size:1.6rem;line-height:1}
-  .card h3{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:1.05rem;margin:.6rem 0 .3rem}
+  .card h3{font-family:var(--f-round);font-weight:700;font-size:1.05rem;margin:.6rem 0 .3rem}
   .card p{margin:0;color:var(--muted);font-size:.92rem}
   .c-pink{--c:var(--pink)} .c-blue{--c:var(--blue)} .c-mint{--c:var(--mint)}
   .c-yellow{--c:var(--yellow)} .c-lav{--c:var(--lav)}
@@ -91,12 +115,12 @@
   /* support / contact */
   .contact{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;padding:1.15rem 1.3rem;
     background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--mint);border-radius:.9rem;box-shadow:var(--shadow-sm)}
-  .contact b{font-family:"Zen Maru Gothic",sans-serif}
-  .contact a{font-weight:700;text-decoration:none;font-size:1.05rem}
+  .contact b{font-family:var(--f-round)}
+  .contact a{font-weight:700;text-decoration:none;font-size:1.05rem;overflow-wrap:anywhere}
   .faq{list-style:none;margin:1.2rem 0 0;padding:0;display:grid;gap:.8rem}
   .faq li{background:var(--panel);border:1px solid var(--line);border-radius:.9rem;padding:1.05rem 1.2rem;box-shadow:var(--shadow-sm)}
   .q{font-weight:700;margin:0 0 .3rem;display:flex;gap:.5rem;align-items:baseline}
-  .q .mk{color:var(--pink-ink);font-family:"Zen Maru Gothic",sans-serif}
+  .q .mk{color:var(--pink-ink);font-family:var(--f-round)}
   .a{margin:0;color:var(--muted);font-size:.95rem}
 
   footer{border-top:1px solid var(--line);padding:1.6rem 0 2.6rem;font-size:.82rem;color:var(--muted)}
@@ -113,80 +137,78 @@
       <span class="paw" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#C86B6E"><circle cx="7" cy="9.2" r="2"/><circle cx="12" cy="7.4" r="2.2"/><circle cx="17" cy="9.2" r="2"/><path d="M12 11.2c-3 0-5.4 2.2-5.4 4.6 0 1.9 1.7 2.7 3.4 2.7 1 0 1.4-.3 2-.3s1 .3 2 .3c1.7 0 3.4-.8 3.4-2.7 0-2.4-2.4-4.6-5.4-4.6z"/></svg></span>
       PawPlanet
     </span>
-    <h1>歩いて育てる、<br><span class="hl">世界一周ペット。</span></h1>
-    <p class="pitch">毎日の歩数が、そのまま冒険に。かわいいペットを育てながら、日本一周や世界一周を旅して、ご当地の名産品を集めよう。いつものお散歩が、もっと楽しくなる iPhone・Android アプリ。</p>
+    <h1 data-i="h1" data-html>歩いて育てる、<br><span class="hl">世界一周ペット。</span></h1>
+    <p class="pitch" data-i="pitch">毎日の歩数が、そのまま冒険に。かわいいペットを育てながら、日本一周や世界一周を旅して、ご当地の名産品を集めよう。いつものお散歩が、もっと楽しくなる iPhone・Android アプリ。</p>
     <div class="ctas">
       <a class="cta" href="https://apps.apple.com/app/id6808814090">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.417 2.2-1.11 2.99-.756.86-2.02 1.53-3.06 1.45-.13-1.09.42-2.24 1.09-2.98.75-.83 2.08-1.47 3.08-1.46zM20.5 17.02c-.55 1.27-.81 1.84-1.52 2.96-.99 1.56-2.38 3.5-4.11 3.51-1.53.01-1.93-.99-4-.98-2.07.01-2.5.99-4.04.98-1.72-.02-3.04-1.77-4.03-3.33C-.02 15.9-.26 11.2 1.44 8.72c1.2-1.79 3.1-2.84 4.88-2.84 1.82 0 2.96 1 4.47 1 1.46 0 2.35-1 4.46-1 1.59 0 3.28.87 4.48 2.37-3.94 2.16-3.3 7.8.77 8.77z"/></svg>
-        App Store で入手
+        <span data-i="ctaIos">App Store からダウンロード</span>
       </a>
       <a class="cta" href="https://play.google.com/store/apps/details?id=com.pawplanet.app">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8c-.3.3-.5.8-.5 1.4v17.6c0 .6.2 1.1.5 1.4l.1.1 9.9-9.9v-.2L3.7 1.7l-.1.1zm13.3 13.4-3.3-3.3v-.2l3.3-3.3.1.1 3.9 2.2c1.1.6 1.1 1.7 0 2.3l-3.9 2.2h-.1zm-.1.1-3.4-3.4-10 10c.4.4 1 .4 1.7.1l11.7-6.7m0-6.8L5.1 1.8c-.7-.4-1.3-.4-1.7.1l10 10 3.4-3.4z"/></svg>
-        Google Play で入手
+        <span data-i="ctaPlay">Google Play で手に入れよう</span>
       </a>
     </div>
-    <div class="langs">
-      <span>🇯🇵 日本語</span><span>🇺🇸 English</span><span>🇨🇳 简体中文</span><span>🇹🇼 繁體中文</span>
-    </div>
+    <div class="langs" id="langs" role="group" aria-label="Language"></div>
   </div>
 </div>
 
 <section>
   <div class="wrap">
-    <h2>3ステップで、はじまる</h2>
-    <p class="sec-sub">むずかしい操作は不要。歩くだけ。</p>
+    <h2 data-i="stepsH">3ステップで、はじまる</h2>
+    <p class="sec-sub" data-i="stepsSub">むずかしい操作は不要。歩くだけ。</p>
     <div class="steps">
-      <div class="step"><div class="em">👟</div><div class="n">STEP 1</div><h3>歩く</h3><p>スマホの歩数を読み取り（iPhone は「ヘルスケア」、Android は「ヘルスコネクト」）。いつもの通勤・お散歩がそのままゲームに。</p></div>
-      <div class="step"><div class="em">🐶</div><div class="n">STEP 2</div><h3>ペットが育つ</h3><p>歩いた分だけレベルアップして進化。全50種＋レア色違いも。</p></div>
-      <div class="step"><div class="em">🗾</div><div class="n">STEP 3</div><h3>旅して集める</h3><p>156都市を旅して、ご当地の名産品をコレクション。</p></div>
+      <div class="step"><div class="em">👟</div><div class="n" data-i="step1n">STEP 1</div><h3 data-i="step1h">歩く</h3><p data-i="step1p">スマホの歩数を読み取り（iPhone は「ヘルスケア」、Android は「ヘルスコネクト」）。いつもの通勤・お散歩がそのままゲームに。</p></div>
+      <div class="step"><div class="em">🐶</div><div class="n" data-i="step2n">STEP 2</div><h3 data-i="step2h">ペットが育つ</h3><p data-i="step2p">歩いた分だけレベルアップして進化。全50種＋レア色違いも。</p></div>
+      <div class="step"><div class="em">🗾</div><div class="n" data-i="step3n">STEP 3</div><h3 data-i="step3h">旅して集める</h3><p data-i="step3p">日本一周（47都道府県）・世界一周（110都市）を旅して、ご当地の名産品をコレクション。</p></div>
     </div>
   </div>
 </section>
 
 <section class="band">
   <div class="wrap">
-    <h2>PawPlanet の楽しみ</h2>
-    <p class="sec-sub">歩く動機が、自然と続く仕掛け。</p>
+    <h2 data-i="featH">PawPlanet の楽しみ</h2>
+    <p class="sec-sub" data-i="featSub">歩く動機が、自然と続く仕掛け。</p>
     <div class="feat">
-      <div class="card c-pink"><div class="em">🐾</div><h3>50種のペット育成</h3><p>歩数で育てて進化。運が良ければレアな色違い「シャイニー」に出会える。</p></div>
-      <div class="card c-blue"><div class="em">🗺️</div><h3>日本一周・世界一周</h3><p>行きたいルートを選んで、156都市を歩いてめぐる旅へ。</p></div>
-      <div class="card c-yellow"><div class="em">🍡</div><h3>ご当地名産品コレクション</h3><p>街に着くたび名産品をゲット。図鑑を埋める楽しさ。</p></div>
-      <div class="card c-mint"><div class="em">🎉</div><h3>達成を画像でシェア</h3><p>到達・達成のお祝いカードを、Instagram のストーリーにそのまま投稿。</p></div>
-      <div class="card c-lav"><div class="em">👫</div><h3>フレンド＆グループ</h3><p>友だちと応援・ギフト。最大5つのグループで、いっしょに目標を追ったり、毎週の歩数を競ったりできる。</p></div>
-      <div class="card c-pink"><div class="em">🏆</div><h3>週間世界ランキング</h3><p>毎週の世界ランキングに挑戦。上位には報酬も。</p></div>
+      <div class="card c-pink"><div class="em">🐾</div><h3 data-i="f1h">50種のペット育成</h3><p data-i="f1p">歩数で育てて進化。運が良ければレアな色違い「シャイニー」に出会える。</p></div>
+      <div class="card c-blue"><div class="em">🗺️</div><h3 data-i="f2h">日本一周・世界一周</h3><p data-i="f2p">日本一周（47都道府県）か世界一周（110都市）、行きたいコースを選んで歩く旅へ。</p></div>
+      <div class="card c-yellow"><div class="em">🍡</div><h3 data-i="f3h">ご当地名産品コレクション</h3><p data-i="f3p">街に着くたび名産品をゲット。図鑑を埋める楽しさ。</p></div>
+      <div class="card c-mint"><div class="em">🎉</div><h3 data-i="f4h">達成を画像でシェア</h3><p data-i="f4p">到達・達成のお祝いカードを、Instagram のストーリーにそのまま投稿。</p></div>
+      <div class="card c-lav"><div class="em">👫</div><h3 data-i="f5h">フレンド＆グループ</h3><p data-i="f5p">友だちと応援・ギフト。最大5つのグループで、いっしょに目標を追ったり、毎週の歩数を競ったりできる。</p></div>
+      <div class="card c-pink"><div class="em">🏆</div><h3 data-i="f6h">週間世界ランキング</h3><p data-i="f6p">毎週の世界ランキングに挑戦。上位には報酬も。</p></div>
     </div>
   </div>
 </section>
 
 <section id="support">
   <div class="wrap">
-    <h2>サポート</h2>
-    <p class="sec-sub">ご質問・ご不明な点は、下記の窓口までお気軽にどうぞ。</p>
+    <h2 data-i="supH">サポート</h2>
+    <p class="sec-sub" data-i="supSub">ご質問・ご不明な点は、下記の窓口までお気軽にどうぞ。</p>
     <div class="contact">
-      <b>お問い合わせ</b>
+      <b data-i="contact">お問い合わせ</b>
       <a href="mailto:yoshitetsugames21@gmail.com">yoshitetsugames21@gmail.com</a>
-      <span style="color:var(--muted);font-size:.85rem">（日本語・English どちらでも）</span>
+      <span style="color:var(--muted);font-size:.85rem" data-i="contactNote">（日本語・English どちらでも）</span>
     </div>
     <ul class="faq">
       <li>
-        <p class="q"><span class="mk">Q.</span>機種変更したらデータは引き継がれますか？</p>
-        <p class="a">iPhone どうしなら、同じ Apple ID で iCloud にサインインしていれば自動で引き継がれます。iPhone と Android のあいだ（またはその他の機種変更）は、設定の「データの引き継ぎ」で発行する引き継ぎコードと4桁の合言葉で移せます。</p>
+        <p class="q"><span class="mk">Q.</span><span data-i="q1">機種変更したらデータは引き継がれますか？</span></p>
+        <p class="a" data-i="a1">iPhone どうしなら、同じ Apple アカウントで iCloud にサインインしていれば自動で引き継がれます。iPhone と Android のあいだ（またはその他の機種変更）は、設定の「データの引き継ぎ」で発行する引き継ぎコードと4桁の合言葉で移せます。</p>
       </li>
       <li>
-        <p class="q"><span class="mk">Q.</span>歩数がペットに反映されません。</p>
-        <p class="a">iPhone は「ヘルスケア」、Android は「ヘルスコネクト」の歩数を読み取っています。初回起動時の許可で「許可」を選んでください。iPhone であとから変えるときは「設定 ▸ プライバシーとセキュリティ ▸ ヘルスケア ▸ PawPlanet」、Android は「ヘルスコネクト」アプリの「アプリの権限」からオンにできます。</p>
+        <p class="q"><span class="mk">Q.</span><span data-i="q2">歩数がペットに反映されません。</span></p>
+        <p class="a" data-i="a2">iPhone は「ヘルスケア」、Android は「ヘルスコネクト」の歩数を読み取っています。初回起動時の許可で「許可」を選んでください。iPhone であとから変えるときは「設定 ▸ プライバシーとセキュリティ ▸ ヘルスケア ▸ PawPlanet」、Android は「ヘルスコネクト」アプリの「アプリの権限」からオンにできます。</p>
       </li>
       <li>
-        <p class="q"><span class="mk">Q.</span>購入したパウパス／パウが反映されません。</p>
-        <p class="a">通信環境をご確認のうえ、ショップ画面の「購入を復元」をお試しください（パウパスなどの定期購入が戻ります）。それでも反映されない場合は、上記メールまでご連絡ください。</p>
+        <p class="q"><span class="mk">Q.</span><span data-i="q3">購入したパウパス／パウが反映されません。</span></p>
+        <p class="a" data-i="a3">通信環境をご確認のうえ、ショップ画面の「購入を復元」をお試しください（パウパスなどの定期購入が戻ります）。それでも反映されない場合は、上記メールまでご連絡ください。</p>
       </li>
       <li>
-        <p class="q"><span class="mk">Q.</span>課金は安全ですか？</p>
-        <p class="a">すべての購入は Apple（App Store）または Google（Google Play）を通じて処理され、クレジットカード情報などを当方が受け取ることはありません。</p>
+        <p class="q"><span class="mk">Q.</span><span data-i="q4">課金は安全ですか？</span></p>
+        <p class="a" data-i="a4">すべての購入は Apple（App Store）または Google（Google Play）を通じて処理され、クレジットカード情報などを当方が受け取ることはありません。</p>
       </li>
       <li>
-        <p class="q"><span class="mk">Q.</span>データはどう扱われますか？</p>
-        <p class="a">名前やメールアドレスなど、個人を特定する情報は集めていません。歩数は端末の中で使い、ランキングに参加した場合だけ、週と累計の歩数（と、公平性の確認のための1日の要約）を送ります。詳しくは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+        <p class="q"><span class="mk">Q.</span><span data-i="q5">データはどう扱われますか？</span></p>
+        <p class="a" data-i="a5" data-html>名前やメールアドレスなど、個人を特定する情報は集めていません。歩数は端末の中で使い、ランキングに参加した場合だけ、週と累計の歩数（と、公平性の確認のための1日の要約）を送ります。詳しくは<a class="js-privacy" href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
       </li>
     </ul>
   </div>
@@ -195,10 +217,536 @@
 <footer>
   <div class="wrap">
     <span>© 2026 PawPlanet</span>
-    <span><a href="privacy.html">プライバシーポリシー</a> ・ <a href="mailto:yoshitetsugames21@gmail.com">お問い合わせ</a></span>
+    <span><a class="js-privacy" href="privacy.html" data-i="privacy">プライバシーポリシー</a><span data-i="sep"> ・ </span><a href="mailto:yoshitetsugames21@gmail.com" data-i="contactLink">お問い合わせ</a></span>
     <span>com.pawplanet.app</span>
   </div>
 </footer>
+
+<script>
+(function(){
+  /* ================================================================
+   * RELEASED — languages shown as chips on the page.
+   * ko / es / de / fr are fully translated below but stay HIDDEN until
+   * app version 1.6.1 ships. To switch them on, add their codes here:
+   *   ['ja','en','zh-Hans','zh-Hant','ko','es','de','fr']
+   * While hidden, a browser that prefers ko/es/de/fr gets English.
+   * (?lang=ko etc. still forces a hidden language, for previewing.)
+   * ================================================================ */
+  var RELEASED = ['ja','en','zh-Hans','zh-Hant'];
+
+  var CHIPS = [
+    ['ja','🇯🇵 日本語'], ['en','🇺🇸 English'], ['zh-Hans','🇨🇳 简体中文'], ['zh-Hant','🇹🇼 繁體中文'],
+    ['ko','🇰🇷 한국어'], ['es','🇪🇸 Español'], ['de','🇩🇪 Deutsch'], ['fr','🇫🇷 Français']
+  ];
+  var DEFAULT_LANG = 'ja';
+  var FALLBACK_LANG = 'en';
+  var STORE_KEY = 'pp_site_lang';
+  var PRIVACY_KEY = 'pp_priv_lang'; // read by privacy.html (ja/en only)
+
+  var T = {
+    ja: {
+      title: 'PawPlanet — 歩いて育てる、世界一周ペット',
+      desc: '毎日の歩数で、かわいいペットが育つ。日本一周・世界一周を旅して、ご当地の名産品を集めよう。iPhone・Android 向け無料アプリ PawPlanet。',
+      h1: '歩いて育てる、<br><span class="hl">世界一周ペット。</span>',
+      pitch: '毎日の歩数が、そのまま冒険に。かわいいペットを育てながら、日本一周や世界一周を旅して、ご当地の名産品を集めよう。いつものお散歩が、もっと楽しくなる iPhone・Android アプリ。',
+      ctaIos: 'App Store からダウンロード',
+      ctaPlay: 'Google Play で手に入れよう',
+      stepsH: '3ステップで、はじまる',
+      stepsSub: 'むずかしい操作は不要。歩くだけ。',
+      step1n: 'STEP 1', step2n: 'STEP 2', step3n: 'STEP 3',
+      step1h: '歩く',
+      step1p: 'スマホの歩数を読み取り（iPhone は「ヘルスケア」、Android は「ヘルスコネクト」）。いつもの通勤・お散歩がそのままゲームに。',
+      step2h: 'ペットが育つ',
+      step2p: '歩いた分だけレベルアップして進化。全50種＋レア色違いも。',
+      step3h: '旅して集める',
+      step3p: '日本一周（47都道府県）・世界一周（110都市）を旅して、ご当地の名産品をコレクション。',
+      featH: 'PawPlanet の楽しみ',
+      featSub: '歩く動機が、自然と続く仕掛け。',
+      f1h: '50種のペット育成',
+      f1p: '歩数で育てて進化。運が良ければレアな色違い「シャイニー」に出会える。',
+      f2h: '日本一周・世界一周',
+      f2p: '日本一周（47都道府県）か世界一周（110都市）、行きたいコースを選んで歩く旅へ。',
+      f3h: 'ご当地名産品コレクション',
+      f3p: '街に着くたび名産品をゲット。図鑑を埋める楽しさ。',
+      f4h: '達成を画像でシェア',
+      f4p: '到達・達成のお祝いカードを、Instagram のストーリーにそのまま投稿。',
+      f5h: 'フレンド＆グループ',
+      f5p: '友だちと応援・ギフト。最大5つのグループで、いっしょに目標を追ったり、毎週の歩数を競ったりできる。',
+      f6h: '週間世界ランキング',
+      f6p: '毎週の世界ランキングに挑戦。上位には報酬も。',
+      supH: 'サポート',
+      supSub: 'ご質問・ご不明な点は、下記の窓口までお気軽にどうぞ。',
+      contact: 'お問い合わせ',
+      contactNote: '（日本語・English どちらでも）',
+      q1: '機種変更したらデータは引き継がれますか？',
+      a1: 'iPhone どうしなら、同じ Apple アカウントで iCloud にサインインしていれば自動で引き継がれます。iPhone と Android のあいだ（またはその他の機種変更）は、設定の「データの引き継ぎ」で発行する引き継ぎコードと4桁の合言葉で移せます。',
+      q2: '歩数がペットに反映されません。',
+      a2: 'iPhone は「ヘルスケア」、Android は「ヘルスコネクト」の歩数を読み取っています。初回起動時の許可で「許可」を選んでください。iPhone であとから変えるときは「設定 ▸ プライバシーとセキュリティ ▸ ヘルスケア ▸ PawPlanet」、Android は「ヘルスコネクト」アプリの「アプリの権限」からオンにできます。',
+      q3: '購入したパウパス／パウが反映されません。',
+      a3: '通信環境をご確認のうえ、ショップ画面の「購入を復元」をお試しください（パウパスなどの定期購入が戻ります）。それでも反映されない場合は、上記メールまでご連絡ください。',
+      q4: '課金は安全ですか？',
+      a4: 'すべての購入は Apple（App Store）または Google（Google Play）を通じて処理され、クレジットカード情報などを当方が受け取ることはありません。',
+      q5: 'データはどう扱われますか？',
+      a5: '名前やメールアドレスなど、個人を特定する情報は集めていません。歩数は端末の中で使い、ランキングに参加した場合だけ、週と累計の歩数（と、公平性の確認のための1日の要約）を送ります。詳しくは<a class="js-privacy" href="privacy.html">プライバシーポリシー</a>をご覧ください。',
+      privacy: 'プライバシーポリシー',
+      contactLink: 'お問い合わせ',
+      sep: ' ・ '
+    },
+
+    en: {
+      title: 'PawPlanet — Walk and raise your globe-trotting pet',
+      desc: 'Your daily steps help a cute pet grow. Travel around Japan or around the world and collect local specialties. PawPlanet is a free app for iPhone and Android.',
+      h1: 'Walk and raise your<br><span class="hl">globe-trotting pet.</span>',
+      pitch: 'Your daily steps turn straight into an adventure. Raise a cute pet as you travel around Japan or around the world, collecting local specialties along the way. An iPhone and Android app that makes your everyday walks more fun.',
+      ctaIos: 'Download on the App Store',
+      ctaPlay: 'Get it on Google Play',
+      stepsH: 'Get started in 3 steps',
+      stepsSub: 'Nothing complicated. Just walk.',
+      step1n: 'STEP 1', step2n: 'STEP 2', step3n: 'STEP 3',
+      step1h: 'Walk',
+      step1p: 'The app reads your phone’s step count (Health on iPhone, Health Connect on Android). Your usual commute and walks become the game.',
+      step2h: 'Your pet grows',
+      step2p: 'The more you walk, the more it levels up and evolves. 50 kinds in all, plus rare shinies.',
+      step3h: 'Travel and collect',
+      step3p: 'Tour Japan (47 prefectures) or the world (110 cities) and collect local specialties.',
+      featH: 'What makes PawPlanet fun',
+      featSub: 'Built so your reasons to walk keep going, naturally.',
+      f1h: 'Raise 50 kinds of pets',
+      f1p: 'Raise them with your steps and watch them evolve. With luck, you’ll meet a rare color variant: a shiny.',
+      f2h: 'Japan Tour & World Tour',
+      f2p: 'Choose a Japan tour (47 prefectures) or a world tour (110 cities) and set off on foot.',
+      f3h: 'Collect local specialties',
+      f3p: 'Get a specialty every time you reach a city. The fun of filling in your collection.',
+      f4h: 'Share your milestones as images',
+      f4p: 'Post celebration cards for arrivals and achievements straight to your Instagram Story.',
+      f5h: 'Friends & Groups',
+      f5p: 'Cheer on friends and send gifts. In up to 5 groups, you can chase goals together or compete on weekly steps.',
+      f6h: 'Weekly World Ranking',
+      f6p: 'Take on the world ranking every week. Top walkers earn rewards.',
+      supH: 'Support',
+      supSub: 'Have a question or something unclear? Feel free to contact us below.',
+      contact: 'Contact',
+      contactNote: '(Japanese or English)',
+      q1: 'Will my data carry over when I change phones?',
+      a1: 'Between iPhones, it carries over automatically if you’re signed in to iCloud with the same Apple Account. Between iPhone and Android (or for other phone changes), you can move it with the transfer code you issue under “Data Transfer” in Settings, plus a 4-digit passcode.',
+      q2: 'My steps aren’t showing up for my pet.',
+      a2: 'PawPlanet reads your steps from Health on iPhone and from Health Connect on Android. When asked for permission on first launch, choose “Allow.” To change it later on iPhone, go to Settings ▸ Privacy & Security ▸ Health ▸ PawPlanet; on Android, turn it on from “App permissions” in the Health Connect app.',
+      q3: 'My PawPass / Paws purchase isn’t showing up.',
+      a3: 'Please check your connection, then try “Restore Purchases” on the Shop screen (this brings back subscriptions such as PawPass). If it still doesn’t show up, please email us at the address above.',
+      q4: 'Are purchases safe?',
+      a4: 'All purchases are processed through Apple (App Store) or Google (Google Play). We never receive your credit card details or similar information.',
+      q5: 'How is my data handled?',
+      a5: 'We don’t collect information that identifies you, such as your name or email address. Your steps are used on your device; only if you join the rankings do we send your weekly and total steps (plus a daily summary used to check fairness). For details, see our <a class="js-privacy" href="privacy.html">Privacy Policy</a>.',
+      privacy: 'Privacy Policy',
+      contactLink: 'Contact',
+      sep: ' · '
+    },
+
+    'zh-Hans': {
+      title: 'PawPlanet — 走路养成，环游世界的宠物',
+      desc: '每天的步数让可爱的宠物成长。环游日本、环游世界，收集各地特产吧。PawPlanet 是一款适用于 iPhone 和 Android 的免费 App。',
+      h1: '走路就能养成，<br><span class="hl">环游世界的宠物。</span>',
+      pitch: '每天的步数，直接变成冒险。一边养育可爱的宠物，一边环游日本或环游世界，收集各地特产吧。让日常散步变得更有趣的 iPhone 与 Android App。',
+      ctaIos: '在 App Store 下载',
+      ctaPlay: '去商店下载 Google Play',
+      stepsH: '3 步即可开始',
+      stepsSub: '无需复杂操作，只要走路。',
+      step1n: 'STEP 1', step2n: 'STEP 2', step3n: 'STEP 3',
+      step1h: '走路',
+      step1p: '读取手机的步数（iPhone 使用“健康”，Android 使用“健康数据共享”）。平时的通勤、散步直接变成游戏。',
+      step2h: '宠物成长',
+      step2p: '走得越多，升级、进化就越多。共 50 种，还有稀有的异色。',
+      step3h: '旅行与收集',
+      step3p: '环游日本（47 个都道府县）或世界（110 座城市），收集各地特产。',
+      featH: 'PawPlanet 的乐趣',
+      featSub: '让你自然而然坚持走下去的小设计。',
+      f1h: '养成 50 种宠物',
+      f1p: '用步数养育并进化。运气好的话，还能遇到稀有的异色宠物。',
+      f2h: '环游日本与环游世界',
+      f2p: '选择日本一周（47 个都道府县）或世界一周（110 座城市），踏上徒步之旅。',
+      f3h: '收集当地特产',
+      f3p: '每到一座城市就能获得特产，享受填满图鉴的乐趣。',
+      f4h: '用图片分享成就',
+      f4p: '抵达和达成时的庆祝卡片，可以直接发布到 Instagram 快拍。',
+      f5h: '好友与小组',
+      f5p: '和好友互相加油、赠送礼物。最多可加入 5 个小组，一起追求目标，或比拼每周的步数。',
+      f6h: '每周世界排行榜',
+      f6p: '每周挑战世界排行榜，名列前茅还有奖励。',
+      supH: '支持',
+      supSub: '如有任何疑问，欢迎通过以下方式联系我们。',
+      contact: '联系我们',
+      contactNote: '（可使用日语或英语）',
+      q1: '换手机后，数据可以迁移吗？',
+      a1: 'iPhone 之间，只要用同一个 Apple 账户登录 iCloud，就会自动迁移。在 iPhone 与 Android 之间（或其他换机情况），可以在设置的“数据迁移”中生成迁移码，配合 4 位数字口令进行迁移。',
+      q2: '步数没有反映到宠物身上。',
+      a2: 'iPhone 读取“健康”中的步数，Android 读取“健康数据共享”中的步数。首次启动请求权限时，请选择“允许”。之后若要在 iPhone 上更改，请前往“设置 ▸ 隐私与安全性 ▸ 健康 ▸ PawPlanet”；Android 可在“健康数据共享”App 的“应用权限”中开启。',
+      q3: '购买的 PawPass／爪币没有到账。',
+      a3: '请确认网络连接后，在商店页面尝试“恢复购买”（PawPass 等订阅会恢复）。如果仍未到账，请发送邮件至上方地址联系我们。',
+      q4: '付费安全吗？',
+      a4: '所有购买都通过 Apple（App Store）或 Google（Google Play）处理，我们不会收到你的信用卡等信息。',
+      q5: '数据是如何处理的？',
+      a5: '我们不收集姓名、电子邮件地址等可识别个人身份的信息。步数只在你的设备上使用；只有在你加入排行榜时，才会发送每周和累计步数（以及用于确认公平性的每日摘要）。详情请参阅<a class="js-privacy" href="privacy.html">隐私政策</a>。',
+      privacy: '隐私政策',
+      contactLink: '联系我们',
+      sep: ' · '
+    },
+
+    'zh-Hant': {
+      title: 'PawPlanet — 走路養成，環遊世界的寵物',
+      desc: '每天的步數讓可愛的寵物成長。環遊日本、環遊世界，收集各地特產吧。PawPlanet 是一款適用於 iPhone 和 Android 的免費 App。',
+      h1: '走路就能養成，<br><span class="hl">環遊世界的寵物。</span>',
+      pitch: '每天的步數，直接變成冒險。一邊養育可愛的寵物，一邊環遊日本或環遊世界，收集各地特產吧。讓日常散步變得更有趣的 iPhone 與 Android App。',
+      ctaIos: '在 App Store 下載',
+      ctaPlay: 'Google Play 立即下載',
+      stepsH: '3 個步驟就能開始',
+      stepsSub: '不需要複雜的操作，只要走路。',
+      step1n: 'STEP 1', step2n: 'STEP 2', step3n: 'STEP 3',
+      step1h: '走路',
+      step1p: '讀取手機的步數（iPhone 使用「健康」，Android 使用「健康資料同步」）。平常的通勤、散步直接變成遊戲。',
+      step2h: '寵物成長',
+      step2p: '走得越多，就會升級、進化。共 50 種，還有稀有的異色。',
+      step3h: '旅行與收集',
+      step3p: '環遊日本（47 個都道府縣）或世界（110 座城市），收集在地特產。',
+      featH: 'PawPlanet 的樂趣',
+      featSub: '讓你自然而然持續走下去的小設計。',
+      f1h: '養成 50 種寵物',
+      f1p: '用步數養育並進化。運氣好的話，還能遇到稀有的異色寵物。',
+      f2h: '環遊日本與環遊世界',
+      f2p: '選擇日本一周（47 個都道府縣）或世界一周（110 座城市），踏上徒步之旅。',
+      f3h: '收集在地特產',
+      f3p: '每到一座城市就能獲得特產，享受填滿圖鑑的樂趣。',
+      f4h: '用圖片分享成就',
+      f4p: '抵達與達成時的慶祝卡片，可以直接發佈到 Instagram 限時動態。',
+      f5h: '好友與群組',
+      f5p: '和好友互相加油、贈送禮物。最多可加入 5 個群組，一起追求目標，或比拚每週的步數。',
+      f6h: '每週世界排行榜',
+      f6p: '每週挑戰世界排行榜，名列前茅還有獎勵。',
+      supH: '支援',
+      supSub: '如有任何疑問，歡迎透過以下方式與我們聯絡。',
+      contact: '聯絡我們',
+      contactNote: '（可使用日文或英文）',
+      q1: '換手機後，資料可以轉移嗎？',
+      a1: 'iPhone 之間，只要以同一個 Apple 帳號登入 iCloud，就會自動轉移。在 iPhone 與 Android 之間（或其他換機情況），可以在設定的「資料轉移」中產生轉移碼，搭配 4 位數字密語進行轉移。',
+      q2: '步數沒有反映到寵物身上。',
+      a2: 'iPhone 讀取「健康」中的步數，Android 讀取「健康資料同步」中的步數。首次啟動要求權限時，請選擇「允許」。之後若要在 iPhone 上變更，請前往「設定 ▸ 隱私權與安全性 ▸ 健康 ▸ PawPlanet」；Android 可在「健康資料同步」App 的「應用程式權限」中開啟。',
+      q3: '購買的 PawPass／爪幣沒有入帳。',
+      a3: '請確認網路連線後，在商店畫面嘗試「回復購買項目」（PawPass 等訂閱會回復）。如果仍未入帳，請寄信至上方信箱與我們聯絡。',
+      q4: '付費安全嗎？',
+      a4: '所有購買都透過 Apple（App Store）或 Google（Google Play）處理，我們不會收到你的信用卡等資訊。',
+      q5: '資料是如何處理的？',
+      a5: '我們不收集姓名、電子郵件地址等可識別個人身分的資訊。步數只在你的裝置上使用；只有在你參加排行榜時，才會傳送每週與累計步數（以及用於確認公平性的每日摘要）。詳情請參閱<a class="js-privacy" href="privacy.html">隱私權政策</a>。',
+      privacy: '隱私權政策',
+      contactLink: '聯絡我們',
+      sep: ' · '
+    },
+
+    /* ---------- hidden until 1.6.1 (see RELEASED) ---------- */
+    ko: {
+      title: 'PawPlanet — 걸으며 키우는 세계 일주 펫',
+      desc: '매일의 걸음 수로 귀여운 펫이 자라요. 일본 일주·세계 일주를 여행하며 각지의 특산품을 모아 보세요. iPhone·Android용 무료 앱 PawPlanet.',
+      h1: '걸으며 키우는<br><span class="hl">세계 일주 펫</span>',
+      pitch: '매일의 걸음 수가 그대로 모험이 돼요. 귀여운 펫을 키우면서 일본 일주나 세계 일주를 여행하고, 각지의 특산품을 모아 보세요. 평소의 산책이 더 즐거워지는 iPhone·Android 앱이에요.',
+      ctaIos: 'App Store에서 다운로드',
+      ctaPlay: 'Google Play에서 다운로드',
+      stepsH: '3단계로 시작해요',
+      stepsSub: '어려운 조작은 필요 없어요. 걷기만 하면 돼요.',
+      step1n: 'STEP 1', step2n: 'STEP 2', step3n: 'STEP 3',
+      step1h: '걷기',
+      step1p: '휴대폰의 걸음 수를 읽어 와요(iPhone은 ‘건강’, Android는 ‘헬스 커넥트’). 평소의 출퇴근과 산책이 그대로 게임이 돼요.',
+      step2h: '펫이 자라요',
+      step2p: '걸은 만큼 레벨 업하고 진화해요. 전 50종에 희귀색까지.',
+      step3h: '여행하며 모으기',
+      step3p: '일본 일주(47개 도도부현)나 세계 일주(110개 도시)를 여행하며 각지의 특산품을 수집해요.',
+      featH: 'PawPlanet의 즐거움',
+      featSub: '걷고 싶은 마음이 자연스럽게 이어지는 장치.',
+      f1h: '50종의 펫 키우기',
+      f1p: '걸음 수로 키우고 진화시켜요. 운이 좋으면 드문 희귀색 펫을 만날 수 있어요.',
+      f2h: '일본 일주·세계 일주',
+      f2p: '일본 일주(47개 도도부현)나 세계 일주(110개 도시) 중 원하는 코스를 골라 걸어서 여행해요.',
+      f3h: '각지 특산품 컬렉션',
+      f3p: '도시에 도착할 때마다 특산품을 손에 넣어요. 도감을 채우는 즐거움.',
+      f4h: '달성을 이미지로 공유',
+      f4p: '도착·달성 축하 카드를 Instagram 스토리에 바로 올릴 수 있어요.',
+      f5h: '친구 & 그룹',
+      f5p: '친구를 응원하고 선물을 보내요. 최대 5개 그룹에서 함께 목표를 향해 가거나 매주 걸음 수를 겨룰 수 있어요.',
+      f6h: '주간 세계 랭킹',
+      f6p: '매주 세계 랭킹에 도전해요. 상위권에는 보상도 있어요.',
+      supH: '지원',
+      supSub: '궁금한 점이나 모르는 점이 있으면 아래 연락처로 편하게 문의해 주세요.',
+      contact: '문의',
+      contactNote: '(일본어 또는 영어로 문의 가능)',
+      q1: '기기를 바꾸면 데이터가 이어지나요?',
+      a1: 'iPhone끼리는 같은 Apple 계정으로 iCloud에 로그인되어 있으면 자동으로 넘어가요. iPhone과 Android 사이(또는 그 밖의 기기 변경)에서는 설정의 ‘데이터 이전’에서 발급하는 이전 코드와 숫자 4자리 비밀번호로 옮길 수 있어요.',
+      q2: '걸음 수가 펫에 반영되지 않아요.',
+      a2: 'iPhone은 ‘건강’, Android는 ‘헬스 커넥트’의 걸음 수를 읽어 와요. 처음 실행할 때 권한 요청에서 ‘허용’을 선택해 주세요. 나중에 바꾸려면 iPhone은 ‘설정 ▸ 개인정보 보호 및 보안 ▸ 건강 ▸ PawPlanet’에서, Android는 ‘헬스 커넥트’ 앱의 ‘앱 권한’에서 켤 수 있어요.',
+      q3: '구입한 PawPass/파우가 반영되지 않아요.',
+      a3: '네트워크 연결을 확인한 뒤 상점 화면에서 ‘구입 항목 복원’을 해 보세요(PawPass 등의 정기 구독이 복원돼요). 그래도 반영되지 않으면 위의 메일로 연락해 주세요.',
+      q4: '결제는 안전한가요?',
+      a4: '모든 구입은 Apple(App Store) 또는 Google(Google Play)을 통해 처리되며, 저희가 신용카드 정보 등을 받는 일은 없어요.',
+      q5: '데이터는 어떻게 다뤄지나요?',
+      a5: '이름이나 이메일 주소 등 개인을 특정하는 정보는 수집하지 않아요. 걸음 수는 기기 안에서 사용하며, 랭킹에 참여한 경우에만 주간 및 누적 걸음 수(와 공정성 확인을 위한 하루 요약)를 보내요. 자세한 내용은 <a class="js-privacy" href="privacy.html">개인정보 처리방침</a>을 확인해 주세요.',
+      privacy: '개인정보 처리방침',
+      contactLink: '문의',
+      sep: ' · '
+    },
+
+    es: {
+      title: 'PawPlanet — Camina y cría a tu mascota trotamundos',
+      desc: 'Tus pasos de cada día hacen crecer a una mascota adorable. Da la vuelta a Japón o al mundo y colecciona especialidades locales. PawPlanet es una app gratuita para iPhone y Android.',
+      h1: 'Camina y cría a tu<br><span class="hl">mascota trotamundos.</span>',
+      pitch: 'Tus pasos de cada día se convierten en una aventura. Cría a una mascota adorable mientras das la vuelta a Japón o al mundo y coleccionas especialidades locales. Una app para iPhone y Android que hace tus paseos de siempre aún más divertidos.',
+      ctaIos: 'Descargar en el App Store',
+      ctaPlay: 'Disponible en Google Play',
+      stepsH: 'Empieza en 3 pasos',
+      stepsSub: 'Nada complicado. Solo camina.',
+      step1n: 'PASO 1', step2n: 'PASO 2', step3n: 'PASO 3',
+      step1h: 'Camina',
+      step1p: 'La app lee los pasos de tu teléfono (Salud en iPhone, Health Connect en Android). Tus trayectos y paseos de siempre se convierten en el juego.',
+      step2h: 'Tu mascota crece',
+      step2p: 'Cuanto más caminas, más sube de nivel y evoluciona. 50 especies en total, y además brillantes raros.',
+      step3h: 'Viaja y colecciona',
+      step3p: 'Recorre Japón (47 prefecturas) o el mundo (110 ciudades) y colecciona especialidades locales.',
+      featH: 'Lo divertido de PawPlanet',
+      featSub: 'Detalles que te animan a seguir caminando, sin darte cuenta.',
+      f1h: 'Cría 50 especies de mascotas',
+      f1p: 'Críalas con tus pasos y haz que evolucionen. Con suerte, encontrarás un brillante: una rara versión de otro color.',
+      f2h: 'Vuelta a Japón y Vuelta al mundo',
+      f2p: 'Elige la vuelta a Japón (47 prefecturas) o al mundo (110 ciudades) y ponte en marcha a pie.',
+      f3h: 'Colección de especialidades locales',
+      f3p: 'Consigue una especialidad en cada ciudad a la que llegas. El placer de completar la colección.',
+      f4h: 'Comparte tus logros con imágenes',
+      f4p: 'Publica las tarjetas de celebración de tus llegadas y logros directamente en tu historia de Instagram.',
+      f5h: 'Amigos y grupos',
+      f5p: 'Anima a tus amigos y envíales regalos. En hasta 5 grupos puedes perseguir metas en equipo o competir por los pasos de cada semana.',
+      f6h: 'Ranking mundial semanal',
+      f6p: 'Ponte a prueba cada semana en el ranking mundial. Los primeros puestos reciben recompensas.',
+      supH: 'Soporte',
+      supSub: 'Si tienes preguntas o dudas, escríbenos a la dirección de abajo.',
+      contact: 'Contacto',
+      contactNote: '(en japonés o en inglés)',
+      q1: '¿Se conservan mis datos si cambio de teléfono?',
+      a1: 'Entre iPhones, los datos pasan solos si iniciaste sesión en iCloud con la misma Cuenta de Apple. Entre iPhone y Android (o en otros cambios de teléfono), puedes trasladarlos con el código de traspaso que generas en “Traspaso de datos” de Ajustes y una clave de 4 dígitos.',
+      q2: 'Mis pasos no se reflejan en mi mascota.',
+      a2: 'En iPhone leemos los pasos de Salud y en Android, de Health Connect. Cuando la app pida permiso la primera vez, elige “Permitir”. Para cambiarlo después en iPhone, ve a Ajustes (Configuración) ▸ Privacidad y seguridad ▸ Salud ▸ PawPlanet; en Android, actívalo desde “Permisos de aplicaciones” en la app Health Connect.',
+      q3: 'No me aparece mi PawPass o mis Paws comprados.',
+      a3: 'Comprueba tu conexión y prueba “Restaurar compras” en la pantalla de la Tienda (así se recuperan suscripciones como PawPass). Si aun así no aparecen, escríbenos al correo de arriba.',
+      q4: '¿Son seguros los pagos?',
+      a4: 'Todas las compras se procesan a través de Apple (App Store) o Google (Google Play); nosotros nunca recibimos los datos de tu tarjeta de crédito ni nada parecido.',
+      q5: '¿Cómo se tratan mis datos?',
+      a5: 'No recopilamos información que te identifique, como tu nombre o tu correo electrónico. Tus pasos se usan en tu dispositivo; solo si te unes a los rankings enviamos tus pasos semanales y totales (y un resumen diario para comprobar que todo sea justo). Más detalles en la <a class="js-privacy" href="privacy.html">Política de privacidad</a>.',
+      privacy: 'Política de privacidad',
+      contactLink: 'Contacto',
+      sep: ' · '
+    },
+
+    de: {
+      title: 'PawPlanet — Lauf los und zieh dein Weltreise-Tier groß',
+      desc: 'Mit deinen täglichen Schritten wächst ein süßes Tier heran. Reise durch ganz Japan oder um die Welt und sammle regionale Spezialitäten. PawPlanet ist eine kostenlose App für iPhone und Android.',
+      h1: 'Lauf los und zieh dein<br><span class="hl">Weltreise-Tier groß.</span>',
+      pitch: 'Deine täglichen Schritte werden zum Abenteuer. Zieh ein süßes Tier groß, reise dabei durch ganz Japan oder um die Welt und sammle regionale Spezialitäten. Die App für iPhone und Android, die deine Spaziergänge noch schöner macht.',
+      ctaIos: 'Laden im App Store',
+      ctaPlay: 'Jetzt bei Google Play',
+      stepsH: 'In 3 Schritten loslegen',
+      stepsSub: 'Nichts Kompliziertes. Einfach laufen.',
+      step1n: 'SCHRITT 1', step2n: 'SCHRITT 2', step3n: 'SCHRITT 3',
+      step1h: 'Laufen',
+      step1p: 'Die App liest die Schritte deines Handys aus (Health auf dem iPhone, Health Connect auf Android). Arbeitsweg und Spaziergänge werden direkt zum Spiel.',
+      step2h: 'Dein Tier wächst',
+      step2p: 'Je mehr du läufst, desto weiter steigt es im Level auf und entwickelt sich. 50 Arten insgesamt – plus seltene Sonderfarben.',
+      step3h: 'Reisen und sammeln',
+      step3p: 'Reise durch Japan (47 Präfekturen) oder um die Welt (110 Städte) und sammle regionale Spezialitäten.',
+      featH: 'Das macht PawPlanet aus',
+      featSub: 'So bleibst du ganz von selbst in Bewegung.',
+      f1h: '50 Tierarten großziehen',
+      f1p: 'Zieh sie mit deinen Schritten groß und lass sie sich entwickeln. Mit etwas Glück triffst du eine seltene Sonderfarbe.',
+      f2h: 'Japanreise & Weltreise',
+      f2p: 'Wähle die Japanreise (47 Präfekturen) oder die Weltreise (110 Städte) und zieh zu Fuß los.',
+      f3h: 'Regionale Spezialitäten sammeln',
+      f3p: 'In jeder Stadt, die du erreichst, gibt’s eine Spezialität. Die Freude, deine Sammlung zu füllen.',
+      f4h: 'Erfolge als Bild teilen',
+      f4p: 'Teile Glückwunschkarten zu Ankünften und Erfolgen direkt in deiner Instagram-Story.',
+      f5h: 'Freunde & Gruppen',
+      f5p: 'Feuer Freunde an und schick ihnen Geschenke. In bis zu 5 Gruppen könnt ihr gemeinsam Ziele verfolgen oder euch jede Woche bei den Schritten messen.',
+      f6h: 'Wöchentliche Weltrangliste',
+      f6p: 'Miss dich jede Woche in der Weltrangliste. Für die Besten gibt es Belohnungen.',
+      supH: 'Support',
+      supSub: 'Fragen oder etwas unklar? Schreib uns gern an die Adresse unten.',
+      contact: 'Kontakt',
+      contactNote: '(auf Japanisch oder Englisch)',
+      q1: 'Werden meine Daten beim Handywechsel übernommen?',
+      a1: 'Zwischen iPhones geschieht das automatisch, wenn du mit demselben Apple Account bei iCloud angemeldet bist. Zwischen iPhone und Android (oder bei anderen Gerätewechseln) überträgst du sie mit dem Übertragungscode, den du in den Optionen unter „Datenübertragung“ erstellst, und einer 4-stelligen PIN.',
+      q2: 'Meine Schritte kommen bei meinem Tier nicht an.',
+      a2: 'Auf dem iPhone liest die App die Schritte aus Health, auf Android aus Health Connect. Wähle beim ersten Start in der Berechtigungsabfrage „Erlauben“. Später änderst du das auf dem iPhone unter „Einstellungen ▸ Datenschutz & Sicherheit ▸ Health ▸ PawPlanet“, auf Android in der Health Connect-App unter „App-Berechtigungen“.',
+      q3: 'Mein gekaufter PawPass / meine Paw sind nicht angekommen.',
+      a3: 'Prüfe deine Internetverbindung und tippe dann im Shop auf „Käufe wiederherstellen“ (so kommen Abos wie PawPass zurück). Klappt es immer noch nicht, schreib uns an die Adresse oben.',
+      q4: 'Sind Käufe sicher?',
+      a4: 'Alle Käufe werden über Apple (App Store) oder Google (Google Play) abgewickelt. Kreditkartendaten o. Ä. erhalten wir nie.',
+      q5: 'Wie werden meine Daten behandelt?',
+      a5: 'Wir erheben keine Informationen, die dich identifizieren, etwa deinen Namen oder deine E-Mail-Adresse. Deine Schritte werden auf deinem Gerät genutzt; nur wenn du an den Ranglisten teilnimmst, senden wir deine Wochen- und Gesamtschritte (sowie eine tägliche Zusammenfassung zur Fairness-Prüfung). Mehr dazu in der <a class="js-privacy" href="privacy.html">Datenschutzerklärung</a>.',
+      privacy: 'Datenschutzerklärung',
+      contactLink: 'Kontakt',
+      sep: ' · '
+    },
+
+    fr: {
+      title: 'PawPlanet — Marche et élève ton animal voyageur',
+      desc: 'Tes pas de chaque jour font grandir un adorable animal. Fais le tour du Japon ou le tour du monde et collectionne les spécialités locales. PawPlanet, l’app gratuite pour iPhone et Android.',
+      h1: 'Marche et élève ton<br><span class="hl">animal voyageur.</span>',
+      pitch: 'Tes pas de chaque jour deviennent une aventure. Élève un adorable animal tout en faisant le tour du Japon ou le tour du monde, et collectionne les spécialités locales. L’app iPhone et Android qui rend tes balades de tous les jours encore plus amusantes.',
+      ctaIos: 'Télécharger dans l’App Store',
+      ctaPlay: 'Disponible sur Google Play',
+      stepsH: 'Commence en 3 étapes',
+      stepsSub: 'Rien de compliqué. Il suffit de marcher.',
+      step1n: 'ÉTAPE 1', step2n: 'ÉTAPE 2', step3n: 'ÉTAPE 3',
+      step1h: 'Marche',
+      step1p: 'L’app lit les pas de ton téléphone (Santé sur iPhone, Santé Connect sur Android). Tes trajets et balades habituels deviennent directement un jeu.',
+      step2h: 'Ton animal grandit',
+      step2p: 'Plus tu marches, plus il monte de niveau et évolue. 50 espèces en tout, plus de rares chromatiques.',
+      step3h: 'Voyage et collectionne',
+      step3p: 'Fais le tour du Japon (47 préfectures) ou du monde (110 villes) et collectionne les spécialités locales.',
+      featH: 'Les plaisirs de PawPlanet',
+      featSub: 'Tout est pensé pour que l’envie de marcher dure, naturellement.',
+      f1h: '50 espèces à élever',
+      f1p: 'Élève-les avec tes pas et fais-les évoluer. Avec un peu de chance, tu croiseras un rare chromatique aux couleurs différentes.',
+      f2h: 'Tour du Japon et tour du monde',
+      f2p: 'Choisis le tour du Japon (47 préfectures) ou du monde (110 villes) et pars à pied.',
+      f3h: 'Collection de spécialités locales',
+      f3p: 'Une spécialité à chaque ville atteinte. Le plaisir de compléter ta collection.',
+      f4h: 'Partage tes réussites en image',
+      f4p: 'Publie les cartes de célébration de tes arrivées et réussites directement dans ta story Instagram.',
+      f5h: 'Amis et groupes',
+      f5p: 'Encourage tes amis et envoie-leur des cadeaux. Dans jusqu’à 5 groupes, vous pouvez viser un objectif ensemble ou vous affronter sur les pas de la semaine.',
+      f6h: 'Classement mondial hebdomadaire',
+      f6p: 'Relève le défi du classement mondial chaque semaine. Des récompenses attendent les meilleurs.',
+      supH: 'Assistance',
+      supSub: 'Une question ou un doute ? Écris-nous sans hésiter à l’adresse ci-dessous.',
+      contact: 'Contact',
+      contactNote: '(en japonais ou en anglais)',
+      q1: 'Mes données sont-elles conservées si je change de téléphone ?',
+      a1: 'Entre iPhone, tout est transféré automatiquement si tu es connecté à iCloud avec le même compte Apple. Entre iPhone et Android (ou pour tout autre changement de téléphone), tu peux les transférer avec le code de transfert généré dans « Transfert de données » des Réglages de l’app, et un code secret à 4 chiffres.',
+      q2: 'Mes pas ne s’affichent pas pour mon animal.',
+      a2: 'Sur iPhone, l’app lit les pas dans Santé ; sur Android, dans Santé Connect. Au premier lancement, choisis « Autoriser » quand l’autorisation est demandée. Pour modifier cela plus tard sur iPhone, va dans « Réglages ▸ Confidentialité et sécurité ▸ Santé ▸ PawPlanet » ; sur Android, active-la depuis « Autorisations des applications » dans l’app Santé Connect.',
+      q3: 'Mon PawPass ou mes Paw achetés n’apparaissent pas.',
+      a3: 'Vérifie ta connexion, puis essaie « Restaurer les achats » dans la Boutique (cela récupère les abonnements comme le PawPass). Si rien n’apparaît toujours, écris-nous à l’adresse ci-dessus.',
+      q4: 'Les achats sont-ils sûrs ?',
+      a4: 'Tous les achats passent par Apple (App Store) ou Google (Google Play) ; nous ne recevons jamais tes informations de carte bancaire ou autres.',
+      q5: 'Comment mes données sont-elles traitées ?',
+      a5: 'Nous ne collectons aucune information permettant de t’identifier, comme ton nom ou ton adresse e-mail. Tes pas sont utilisés sur ton appareil ; c’est seulement si tu rejoins les classements que nous envoyons tes pas de la semaine et ton total (ainsi qu’un résumé quotidien servant à vérifier l’équité). Pour en savoir plus, consulte la <a class="js-privacy" href="privacy.html">politique de confidentialité</a>.',
+      privacy: 'Politique de confidentialité',
+      contactLink: 'Contact',
+      sep: ' · '
+    }
+  };
+
+  // French typography: non-breaking space before ? ! ; : and inside « ».
+  function frSpaces(s){
+    return s.replace(/ ([?!;:»])/g, ' $1').replace(/« /g, '« ');
+  }
+
+  // Map any BCP 47 tag to one of our language codes (or null).
+  function normalize(tag){
+    if(!tag) return null;
+    var t = String(tag).toLowerCase().replace(/_/g, '-');
+    if(t.indexOf('zh') === 0){
+      if(/-hans\b/.test(t)) return 'zh-Hans';           // explicit script wins (zh-Hans-HK)
+      return /-hant\b|-tw\b|-hk\b|-mo\b/.test(t) ? 'zh-Hant' : 'zh-Hans';
+    }
+    var base = t.split('-')[0];
+    return Object.prototype.hasOwnProperty.call(T, base) ? base : null;
+  }
+  function isReleased(l){ return RELEASED.indexOf(l) !== -1; }
+
+  function initialLang(){
+    // 1) ?lang=xx forces a language (hidden ones too, for previewing)
+    try{
+      var q = new URLSearchParams(location.search).get('lang');
+      var fromUrl = normalize(q);
+      if(fromUrl) return fromUrl;
+    }catch(e){}
+    // 2) the visitor's earlier choice
+    try{
+      var saved = localStorage.getItem(STORE_KEY);
+      if(saved && T[saved] && isReleased(saved)) return saved;
+    }catch(e){}
+    // 3) browser languages: first one we have; hidden languages fall back to English
+    var prefs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for(var i = 0; i < prefs.length; i++){
+      var n = normalize(prefs[i]);
+      if(n) return isReleased(n) ? n : FALLBACK_LANG;
+    }
+    return DEFAULT_LANG;
+  }
+
+  var current = null;
+  var chipBox = document.getElementById('langs');
+
+  function apply(lang){
+    var d = T[lang] || T[DEFAULT_LANG];
+    var fix = lang === 'fr' ? frSpaces : function(s){ return s; };
+    current = lang;
+    document.documentElement.lang = lang;
+    document.title = d.title;
+    var meta = document.querySelector('meta[name="description"]');
+    if(meta) meta.setAttribute('content', d.desc);
+
+    var nodes = document.querySelectorAll('[data-i]');
+    for(var i = 0; i < nodes.length; i++){
+      var el = nodes[i], key = el.getAttribute('data-i');
+      var v = d[key] != null ? d[key] : T[FALLBACK_LANG][key];
+      if(v == null) continue;
+      if(el.hasAttribute('data-html')) el.innerHTML = fix(v);
+      else el.textContent = fix(v);
+    }
+
+    // privacy.html is ja/en only: Japanese for ja, English for everything else
+    var privLang = lang === 'ja' ? 'ja' : 'en';
+    var links = document.querySelectorAll('a.js-privacy');
+    for(var j = 0; j < links.length; j++){
+      links[j].setAttribute('href', privLang === 'ja' ? 'privacy.html' : 'privacy.html?lang=en');
+      links[j].setAttribute('data-priv', privLang);
+    }
+
+    var chips = chipBox.querySelectorAll('button');
+    for(var k = 0; k < chips.length; k++){
+      chips[k].setAttribute('aria-pressed', chips[k].getAttribute('data-lang') === lang ? 'true' : 'false');
+    }
+  }
+
+  // Build the chips (only released languages)
+  for(var c = 0; c < CHIPS.length; c++){
+    if(!isReleased(CHIPS[c][0])) continue;
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('data-lang', CHIPS[c][0]);
+    b.setAttribute('lang', CHIPS[c][0]);
+    b.setAttribute('aria-pressed', 'false');
+    b.textContent = CHIPS[c][1];
+    chipBox.appendChild(b);
+  }
+  chipBox.addEventListener('click', function(ev){
+    var btn = ev.target.closest ? ev.target.closest('button[data-lang]') : null;
+    if(!btn) return;
+    var l = btn.getAttribute('data-lang');
+    if(l === current) return;
+    apply(l);
+    try{ localStorage.setItem(STORE_KEY, l); }catch(e){}
+    // keep a shared URL in sync if it carried ?lang=
+    try{
+      var u = new URL(location.href);
+      if(u.searchParams.has('lang')){ u.searchParams.set('lang', l); history.replaceState(null, '', u.toString()); }
+    }catch(e){}
+  });
+
+  // Opening the privacy policy: tell privacy.html which of its two languages to show
+  document.addEventListener('click', function(ev){
+    var a = ev.target.closest ? ev.target.closest('a.js-privacy') : null;
+    if(!a) return;
+    try{ localStorage.setItem(PRIVACY_KEY, a.getAttribute('data-priv') || 'ja'); }catch(e){}
+  });
+
+  apply(initialLang());
+})();
+</script>
 
 </body>
 </html>
