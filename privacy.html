@@ -84,7 +84,7 @@
     </div>
     <div class="meta">
       <span><b>アプリ / App</b> PawPlanet — iOS / Android (com.pawplanet.app)</span>
-      <span><b id="upd-ja">最終更新</b><b id="upd-en" hidden>Last updated</b> 2026-10-24</span>
+      <span><b id="upd-ja">最終更新</b><b id="upd-en" hidden>Last updated</b> 2026-10-31</span>
     </div>
   </header>
 
@@ -129,6 +129,7 @@
     <section class="item">
       <h2><span class="no">04</span>ヘルスケア（歩数）データ</h2>
       <p>ペットの育成と旅の進行のために、iOS では Apple の <b>HealthKit</b>、Android では <b>ヘルスコネクト（Health Connect）</b>から<b>歩数を「読み取り」だけ</b>行います。歩数の書き込みは行いません。</p>
+      <p>ヘルスケア・ヘルスコネクトに歩数が無いときでも数えられるよう、<b>スマホ本体の歩数計</b>からも歩数を読み取ることがあります（iOS は「モーションとフィットネス」の許可で iPhone の歩数計〔Core Motion〕を、Android は「身体活動」の許可で Google Play 開発者サービスの Recording API を使います。これが使えない Android 端末では、本体の歩数センサーの値を使います）。読み取るのは歩数だけで、計算は端末の中で行います（日ごとに多いほうの歩数を使い、足し合わせません）。新しく当社サーバーへ送るデータはありません。送る歩数は下に書いたとおりで、今までと変わりません（ランキングに参加している場合の今週・累計などの合計歩数など）。この許可も、いつでも設定アプリから取り消せます。</p>
       <ul class="facts">
         <li>読み取った歩数は、育成・旅の計算に使います</li>
         <li>ランキングに参加している場合は、<b>今週・前週・累計の合計歩数</b>、今日の歩数（フレンドのお庭に表示）、グループの期間中の合計歩数を、匿名IDに紐づけて当社サーバーへ送ります</li>
@@ -165,7 +166,7 @@
         <li>広告は、「動画を見てごほうびをもらう」ボタンを押したときなどに表示されます。パウパスに加入中は、広告を見ずにごほうびを受け取れます</li>
         <li>トラッキングの許可（ATT）は求めません。ヘルスケアのデータを広告に使うことはありません</li>
         <li>欧州経済領域（EEA）・英国・スイスの端末では、広告を表示する前にパーソナライズ広告への同意を伺います。同意されない場合はパーソナライズしない広告を表示します。設定からいつでも変更できます</li>
-        <li>データの保管と処理は、委託先（Supabase、Unity、設定ファイルの配信に GitHub）が行います</li>
+        <li>データの保管と処理は、委託先（Supabase、Unity、設定ファイルの配信に GitHub）が行います。端末の確認には Apple／Google の仕組みを使います（第11項）</li>
         <li class="no">あなたのデータを第三者に販売することはありません</li>
       </ul>
     </section>
@@ -185,7 +186,18 @@
     </section>
 
     <section class="item">
-      <h2><span class="no">11</span>本ポリシーの変更</h2>
+      <h2><span class="no">11</span>本物のアプリ・端末かの確認（招待の不正防止）</h2>
+      <p>1.6.2 から、友だち招待のごほうびが不正に集められないよう、アプリと端末が本物かを <b>Apple（App Attest・DeviceCheck）</b>または <b>Google（Play Integrity）</b>の仕組みで確かめます。ランキング・フレンドに参加しているときと、招待コードを入れたときに行います。</p>
+      <ul class="facts">
+        <li>当社サーバーには、確認の<b>結果（合否）</b>・<b>時刻</b>・<b>アプリの版</b>を匿名IDに紐づけて保存します。iPhone では、アプリが作った<b>鍵の番号</b>（とその公開鍵）も保存します</li>
+        <li>同じ端末で何度も招待に使われていないかは、Apple／Google が端末ごとに保管する小さな印で確かめます。当社に残るのは「印があったか」だけで、端末の番号やトークンは保存しません</li>
+        <li><b>IPアドレス・端末名・広告ID</b>は保存しません</li>
+        <li class="no">確認のために Apple／Google へ問い合わせる以外に、第三者へ提供することはありません。記録は、サーバー上のデータの削除のご依頼（第10項）があれば削除します</li>
+      </ul>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">12</span>本ポリシーの変更</h2>
       <p>機能追加などに伴い、本ポリシーを更新することがあります。重要な変更がある場合は、このページの更新日を改めてお知らせします。</p>
     </section>
 
@@ -237,6 +249,7 @@
     <section class="item">
       <h2><span class="no">04</span>Health (step count) data</h2>
       <p>To grow your pet and advance your journey, the app <b>reads your step count only</b>, via Apple <b>HealthKit</b> on iOS and <b>Health Connect</b> on Android. It never writes health data.</p>
+      <p>So that your steps still count when Health or Health Connect has no step data, the app may also read steps from <b>your phone's own step counter</b> (on iOS, the iPhone pedometer [Core Motion] with the "Motion &amp; Fitness" permission; on Android, Google Play services' Recording API with the "Physical activity" permission, or the device's step sensor on Android devices where that API is not available). Only step counts are read, and they are processed on your device (for each day we use the higher of the two numbers; they are never added together). No new data is sent to our server: the steps we send are exactly as described below, unchanged from before (such as your weekly and lifetime totals if you join the leaderboards). You can revoke this permission anytime in Settings.</p>
       <ul class="facts">
         <li>Steps are used to calculate growth and travel</li>
         <li>If you join the leaderboards, your <b>weekly, previous-week and lifetime totals</b>, today's steps (shown in your garden to friends) and group-mission totals are sent to our server, linked to an anonymous ID</li>
@@ -273,7 +286,7 @@
         <li>Ads appear, for example, when you tap a "watch a video for a reward" button. With PawPass you get those rewards without watching ads</li>
         <li>We do not request tracking permission (ATT), and health data is never used for ads</li>
         <li>On devices in the European Economic Area, the UK and Switzerland, we ask for your consent to personalized ads before showing ads. If you decline, non-personalized ads are shown. You can change this anytime in Settings</li>
-        <li>Data is stored and processed by our service providers (Supabase, Unity, and GitHub for configuration files)</li>
+        <li>Data is stored and processed by our service providers (Supabase, Unity, and GitHub for configuration files). Device checks use Apple/Google services (section 11)</li>
         <li class="no">We never sell your data</li>
       </ul>
     </section>
@@ -293,7 +306,18 @@
     </section>
 
     <section class="item">
-      <h2><span class="no">11</span>Changes to this policy</h2>
+      <h2><span class="no">11</span>Checking that the app and device are genuine (invite fraud prevention)</h2>
+      <p>Starting with version 1.6.2, to stop friend-invite rewards from being collected unfairly, the app asks <b>Apple (App Attest, DeviceCheck)</b> or <b>Google (Play Integrity)</b> to confirm that the app and device are genuine. This happens while you are in the leaderboards/friends and when you enter an invite code.</p>
+      <ul class="facts">
+        <li>Our server stores the <b>result (pass/fail)</b>, the <b>time</b> and the <b>app version</b>, linked to your anonymous ID. On iPhone, it also stores the <b>key ID</b> (and its public key) generated by the app</li>
+        <li>To check whether the same device has been used for invites many times, we rely on a small per-device marker kept by Apple/Google. We keep only whether a marker was present, never the device number or token</li>
+        <li>We do not store your <b>IP address, device name or advertising ID</b></li>
+        <li class="no">Nothing is shared with third parties beyond asking Apple/Google for the check. These records are deleted when you request deletion of server data (section 10)</li>
+      </ul>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">12</span>Changes to this policy</h2>
       <p>We may update this policy as features change. For significant changes, we will update the date shown on this page.</p>
     </section>
 
