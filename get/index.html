@@ -7,6 +7,13 @@
 <meta name="description" content="歩いて育てる、世界一周ペット。PawPlanet（iPhone / Android）">
 <meta property="og:title" content="PawPlanet — 歩いて育てる、世界一周ペット">
 <meta property="og:description" content="毎日の歩数で、かわいいペットが育つ。iPhone / Android 対応の無料アプリ。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PawPlanet">
+<meta property="og:image" content="https://pawplanet.01-infinity.com/get/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PawPlanet — 歩いて育てる、世界一周ペット。招待コードで +150パウ">
+<meta name="twitter:card" content="summary_large_image">
 <script>
   // ・招待コード付き（?c=XXXXXXXX）：コードを大きく見せて「コピーしてストアへ」「アプリで開く」を出す（自動では飛ばない）。
   // ・コード無し：端末を見てそのままストアへ（iPhone/iPad → App Store、Android → Google Play、PC はボタン表示）。
@@ -28,6 +35,19 @@
     var g = m ? decodeURIComponent(m[1]).toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
     return /^[A-HJ-NP-Z2-9]{6}$/.test(g) ? g : "";
   })();
+  // ── 招待の計測（1.6.3・設計 B4/B5）。公開はよしてつ様の確認後 ──
+  // App Store のキャンペーン用プロバイダID（pt）。★よしてつ様が ASC で確認した数字に差し替える★
+  //   （App Store Connect →「アナリティクス」→「獲得」→「キャンペーン」→「キャンペーンリンクを生成」で出るリンクの pt=の数字）
+  //   数字でないあいだ（PROVIDER_ID_TBD のまま）は pt を付けない＝ ct=invite と mt=8 だけ付く。
+  var APP_STORE_PROVIDER_ID = "PROVIDER_ID_TBD";
+  // 招待コード（?c=）があるときだけ、ストアへのリンクに印を付ける。コード無し・グループ招待（?g=）は今までどおり。
+  var IOS_LINK = IOS;
+  var ANDROID_LINK = ANDROID;
+  if (CODE && /^[A-Z0-9]{1,16}$/.test(CODE)) {   // 英大文字と数字だけ（上の CODE の検査に加えて念のため）
+    IOS_LINK = IOS + "?" + (/^[0-9]{1,20}$/.test(APP_STORE_PROVIDER_ID) ? "pt=" + APP_STORE_PROVIDER_ID + "&" : "") + "ct=invite&mt=8";
+    // Google Play のインストールリファラ：referrer=invite%3D<CODE>（アプリは初回起動で一度だけ読む）
+    ANDROID_LINK = ANDROID + "&referrer=" + encodeURIComponent("invite=" + CODE);
+  }
   if (!CODE && !GROUP) {
     if (isIOS) location.replace(IOS);
     else if (isAndroid && ANDROID_LIVE) location.replace(ANDROID);
@@ -62,7 +82,7 @@
   .soon{color:var(--muted);font-size:.9rem;line-height:1.6;margin:.4rem 0}
   .foot{display:flex;justify-content:center;gap:14px;margin-top:.5rem;font-size:.82rem}
   .foot a{color:var(--muted)}
-  .langs{display:flex;justify-content:center;gap:6px;margin-top:.5rem}
+  .langs{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:.5rem}
   .langs button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;font:inherit;font-size:.75rem;padding:3px 9px;cursor:pointer}
   .langs button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink);font-weight:700}
 </style>
@@ -91,7 +111,7 @@
     </section>
 
     <div id="stores">
-      <a class="btn" href="https://apps.apple.com/app/id6808814090">App Store（iPhone）</a>
+      <a class="btn" id="appStoreBtn" href="https://apps.apple.com/app/id6808814090">App Store（iPhone）</a>
       <a class="btn" id="playBtn" href="https://play.google.com/store/apps/details?id=com.pawplanet.app">Google Play（Android）</a>
       <p class="soon" id="androidSoon" data-i="soon" hidden></p>
     </div>
@@ -104,10 +124,14 @@
       <button type="button" data-l="en">English</button>
       <button type="button" data-l="zh-Hans">简体</button>
       <button type="button" data-l="zh-Hant">繁體</button>
+      <button type="button" data-l="ko">한국어</button>
+      <button type="button" data-l="es">Español</button>
+      <button type="button" data-l="de">Deutsch</button>
+      <button type="button" data-l="fr">Français</button>
     </div>
   </main>
 <script>
-  // 4か国語（アプリと同じ：日本語・英語・簡体字・繁体字）。端末の言語で自動選択、下のボタンで切替。
+  // 8か国語（アプリと同じ：日本語・英語・簡体字・繁体字・韓国語・スペイン語・ドイツ語・フランス語）。端末の言語で自動選択、下のボタンで切替。
   var T = {
     "ja": {
       title: "PawPlanet をダウンロード",
@@ -115,7 +139,7 @@
       lbl: "友だちからの招待コード",
       bonus: "コードを入れると、あなたに +150 パウ 🎁",
       step1: "下のボタンでコードをコピーして、アプリを入手",
-      step2: "アプリの「フレンド」で、コードを貼り付けて追加",
+      step2: "アプリの「フレンド」→『招待してくれた人のコード』に貼り付け",
       copyGo: "コードをコピーしてアプリを入手",
       openApp: "アプリを持っている人：そのまま友だちに追加",
       copied: "コピーしました：",
@@ -134,7 +158,7 @@
       lbl: "Invite code from your friend",
       bonus: "Enter the code to get +150 Paw 🎁",
       step1: "Copy the code with the button below and get the app",
-      step2: "In the app, open Friends and paste the code",
+      step2: "In the app, open Friends → “Who invited you?” and paste the code",
       copyGo: "Copy the code and get the app",
       openApp: "Already have the app? Add your friend now",
       copied: "Copied: ",
@@ -153,7 +177,7 @@
       lbl: "好友的邀请码",
       bonus: "输入邀请码，即可获得 +150 爪币 🎁",
       step1: "用下方按钮复制邀请码，然后下载应用",
-      step2: "在应用的“好友”中粘贴邀请码并添加",
+      step2: "在应用的“好友”→“邀请你的人的代码”中粘贴邀请码",
       copyGo: "复制邀请码并下载应用",
       openApp: "已安装应用？直接添加好友",
       copied: "已复制：",
@@ -172,7 +196,7 @@
       lbl: "好友的邀請碼",
       bonus: "輸入邀請碼，即可獲得 +150 爪幣 🎁",
       step1: "用下方按鈕複製邀請碼，然後下載 App",
-      step2: "在 App 的「好友」中貼上邀請碼並新增",
+      step2: "在 App 的「好友」→「邀請你的人的代碼」中貼上邀請碼",
       copyGo: "複製邀請碼並下載 App",
       openApp: "已安裝 App？直接新增好友",
       copied: "已複製：",
@@ -184,6 +208,82 @@
       gbonus: "和夥伴們每週比拼步數吧！🏃",
       gstep2: "在 App 的「群組」中選擇「用代碼加入」並貼上",
       gopenApp: "已安裝 App？直接加入群組"
+    },
+    "ko": {
+      title: "PawPlanet 다운로드",
+      tag: "걸어서 키우는 세계 일주 펫.",
+      lbl: "친구의 초대 코드",
+      bonus: "코드를 입력하면 +150 파우 🎁",
+      step1: "아래 버튼으로 코드를 복사하고 앱을 받으세요",
+      step2: "앱의 「친구」→ “초대해 준 사람”에 코드를 붙여넣기",
+      copyGo: "코드 복사하고 앱 받기",
+      openApp: "앱이 있나요? 바로 친구 추가",
+      copied: "복사했어요: ",
+      memo: "코드를 메모해 주세요: ",
+      soon: "Android 버전이 곧 공개됩니다!",
+      about: "PawPlanet 소개",
+      privacy: "개인정보",
+      glbl: "그룹 초대",
+      gbonus: "그룹과 매주 걸음 수를 겨뤄요! 🏃",
+      gstep2: "앱의 「그룹」→「코드로 참가」에 붙여넣기",
+      gopenApp: "앱이 있나요? 바로 그룹에 참가"
+    },
+    "es": {
+      title: "Descarga PawPlanet",
+      tag: "Camina para criar a tu mascota y dar la vuelta al mundo.",
+      lbl: "Código de invitación de tu amigo",
+      bonus: "Escribe el código y recibe +150 Paws 🎁",
+      step1: "Copia el código con el botón de abajo y descarga la app",
+      step2: "En la app, ve a Amigos → “¿Quién te invitó?” y pega el código",
+      copyGo: "Copiar el código y descargar la app",
+      openApp: "¿Ya tienes la app? Agrega a tu amigo ahora",
+      copied: "Copiado: ",
+      memo: "Anota el código: ",
+      soon: "¡La versión para Android llegará pronto!",
+      about: "Sobre PawPlanet",
+      privacy: "Privacidad",
+      glbl: "Invitación a un grupo",
+      gbonus: "¡Compite cada semana con tu grupo! 🏃",
+      gstep2: "En la app, ve a Grupo → Unirse con código y pégalo",
+      gopenApp: "¿Ya tienes la app? Únete al grupo ahora"
+    },
+    "de": {
+      title: "PawPlanet herunterladen",
+      tag: "Geh spazieren, lass dein Haustier wachsen und reise um die Welt.",
+      lbl: "Einladungscode von deinem Freund",
+      bonus: "Code eingeben und +150 Paw erhalten 🎁",
+      step1: "Kopiere den Code mit dem Button unten und hol dir die App",
+      step2: "In der App: Freunde → „Wer hat dich eingeladen?“ und Code einfügen",
+      copyGo: "Code kopieren und App holen",
+      openApp: "Du hast die App schon? Jetzt als Freund hinzufügen",
+      copied: "Kopiert: ",
+      memo: "Bitte notiere den Code: ",
+      soon: "Die Android-Version kommt bald!",
+      about: "Über PawPlanet",
+      privacy: "Datenschutz",
+      glbl: "Gruppeneinladung",
+      gbonus: "Tritt jede Woche gegen deine Gruppe an! 🏃",
+      gstep2: "In der App: Gruppe → Mit Code beitreten und einfügen",
+      gopenApp: "Du hast die App schon? Jetzt der Gruppe beitreten"
+    },
+    "fr": {
+      title: "Télécharger PawPlanet",
+      tag: "Marche pour faire grandir ton animal et faire le tour du monde.",
+      lbl: "Code d'invitation de ton ami",
+      bonus: "Saisis le code et reçois +150 Paw 🎁",
+      step1: "Copie le code avec le bouton ci-dessous et installe l'app",
+      step2: "Dans l'app : Amis → « Qui t'a invité ? » et colle le code",
+      copyGo: "Copier le code et installer l'app",
+      openApp: "Tu as déjà l'app ? Ajoute ton ami maintenant",
+      copied: "Copié : ",
+      memo: "Note le code : ",
+      soon: "La version Android arrive bientôt !",
+      about: "À propos de PawPlanet",
+      privacy: "Confidentialité",
+      glbl: "Invitation de groupe",
+      gbonus: "Affronte ton groupe chaque semaine ! 🏃",
+      gstep2: "Dans l'app : Groupe → Rejoindre avec un code et colle-le",
+      gopenApp: "Tu as déjà l'app ? Rejoins le groupe maintenant"
     }
   };
   function pickLang() {
@@ -193,6 +293,10 @@
       if (l.indexOf("ja") === 0) return "ja";
       if (l.indexOf("zh") === 0) return /hant|tw|hk|mo/.test(l) ? "zh-Hant" : "zh-Hans";
       if (l.indexOf("en") === 0) return "en";
+      if (l.indexOf("ko") === 0) return "ko";
+      if (l.indexOf("es") === 0) return "es";
+      if (l.indexOf("de") === 0) return "de";
+      if (l.indexOf("fr") === 0) return "fr";
     }
     return "en";
   }
@@ -220,6 +324,9 @@
     document.getElementById("playBtn").hidden = true;
     document.getElementById("androidSoon").hidden = false;
   }
+  // 招待コードがあるときは、PC などで見えるストアのボタンにも同じ印（キャンペーン・リファラ）を付ける
+  document.getElementById("appStoreBtn").href = IOS_LINK;
+  document.getElementById("playBtn").href = ANDROID_LINK;
   var SHOWN = CODE || GROUP;
   if (SHOWN) {
     document.getElementById("invite").hidden = false;
@@ -232,7 +339,7 @@
       document.getElementById("copyGo").hidden = true;
       document.getElementById("stores").hidden = false;
     }
-    var store = isIOS ? IOS : (isAndroid && ANDROID_LIVE ? ANDROID : null);
+    var store = isIOS ? IOS_LINK : (isAndroid && ANDROID_LIVE ? ANDROID_LINK : null);
     document.getElementById("copyGo").addEventListener("click", function () {
       var done = function (ok) {
         document.getElementById("toast").textContent = (ok ? T[LANG].copied : T[LANG].memo) + SHOWN;
