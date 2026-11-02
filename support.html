@@ -1,0 +1,1436 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PawPlanet サポート</title>
+<meta name="description" content="PawPlanet（iPhone / Android）のよくあるご質問とお問い合わせ先。歩数・ランキング・引き継ぎ・購入・プライバシーについて。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  /* 2026-11-02 全面改訂：8言語・目次・検索・折りたたみ。内容はアプリのコードと公開中のプライバシーポリシーで確認したものだけ。 */
+  :root{
+    --bg:#FBF6F0; --panel:#FFFFFF; --ink:#2E2A27; --muted:#79706A;
+    --line:#ECE2D8; --accent:#E7898A; --accent-ink:#B85E62; --grass:#7FB27A; --soft:#FBE9E7;
+    --shadow:0 1px 2px rgba(60,45,40,.04),0 10px 30px rgba(120,90,80,.07);
+    --f-body:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
+    --f-round:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans",sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1B1817; --panel:#252120; --ink:#EFE8E2; --muted:#A79C94;
+      --line:#37302C; --accent:#E7898A; --accent-ink:#F0A9AA; --grass:#8FBE8A; --soft:#3A2B2A;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.32);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1B1817; --panel:#252120; --ink:#EFE8E2; --muted:#A79C94;
+    --line:#37302C; --accent:#E7898A; --accent-ink:#F0A9AA; --grass:#8FBE8A; --soft:#3A2B2A;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 34px rgba(0,0,0,.32);
+  }
+  /* 中国語・韓国語は日本語フォントの字形が混ざらないよう端末のフォントで */
+  :root:lang(zh-Hans){--f-body:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;--f-round:var(--f-body)}
+  :root:lang(zh-Hant){--f-body:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;--f-round:var(--f-body)}
+  :root:lang(ko){--f-body:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;--f-round:var(--f-body)}
+  :lang(ko) body{word-break:keep-all}
+  *{box-sizing:border-box}
+  html{scroll-padding-top:1rem}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);line-height:1.75;-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+  .wrap{max-width:46rem;margin:0 auto;padding:clamp(1.5rem,4vw,3.2rem) 16px 4rem}
+  @media (min-width:600px){.wrap{padding-left:2rem;padding-right:2rem}}
+  header.masthead{display:flex;align-items:center;gap:.8rem;padding-bottom:1.3rem;border-bottom:1px solid var(--line);margin-bottom:1.2rem}
+  .paw{width:3rem;height:3rem;flex:0 0 auto;border-radius:50%;background:radial-gradient(circle at 50% 38%,#FBE3E1,#F3C7C6);display:grid;place-items:center;box-shadow:var(--shadow)}
+  .paw svg{width:1.7rem;height:1.7rem}
+  h1{font-family:var(--f-round);font-weight:700;font-size:clamp(1.45rem,4vw,1.95rem);margin:0;line-height:1.2}
+  h1 .sub{display:block;font-family:var(--f-body);font-weight:500;font-size:.88rem;color:var(--accent-ink);margin-top:.3rem}
+  .langs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 1.4rem}
+  .langs button{font:inherit;font-size:.78rem;line-height:1.7;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:2px 10px;cursor:pointer}
+  .langs button[aria-pressed="true"]{color:var(--accent-ink);border-color:var(--accent);font-weight:700}
+  .langs button:focus-visible,.toc a:focus-visible,summary:focus-visible,.search input:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px}
+  .lede{font-size:1rem;color:var(--muted);margin:0 0 1.2rem}
+  .search{position:relative;margin:0 0 .9rem}
+  .search input{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:.8rem;padding:.7rem 1rem .7rem 2.5rem;box-shadow:var(--shadow);-webkit-appearance:none;appearance:none}
+  .search svg{position:absolute;left:.85rem;top:50%;width:1.05rem;height:1.05rem;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+  .hits{font-size:.82rem;color:var(--muted);margin:-.3rem 0 .8rem;min-height:1.2em}
+  .toc{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 1.8rem;padding:0;list-style:none}
+  .toc a{display:inline-block;text-decoration:none;font-size:.85rem;font-weight:700;color:var(--ink);background:var(--soft);border-radius:999px;padding:.3rem .85rem}
+  section.cat{margin:0 0 2rem}
+  section.cat[hidden]{display:none}
+  h2{font-family:var(--f-round);font-weight:700;font-size:1.18rem;margin:0 0 .8rem;display:flex;align-items:center;gap:.45rem}
+  .faq{display:grid;gap:.7rem}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:.8rem;box-shadow:var(--shadow)}
+  details[hidden]{display:none}
+  summary{list-style:none;cursor:pointer;padding:.95rem 2.6rem .95rem 1.15rem;font-weight:700;position:relative;display:flex;gap:.5rem;align-items:baseline}
+  summary::-webkit-details-marker{display:none}
+  summary .mk{color:var(--accent-ink);font-family:var(--f-round);flex:0 0 auto}
+  summary::after{content:"";position:absolute;right:1.1rem;top:1.35rem;width:.5rem;height:.5rem;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s}
+  details[open] summary::after{transform:rotate(-135deg);top:1.55rem}
+  .ans{padding:0 1.15rem 1.05rem;color:var(--muted);font-size:.96rem;border-top:1px dashed var(--line);margin:0 .2rem}
+  .ans p{margin:.75rem 0 0}
+  .ans ol,.ans ul{margin:.6rem 0 0;padding-left:1.35rem}
+  .ans li{margin:.2rem 0}
+  .ans b{color:var(--ink)}
+  .ans h4{margin:.95rem 0 0;font-size:.9rem;color:var(--ink);display:flex;align-items:center;gap:.4rem}
+  .ans h4::before{content:"";width:.45rem;height:.45rem;border-radius:50%;background:var(--grass)}
+  .ans .note{font-size:.85rem}
+  .ans a{color:var(--accent-ink)}
+  mark{background:color-mix(in srgb,var(--accent) 30%,transparent);color:inherit;border-radius:.2rem}
+  .nohit{background:var(--panel);border:1px dashed var(--line);border-radius:.8rem;padding:1rem 1.15rem;color:var(--muted);margin:0 0 1.8rem}
+  .contact{padding:1.15rem 1.3rem;margin:2.2rem 0 0;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--grass);border-radius:.8rem;box-shadow:var(--shadow)}
+  .contact h2{margin-bottom:.5rem}
+  .contact p{margin:.4rem 0 0;color:var(--muted);font-size:.93rem}
+  .contact .mail{font-weight:700;font-size:1.05rem;color:var(--accent-ink);text-decoration:none}
+  footer{margin-top:2.4rem;padding-top:1.2rem;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:.4rem}
+  a{color:var(--accent-ink)}
+  noscript p{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <span class="paw" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="#C86B6E"><circle cx="7" cy="9.2" r="2"/><circle cx="12" cy="7.4" r="2.2"/><circle cx="17" cy="9.2" r="2"/><path d="M12 11.2c-3 0-5.4 2.2-5.4 4.6 0 1.9 1.7 2.7 3.4 2.7 1 0 1.4-.3 2-.3s1 .3 2 .3c1.7 0 3.4-.8 3.4-2.7 0-2.4-2.4-4.6-5.4-4.6z"/></svg>
+    </span>
+    <h1><span id="h1">PawPlanet サポート</span><span class="sub" id="sub">歩いて育てる、世界一周ペット</span></h1>
+  </header>
+
+  <div class="langs" id="langs" role="group" aria-label="Language">
+    <button type="button" data-l="ja">日本語</button>
+    <button type="button" data-l="en">English</button>
+    <button type="button" data-l="zh-Hans">简体中文</button>
+    <button type="button" data-l="zh-Hant">繁體中文</button>
+    <button type="button" data-l="ko">한국어</button>
+    <button type="button" data-l="es">Español</button>
+    <button type="button" data-l="de">Deutsch</button>
+    <button type="button" data-l="fr">Français</button>
+  </div>
+
+  <p class="lede" id="lede"></p>
+
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input type="search" id="q" autocomplete="off" enterkeyhint="search">
+  </div>
+  <p class="hits" id="hits" aria-live="polite"></p>
+
+  <nav aria-label="Contents"><ul class="toc" id="toc"></ul></nav>
+
+  <div id="faq"></div>
+  <div class="nohit" id="nohit" hidden></div>
+
+  <noscript>
+    <p>よくあるご質問の表示には JavaScript が必要です。お問い合わせは <a href="mailto:yoshitetsugames21@gmail.com">yoshitetsugames21@gmail.com</a> まで。<br>
+    JavaScript is required to show the FAQ. Contact: <a href="mailto:yoshitetsugames21@gmail.com">yoshitetsugames21@gmail.com</a></p>
+  </noscript>
+
+  <div class="contact" id="contact">
+    <h2 id="cH"></h2>
+    <a class="mail" href="mailto:yoshitetsugames21@gmail.com">yoshitetsugames21@gmail.com</a>
+    <p id="cNote"></p>
+    <p id="cApp"></p>
+  </div>
+
+  <footer>
+    <span>© 2026 PawPlanet</span>
+    <span><a id="privacyLink" href="privacy.html"></a> ・ <span id="updated"></span></span>
+    <span>com.pawplanet.app</span>
+  </footer>
+</div>
+
+<script>
+/* ================================================================
+ * 公開の前に確かめるスイッチ
+ *  SHOW_164：1.6.4 の「友だちだけ（ランキングには出ない）」の案内を出すか。
+ *            iPhone・Android の両方で 1.6.4 が公開されたら true に。
+ * ================================================================ */
+var SHOW_164 = false;
+
+var IOS_URL = "https://apps.apple.com/app/id6808814090";
+var PLAY_URL = "https://play.google.com/store/apps/details?id=com.pawplanet.app";
+var MAIL = "yoshitetsugames21@gmail.com";
+var REPORT_MAIL = "yoshitetsugames21+report@gmail.com";
+
+/* 各言語：ui＝画面の文字、cats＝質問のまとまり。答えは HTML（<p> <ol> <ul> <h4> <b> <a> だけを使う）。
+ * 「v164: true」の段落は SHOW_164 が true のときだけ出す。 */
+var T = {};
+</script>
+<script>
+T.ja = {
+  ui: {
+    title: "PawPlanet サポート",
+    h1: "PawPlanet サポート",
+    sub: "歩いて育てる、世界一周ペット",
+    lede: "PawPlanet をご利用いただきありがとうございます。よくあるご質問をまとめました。質問を押すと答えが開きます。見つからないときは、いちばん下の窓口へお気軽にどうぞ。",
+    search: "例：歩数、引き継ぎ、復元",
+    hits: "%n 件見つかりました",
+    nohit: "当てはまる質問が見つかりませんでした。言葉を変えて探すか、下の窓口へお問い合わせください。",
+    cH: "お問い合わせ",
+    cNote: "日本語・English どちらでも。フレンドコード（フレンド画面）・アプリのバージョン・機種を添えていただくと、確認が早くなります。",
+    cApp: "アプリの設定「不具合報告・ご意見」からも送れます（個別のお返事は基本的にできませんが、すべて拝見しています）。",
+    privacy: "プライバシーポリシー",
+    updated: "最終更新 2026-11-02"
+  },
+  cats: [
+    { id: "steps", icon: "👟", title: "歩数・ペット", items: [
+      { id: "steps-missing", q: "歩数が出ない・増えない", a:
+        "<p>PawPlanet は、スマホに記録された歩数を<b>読み取るだけ</b>です。歩数はアプリを開いたときに反映されます。</p>" +
+        "<h4>iPhone</h4><ol>" +
+        "<li>「ヘルスケア」アプリに、きょうの歩数が入っているか確かめてください（iPhone 本体や Apple Watch が数えた歩数です）。</li>" +
+        "<li>入っているのに増えないときは、iPhone の「設定 &gt; プライバシーとセキュリティ &gt; ヘルスケア &gt; PawPlanet」で「歩数」をオンにしてください。</li>" +
+        "<li>ヘルスケアに歩数が無いときは、「設定 &gt; PawPlanet」で「モーションとフィットネス」をオンにすると、iPhone の歩数計で数えられます（バージョン 1.6.3 から。ホームに「iPhoneの歩数計を使う」が出ていれば、そこからも選べます）。</li>" +
+        "<li>アプリの設定「ヘルスケア」の「歩数の許可」が「読み取れています」なら大丈夫です。「歩数の許可をリクエスト」からも確かめられます。</li></ol>" +
+        "<h4>Android</h4><ol>" +
+        "<li>ヘルスコネクト（Health Connect）アプリ（機種によっては Android の「設定」の中）に、きょうの歩数が入っているか確かめてください。スマホ本体や Google Fit・Samsung Health・スマートウォッチのアプリなど、ヘルスコネクトに歩数を書き込むアプリの歩数を読み取ります。</li>" +
+        "<li>入っているのに増えないときは、ヘルスコネクトの「アプリの権限」で PawPlanet の「歩数」の読み取りをオンにしてください。</li>" +
+        "<li>ヘルスコネクトに歩数が無いときは、「身体活動」の許可をオンにすると、スマホの歩数計で数えられます（バージョン 1.6.3 から。ホームに「スマホの歩数計を使う」が出ていれば、そこから選べます）。</li>" +
+        "<li>アプリの設定「歩数（ヘルスコネクト）」の「歩数の許可」が「読み取れています」なら大丈夫です。</li></ol>" },
+      { id: "steps-diff", q: "歩数がヘルスケアと違う・反映が遅い", a:
+        "<ul>" +
+        "<li>歩数は、アプリを開いたとき（ホームを開いている間もこまめに）読み込みます。開かなかった日の歩数も、<b>14日前まで</b>さかのぼって受け取れます。</li>" +
+        "<li><b>はじめてアプリを使った日より前</b>の歩数は数えません（その日の歩数は、使い始める前の分も数えます）。</li>" +
+        "<li>ヘルスケア（Android はヘルスコネクト）とスマホの歩数計の両方を使っているときは、<b>日ごとに多いほう</b>を使います。足し合わせることはありません。Apple Watch の歩数はヘルスケアから届きます。</li>" +
+        "<li>Android では、ほかのアプリがヘルスコネクトへ歩数を書き込むのが遅れると、PawPlanet での反映も遅れます。</li>" +
+        "<li>iPhone でランキングに参加していると、アプリを閉じていても、iPhone の都合に合わせて（多くても1時間に1回ほど）歩数を送ることがあります。アプリを上にスワイプして終了していると届きません。Android はアプリを開いている間だけ読み込み・送信します。いちばん確実なのは、アプリを開くことです。</li></ul>" },
+      { id: "pet-away", q: "ペットがいなくなった（家出した）", a:
+        "<p>エサをあげないまま、おなかが0になって<b>4日</b>たつと（エサなしで約7日）、ペットはさみしくなっておうちに帰ってしまいます。ホームに「おでかけ中…」と出ているのがその合図です。<b>ペットや図鑑が消えることはありません。</b></p>" +
+        "<p>ホームの「むかえに いく（エサ1つ）」を押せば、すぐに帰ってきます。エサが足りないときは、歩いて集めましょう。通知がオンなら、家出しそうなときに前もってお知らせします。</p>" }
+    ]},
+    { id: "rank", icon: "🏆", title: "ランキング・友だち", items: [
+      { id: "rank-schedule", q: "ランキングはいつ締め切り・確定するの？", a:
+        "<p>週間ランキング（世界・リーグ・フレンド）は、<b>日本時間の月曜0:00〜日曜23:59</b>の歩数でくらべます。日曜の終わりで区切られて「暫定」になり、<b>48時間後の水曜0:00（日本時間）に確定</b>します。それまでにアプリを開けば、その週の歩数もきちんと反映されます。</p>" +
+        "<p>暫定のあいだは、あとからアプリを開いた人の歩数が入って順位が入れ替わることがあります。上位のごほうび（週間の世界ランキング10位以内にパウ）や、リーグの昇格・降格は、確定のときに決まります。</p>" +
+        "<p>歴代ランキングはリセットされません。歴代の累計は週ごとの記録から数え、アプリを開かなかった週も<b>4週間前まで</b>はさかのぼって入ります（それより前の週は、アプリの中の累計には入りますが、歴代ランキングには入りません）。</p>" },
+      { id: "rank-missing", q: "ランキングに出ない・順位や歩数がおかしい", a:
+        "<p>次の点を確かめてください。</p><ul>" +
+        "<li><b>参加しているか</b>：ランキングは参加した人だけが表示されます。ランキング画面から参加し、設定の「ランキングに参加する」がオンになっているか確かめてください。</li>" +
+        "<li><b>アプリを開いたか</b>：歩数はアプリを開いたときに送ります。週の確定（水曜0:00 日本時間）までに一度開いてください。</li>" +
+        "<li><b>暫定か確定か</b>：月曜・火曜は前の週がまだ暫定で、順位が動くことがあります。</li>" +
+        "<li><b>始める前の歩数</b>：アプリを始めた日より前の歩数・週は、ランキングに入りません。</li>" +
+        "<li><b>別の端末の記録</b>：「この記録は、別の端末でランキングに出ていたもの」と出ているときは、同じ人が2人並ばないよう、この端末からは歩数を送っていません。前の端末があれば、設定の「データの引き継ぎ」で同じアカウントのまま続けられます。</li>" +
+        "<li><b>表示名</b>：不適切な言葉を含む名前は、自動でほかの名前に置き換わります。</li></ul>" +
+        "<p>それでもおかしいときは、フレンドコードと、気づいた週・画面を添えてご連絡ください。</p>" },
+      { id: "rank-optout", q: "ランキングに名前や歩数を出したくない", a:
+        "<p>ランキングに参加すると、飼い主のなまえ・いっしょに歩いているペット（名前・すがた・レベル）・歩数が、ランキングを見るみんなに表示されます。フレンドには、旅でいまいる街（ゲームの中の街で、あなたの現在地ではありません）も見えます。</p>" +
+        "<p>出たくないときは、設定の「<b>ランキングに参加する</b>」をオフにしてください。名前と歩数がランキングに出なくなり、歩数の送信も止まります。<b>記録は消えず</b>、いつでも戻せます。友だちはそのままです（お休み中の週は順位・ごほうびがありません）。競争グループに入っている間は、グループ内の順位のために今週の歩数だけ送ります（そのグループのメンバーにだけ表示されます）。</p>" +
+        "<p v164>最新版（1.6.4）では、参加するときに「<b>友だちだけ（ランキングには出ない）</b>」も選べます。飼い主名とペットは友だちにだけ見え、友だち・招待・ギフト・グループはそのまま使えます。</p>" +
+        "<p>飼い主のなまえは、設定の「飼い主のなまえ」でいつでも変えられます。本名は使わないのがおすすめです。</p>" },
+      { id: "invite", q: "招待コード・招待のごほうびの条件は？", a:
+        "<p>フレンド画面の「リンクで招待」や「画像で友だちを誘う」（QRコード）で、あなたのフレンドコードを友だちに送ります。</p>" +
+        "<h4>招待された友だち</h4><ul><li>アプリを始めて<b>14日以内に1回だけ</b>、フレンド画面の「招待してくれた人のコード」にコードを入れると、すぐに <b>+150パウ</b>（受信ボックスに届きます）。</li></ul>" +
+        "<h4>招待したあなた</h4><ul>" +
+        "<li>友だちが <b>3,000歩</b>あるいて、<b>次の日以降もアプリを開く</b>と「1人」と数え、<b>+300パウ</b>が受信ボックスの「招待ボーナス」に届きます（届いてから60日以内に受け取ってください）。進み具合は受信ボックスの「受け取り待ち」で見られます。</li>" +
+        "<li>さらに<b>5人ごとに +1,500パウ</b>。節目には特別ボーナス（50人 +5,000・100人ごと +30,000・1000人 +200,000）。</li>" +
+        "<li>5人・10人・30人で、招待でしか会えない限定ペット（マネキ・イナリ・コマモリ）が仲間になります。</li></ul>" +
+        "<p class=\"note\">・同じ人が招待された扱いになるのは1回だけ（お互いに招待し合っても1回分）・ごほうびの対象は1日20人まで・ごほうびの不正を防ぐため、アプリと端末が本物かを Apple／Google の仕組みで確かめています。複数アカウントなど不正な方法で得たごほうびは取り消すことがあります。数字は 2026年11月時点のもので、最新の条件はアプリの「友だち招待のしくみ」に表示されます。</p>" },
+      { id: "names", q: "いやな名前の人がいる・通報やブロックをしたい", a:
+        "<p>不適切な表示名は自動で置き換えていますが、気になる人がいたら次の方法が使えます。</p><ul>" +
+        "<li><b>通報</b>：ランキングやフレンドで相手のメニュー（iPhone はランキングの行を左へスワイプ、または長押し）から「通報する」を選ぶと、運営あてのメールが開きます。メールで直接 <a href=\"mailto:" + "yoshitetsugames21+report@gmail.com" + "\">yoshitetsugames21+report@gmail.com</a> へ送っていただいてもかまいません。確認のうえ、表示名の削除などを行います。</li>" +
+        "<li><b>非表示・ブロック</b>：相手があなたの画面から消えます（ブロックは友だちからも外します）。ランキング画面の「非表示にした人」から解除できます。</li></ul>" }
+    ]},
+    { id: "shop", icon: "🥚", title: "パウ・購入・広告", items: [
+      { id: "restore", q: "買ったものが反映されない・購入を復元したい", a:
+        "<p>通信のよい場所で、「ショップ」のいちばん下、または「パウパス」画面の下にある「<b>購入を復元</b>」を押してください。同じ Apple ID（Android は同じ Google アカウント）で買った<b>パウパス・シーズンパス</b>が戻ります。</p>" +
+        "<p>お金で買った<b>パウ・エサのパック</b>は復元の対象ではありません。データ（iPhone は iCloud、両方とも引き継ぎコード）といっしょに移り、リセットしても残ります（iPhone でバージョン 1.5.0 より前に買った分は、リセットすると戻りません）。</p>" +
+        "<p>代金が請求されたのに届いていないときは、購入日時と、ストアの領収書にある注文番号、フレンドコードを添えてご連絡ください。</p>" },
+      { id: "cancel-refund", q: "パウパスの解約・返金・子どもの課金", a:
+        "<h4>解約</h4><p>パウパス（月額の自動更新）は、いつでも解約できます。iPhone は App Store の「サブスクリプション」、Android は Google Play の「定期購入」から（加入中は「パウパス」画面の「サブスクリプションの管理」／「定期購入の管理」からも開けます）。アプリを削除しただけでは解約になりません。</p>" +
+        "<h4>返金</h4><p>お支払いは Apple または Google が処理しているため、返金の手続きも各ストアで行います。iPhone は <a href=\"https://reportaproblem.apple.com/\" rel=\"noopener\">reportaproblem.apple.com</a>、Android は Google Play の注文履歴から返金をリクエストできます。クレジットカード番号などの決済情報を当方が受け取ることはありません。</p>" +
+        "<h4>お子さまの課金</h4><p>iPhone は「スクリーンタイム」の「承認と購入のリクエスト」、Android は Google Play の「購入時の認証」や保護者による使用制限で、お買い物を止められます。</p>" },
+      { id: "gacha", q: "たまごガチャの確率は？", a:
+        "<p>ホームの「たまごガチャ」を開くと、それぞれのたまごに「<b>排出確率（1個ごと）</b>」が出ています。ひらく前に、いつでも確かめられます。★4以上・★5が確定するまでの残りの数も表示されます。</p>" +
+        "<p>確率はみんな同じで、パウパスに加入しても変わりません。</p>" },
+      { id: "ads", q: "広告は見ないといけないの？", a:
+        "<p>見なくても、すべて遊べます。広告は、「きょうの無料たまご」や名産の取り寄せなど、<b>「動画を見てごほうびをもらう」ボタンを自分で押したときだけ</b>流れます。パウパスに加入中は、広告を見ずに同じごほうびを受け取れます（1日の回数はそのまま）。</p>" +
+        "<p>広告は Unity（Unity LevelPlay／Unity Ads）が配信します。トラッキングの許可（ATT）は求めず、ヘルスケアのデータを広告に使うことはありません。欧州経済領域・英国・スイスでは、パーソナライズ広告の前に同意を伺います。</p>" }
+    ]},
+    { id: "data", icon: "📱", title: "データ・引き継ぎ", items: [
+      { id: "new-phone", q: "機種変更・アプリの入れ直しのとき、データはどうなる？", a:
+        "<h4>iPhone → iPhone</h4><p>同じ Apple ID で iCloud にサインインしていれば、データは iCloud に自動で保存され、新しい iPhone や入れ直したアプリでそのまま戻ります。念のため、引き継ぎコードも発行しておくと安心です。</p>" +
+        "<h4>Android → Android</h4><p>データは新しいスマホへ<b>自動では移りません</b>（Google のバックアップで戻ることもありますが、確実ではありません）。機種変更・入れ直しの前に、必ず引き継ぎコードを発行して、合言葉といっしょに控えてください。</p>" +
+        "<h4>iPhone ⇄ Android（引き継ぎコード）</h4><ol>" +
+        "<li>今のスマホで、設定の「データの引き継ぎ」→「引き継ぎコードを発行」を押し、合言葉（<b>4桁の数字</b>）を決める。</li>" +
+        "<li>表示された引き継ぎコード（<b>12文字</b>）と合言葉を控える。</li>" +
+        "<li>新しいスマホにアプリを入れ、設定の「データの引き継ぎ」→「コードで引き継ぐ」で入力する。</li></ol>" +
+        "<p>ペット・図鑑・持ち物・パウ・旅・歩数の記録に加えて、ランキングの記録や友だちも移ります。<b>パウパス・シーズンパスは買ったストアごとの購入</b>なので、OS をまたいでは移りません（同じストアなら「購入を復元」で戻ります）。新しいスマホにもともとあったデータは控えに残り、14日以内なら設定の「引き継ぐ前のデータに戻す」で戻せます。</p>" },
+      { id: "lost-code", q: "引き継ぎコードや合言葉をなくした", a:
+        "<p>コードと合言葉は、発行したスマホの設定「データの引き継ぎ」にいつでも表示されています（合言葉は目のボタンで表示）。まずはそこで確かめてください。</p>" +
+        "<p>発行したスマホが手元にないときは、コードや合言葉を調べ直したり、作り直したりすることはできません。合言葉は暗号にして保存しているため、運営でもわかりません。同じ Apple ID の iPhone どうしなら、コードがなくても iCloud で引き継げます。</p>" +
+        "<p>合言葉を10回続けてまちがえると、1時間入力できなくなります。</p>" },
+      { id: "data-lost", q: "データが消えた・前の状態に戻したい", a:
+        "<ul>" +
+        "<li><b>リセットしてしまった</b>：14日以内なら、設定の「データ」にある「リセットを元に戻す」で戻せます。今のデータと控えを並べて確かめてから入れ替えます。</li>" +
+        "<li><b>引き継ぎで上書きしてしまった</b>：14日以内なら、設定の「引き継ぐ前のデータに戻す」で戻せます。</li>" +
+        "<li><b>iPhone で入れ直した・新しい iPhone</b>：同じ Apple ID で iCloud にサインインしているか確かめてください。家族で同じ Apple ID を使っていると「iCloud に別の記録があります」と出ることがあります。切り替えても今の記録は消えず、14日間は元に戻せます。</li>" +
+        "<li><b>Android で入れ直した</b>：引き継ぎコードがあれば「コードで引き継ぐ」で戻せます。</li>" +
+        "<li><b>ペットがいない</b>：家出しているだけかもしれません（「ペットがいなくなった」をご覧ください）。</li></ul>" +
+        "<p>どれにも当てはまらないときは、フレンドコード（わかれば引き継ぎコード）を添えてご連絡ください。お調べします。</p>" },
+      { id: "delete", q: "退会したい・データを消したい", a:
+        "<p>PawPlanet に会員登録はありません。データを消すには、次の2つの手順があります。</p><ol>" +
+        "<li><b>アプリ内でリセット</b>：設定の「データ」→「データをリセット」で、端末内のセーブデータ（ペット・パウ・旅の記録など）が消え、新しい匿名アカウントに切り替わります。直前のデータは14日間だけ端末内に控えとして残ります。アプリを削除しても、iPhone ではアカウントの鍵がキーチェーンに残り、入れ直すと同じアカウントに戻ります（iCloud の分は iPhone の iCloud 設定から削除できます）。</li>" +
+        "<li><b>サーバー上のデータの削除を依頼</b>：表示名・歩数・フレンドコード・引き継ぎデータなど、サーバーに保存されたデータの削除をご希望の場合は、<b>フレンドコードまたは引き継ぎコード</b>を添えて下記へご連絡ください。受付から<b>30日以内</b>に削除します。氏名・メールアドレスの提出は不要です。</li></ol>" +
+        "<p>パウパスは、アプリを消しても自動では解約されません（「パウパスの解約」をご覧ください）。</p>" }
+    ]},
+    { id: "other", icon: "🔒", title: "プライバシー・その他", items: [
+      { id: "privacy", q: "どんな情報を送るの？送らないものは？", a:
+        "<h4>集めないもの</h4><p>氏名・メールアドレス・電話番号・正確な位置情報（GPS）・連絡先は集めません。ログインは匿名で、会員登録もありません。歩いた区間や位置、計測した機器の名前も保存しません。歩数を広告・分析に使うこともありません。</p>" +
+        "<h4>送るもの（ランキング・フレンドに参加したとき）</h4><p>表示名、ペットの名前・すがた・レベル、お庭の見た目、バッジ、今週・前週・累計の歩数と今日の歩数、ポイントと順位、ゲームの中の旅でいる街（現在地ではありません）、フレンドコード、パウパスの加入状態、友だち・グループ・ギフト・招待の記録、アプリを開いた日付（400日で自動削除）などを、匿名IDに紐づけて当社サーバーへ送ります。ランキングを公平に保つため、歩数がとくに多い日などに限り、その日の合計・いちばん歩いた1時間の歩数・手入力された歩数を送ることがあります。</p>" +
+        "<h4>そのほか</h4><p>引き継ぎコードを発行するとセーブデータ一式を（最後の更新から1年で削除）、ご意見フォームを使うと本文とアプリ・OS の版・機種名を保存します。招待の不正防止のため、アプリと端末が本物かを Apple／Google の仕組みで確かめ、その結果を保存します。広告を見るときは、広告会社（Unity）に端末の識別子などが送られます。</p>" +
+        "<p>くわしくは <a class=\"js-privacy\" href=\"privacy.html\">プライバシーポリシー</a> をご覧ください。</p>" },
+      { id: "notifications", q: "通知を止めたい・届かない", a:
+        "<p>通知は、お世話のリマインドや、ペットが家出しそうなとき、しばらくアプリを開いていないときなどにお届けします。通知がなくても遊べます。</p>" +
+        "<p>止めたいときは、アプリの設定「一般」にある「通知」をオフにしてください（スマホの「設定」からもオフにできます）。届かないときは、アプリの「通知」がオンか、スマホの「設定」で PawPlanet の通知が許可されているかを確かめてください。</p>" },
+      { id: "android", q: "Android 版はある？iPhone 版とのちがいは？", a:
+        "<p>あります。<a href=\"https://play.google.com/store/apps/details?id=com.pawplanet.app\" rel=\"noopener\">Google Play</a> からどうぞ（Android 8.0 以降）。iPhone 版は <a href=\"https://apps.apple.com/app/id6808814090\" rel=\"noopener\">App Store</a>（iOS 16 以降）です。</p>" +
+        "<p>ランキングやフレンドは iPhone・Android 共通で、OS がちがう友だちとも遊べます。おもなちがいは次のとおりです。</p><ul>" +
+        "<li>歩数の取り元：iPhone は「ヘルスケア」と iPhone の歩数計、Android はヘルスコネクトとスマホの歩数計。</li>" +
+        "<li>データの保存：iPhone は iCloud に自動で保存されますが、Android は自動では移りません。機種変更の前に引き継ぎコードを発行してください。</li>" +
+        "<li>歩数の送信：Android はアプリを開いている間だけ歩数を読み込み・送ります。</li>" +
+        "<li>購入：iPhone は App Store、Android は Google Play。パウパスは OS をまたいで移りません。</li></ul>" },
+      { id: "contact", q: "問い合わせ先は？", a:
+        "<p>アプリの設定「<b>不具合報告・ご意見</b>」から、そのまま送れます。個別のお返事は基本的にできませんが、いただいた声はすべて拝見しています。大切なお知らせがあるときは、受信ボックスの「運営からのお知らせ」でお届けすることがあります。</p>" +
+        "<p>メールの場合は <a href=\"mailto:yoshitetsugames21@gmail.com\">yoshitetsugames21@gmail.com</a> へ（日本語・English どちらでも）。フレンドコード・アプリのバージョン・機種を添えていただくと、確認が早くなります。不適切な利用者の通報は <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a> でも受け付けています。</p>" }
+    ]}
+  ]
+};
+</script>
+<script>
+T.en = {
+  ui: {
+    title: "PawPlanet Support",
+    h1: "PawPlanet Support",
+    sub: "Walk and raise your globe-trotting pet",
+    lede: "Thanks for playing PawPlanet! Here are answers to the most common questions. Tap a question to open the answer. Can't find what you need? Contact us at the bottom of the page.",
+    search: "e.g. steps, transfer, restore",
+    hits: "%n results",
+    nohit: "No matching questions. Try other words, or contact us below.",
+    cH: "Contact us",
+    cNote: "Japanese or English is fine. Including your friend code (Friends screen), app version and phone model helps us check faster.",
+    cApp: "You can also write to us from “Feedback & Bug Report” in the app’s Settings. We usually can’t reply individually, but we read every message.",
+    privacy: "Privacy Policy",
+    updated: "Last updated 2026-11-02"
+  },
+  cats: [
+    { id: "steps", icon: "👟", title: "Steps & Pets", items: [
+      { id: "steps-missing", q: "My steps don’t show up or don’t go up", a:
+        "<p>PawPlanet only <b>reads</b> the steps recorded on your phone. Steps are updated when you open the app.</p>" +
+        "<h4>iPhone</h4><ol>" +
+        "<li>Check that today’s steps appear in the Health app (counted by your iPhone or Apple Watch).</li>" +
+        "<li>If they do but PawPlanet doesn’t go up, turn on “Steps” in iPhone Settings &gt; Privacy &amp; Security &gt; Health &gt; PawPlanet.</li>" +
+        "<li>If Health has no steps, turn on “Motion &amp; Fitness” in Settings &gt; PawPlanet so the iPhone step counter can count them (from version 1.6.3; if “Use iPhone step counter” appears on the Home screen, you can choose it there too).</li>" +
+        "<li>In the app’s Settings under “Health”, “Step Access” should say “Reading steps”. You can also check with “Request Step Access”.</li></ol>" +
+        "<h4>Android</h4><ol>" +
+        "<li>Check that today’s steps appear in the Health Connect app (on some phones it’s inside Android Settings). PawPlanet reads steps that your phone or apps like Google Fit, Samsung Health or your smartwatch’s app write to Health Connect.</li>" +
+        "<li>If they do but PawPlanet doesn’t go up, open “App permissions” in Health Connect and allow PawPlanet to read “Steps”.</li>" +
+        "<li>If Health Connect has no steps, allow “Physical activity” so your phone’s step counter can count them (from version 1.6.3; if “Use phone step counter” appears on the Home screen, choose it there).</li>" +
+        "<li>In the app’s Settings under “Steps (Health Connect)”, “Step Access” should say “Reading steps”.</li></ol>" },
+      { id: "steps-diff", q: "My steps differ from Health, or update late", a:
+        "<ul>" +
+        "<li>Steps are read when you open the app (and regularly while the Home screen is open). Days you didn’t open the app are picked up for up to <b>14 days back</b>.</li>" +
+        "<li>Steps from <b>before the day you first used the app</b> aren’t counted (steps earlier on that first day do count).</li>" +
+        "<li>If both Health (Health Connect on Android) and the phone’s step counter are used, we take <b>the higher number for each day</b>. They are never added together. Apple Watch steps come through Health.</li>" +
+        "<li>On Android, if another app is slow to write steps to Health Connect, PawPlanet updates later too.</li>" +
+        "<li>On iPhone, if you’ve joined the rankings, steps may be sent while the app is closed, when iOS allows it (at most about once an hour). This doesn’t happen if you swiped the app away. On Android, steps are only read and sent while the app is open. Opening the app is always the surest way.</li></ul>" },
+      { id: "pet-away", q: "My pet is gone (it ran away)", a:
+        "<p>If your pet’s tummy stays at 0 for <b>4 days</b> without food (about 7 days with no food at all), it gets lonely and goes home. “Out for a while…” on the Home screen is the sign. <b>Your pets and Pet Book are never lost.</b></p>" +
+        "<p>Tap “Go get them (1 Food)” on the Home screen and your pet comes right back. Short on food? Walk to collect more. With notifications on, we’ll warn you before your pet leaves.</p>" }
+    ]},
+    { id: "rank", icon: "🏆", title: "Rankings & Friends", items: [
+      { id: "rank-schedule", q: "When do the rankings close and become final?", a:
+        "<p>Weekly rankings (World, League, Friends) compare steps from <b>Monday 00:00 to Sunday 23:59, Japan time (UTC+9)</b>. At the end of Sunday they become “provisional”, and they’re <b>finalized 48 hours later, on Wednesday 00:00 Japan time</b>. Open the app before then and that week’s steps are fully counted.</p>" +
+        "<p>While provisional, ranks can still change as other people open the app. Top rewards (Paws for the top 10 of the weekly World ranking) and league promotion/relegation are decided when the week is finalized.</p>" +
+        "<p>The all-time ranking is never reset. All-time totals are built from weekly records; weeks you didn’t open the app are counted up to <b>4 weeks back</b> (older weeks still count in the app’s own total, but not in the all-time ranking).</p>" },
+      { id: "rank-missing", q: "I’m not in the rankings, or my rank/steps look wrong", a:
+        "<p>Please check the following.</p><ul>" +
+        "<li><b>Have you joined?</b> Only people who join appear. Join from the Ranking screen and check that “Join the rankings” is on in Settings.</li>" +
+        "<li><b>Have you opened the app?</b> Steps are sent when you open the app. Open it at least once before the week is finalized (Wednesday 00:00 Japan time).</li>" +
+        "<li><b>Provisional or final?</b> On Monday and Tuesday, last week is still provisional and ranks can move.</li>" +
+        "<li><b>Steps from before you started</b>: steps and weeks from before the day you started the app aren’t ranked.</li>" +
+        "<li><b>Data from another device</b>: if the app says this data was shown in the rankings from another device, this device isn’t sending steps, so the same person doesn’t appear twice. If you still have the other device, use “Data Transfer” in Settings to keep the same account.</li>" +
+        "<li><b>Display name</b>: names containing inappropriate words are automatically replaced.</li></ul>" +
+        "<p>Still wrong? Contact us with your friend code and the week/screen where you noticed it.</p>" },
+      { id: "rank-optout", q: "I don’t want my name or steps in the rankings", a:
+        "<p>When you join the rankings, your name, the pet walking with you (name, look, level) and your steps are shown to everyone viewing the rankings. Friends can also see the city your journey is in (an in-game city, not your real location).</p>" +
+        "<p>To stay out, turn off “<b>Join the rankings</b>” in Settings. Your name and steps no longer appear and steps stop being sent. <b>Your records are kept</b> and you can rejoin anytime. Your friends stay (weeks while you’re out have no rank or rewards). While you’re in a competitive group, only this week’s steps are sent for that group’s ranking (shown only to its members).</p>" +
+        "<p v164>In the latest version (1.6.4), you can also choose “<b>Friends only (not in the rankings)</b>” when you join. Your name and pet are visible only to friends, and friends, invites, gifts and groups all still work.</p>" +
+        "<p>You can change your name anytime under “Your name” in Settings. We recommend not using your real name.</p>" },
+      { id: "invite", q: "How do invite codes and invite rewards work?", a:
+        "<p>Send your friend code to a friend with “Invite by link” or “Invite friends with an image” (QR code) on the Friends screen.</p>" +
+        "<h4>The friend you invite</h4><ul><li>Within <b>14 days of starting the app, once only</b>, they enter your code under “Who invited you?” on their Friends screen and get <b>+150 Paws</b> right away (in their Inbox).</li></ul>" +
+        "<h4>You</h4><ul>" +
+        "<li>When your friend walks <b>3,000 steps</b> and <b>opens the app again on a later day</b>, they count as “1 person” and <b>+300 Paws</b> arrive under “Invite bonus” in your Inbox (claim within 60 days). You can follow progress under “Pending” in the Inbox.</li>" +
+        "<li>Plus <b>+1,500 Paws for every 5 people</b>, and special milestone bonuses (50 people +5,000 · every 100 people +30,000 · 1,000 people +200,000).</li>" +
+        "<li>At 5, 10 and 30 people, invite-only limited pets (Maneki, Inari, Komamori) join you.</li></ul>" +
+        "<p class=\"note\">A person can be invited only once (inviting each other counts once) · rewards count for up to 20 people per day · to prevent abuse, we check that the app and device are genuine using Apple/Google services. Rewards gained unfairly (e.g. with multiple accounts) may be revoked. Figures are as of November 2026; the latest rules are shown in the app under “How friend invites work”.</p>" },
+      { id: "names", q: "Someone has an offensive name / I want to report or block", a:
+        "<p>Inappropriate names are replaced automatically, but if someone bothers you:</p><ul>" +
+        "<li><b>Report</b>: choose “Report” from that person’s menu in the rankings or Friends (on iPhone, swipe a ranking row left or long-press it). An email to us opens. You can also write directly to <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>. We review reports and remove names when needed.</li>" +
+        "<li><b>Hide / Block</b>: the person disappears from your screens (blocking also removes them as a friend). You can undo this under “Hidden people” on the Ranking screen.</li></ul>" }
+    ]},
+    { id: "shop", icon: "🥚", title: "Paws, Purchases & Ads", items: [
+      { id: "restore", q: "My purchase didn’t arrive / How do I restore purchases?", a:
+        "<p>With a good connection, tap “<b>Restore Purchases</b>” at the bottom of the Shop or the PawPass screen. <b>PawPass and Season Pass</b> bought with the same Apple ID (same Google account on Android) come back.</p>" +
+        "<p><b>Paw and food packs</b> bought with money aren’t restored this way. They move with your data (iCloud on iPhone, a transfer code on both) and stay even if you reset (on iPhone, packs bought before version 1.5.0 don’t come back after a reset).</p>" +
+        "<p>Charged but nothing arrived? Contact us with the purchase date and time, the order number on your store receipt, and your friend code.</p>" },
+      { id: "cancel-refund", q: "Canceling PawPass, refunds, and purchases by children", a:
+        "<h4>Cancel</h4><p>PawPass (monthly, auto-renewing) can be canceled anytime: on iPhone from “Subscriptions” in the App Store, on Android from “Subscriptions” in Google Play (while subscribed, you can also open it from the PawPass screen). Deleting the app does not cancel it.</p>" +
+        "<h4>Refunds</h4><p>Payments are handled by Apple or Google, so refunds are requested from the store: on iPhone at <a href=\"https://reportaproblem.apple.com/\" rel=\"noopener\">reportaproblem.apple.com</a>, on Android from your Google Play order history. We never receive payment details such as card numbers.</p>" +
+        "<h4>Children</h4><p>You can stop purchases with Screen Time’s “Ask to Buy” on iPhone, or with Google Play’s purchase authentication and parental controls on Android.</p>" },
+      { id: "gacha", q: "What are the Egg Gacha odds?", a:
+        "<p>Open “Egg Gacha” from the Home screen: every egg shows its “<b>Drop rates (per egg)</b>”, so you can check them anytime before opening. It also shows how many eggs are left until a guaranteed ★4+ or ★5.</p>" +
+        "<p>The odds are the same for everyone and don’t change with PawPass.</p>" },
+      { id: "ads", q: "Do I have to watch ads?", a:
+        "<p>No — you can play everything without them. Ads only play <b>when you tap a “watch a video for a reward” button yourself</b>, such as “Today’s Free Egg” or ordering a local specialty. With PawPass, you get the same rewards without ads (daily limits stay the same).</p>" +
+        "<p>Ads are served by Unity (Unity LevelPlay / Unity Ads). We don’t ask for tracking permission (ATT), and health data is never used for ads. In the EEA, the UK and Switzerland, we ask for consent before showing personalized ads.</p>" }
+    ]},
+    { id: "data", icon: "📱", title: "Data & Transfer", items: [
+      { id: "new-phone", q: "What happens to my data when I change phones or reinstall?", a:
+        "<h4>iPhone → iPhone</h4><p>If you’re signed in to iCloud with the same Apple ID, your data is saved to iCloud automatically and comes back on a new iPhone or after reinstalling. Creating a transfer code as well is a good backup.</p>" +
+        "<h4>Android → Android</h4><p>Data is <b>not moved automatically</b> (a Google backup may restore it, but not reliably). Before changing phones or reinstalling, always create a transfer code and note it together with the passcode.</p>" +
+        "<h4>iPhone ⇄ Android (transfer code)</h4><ol>" +
+        "<li>On your current phone, go to Settings → “Data Transfer” → “Create a transfer code” and choose a passcode (<b>4 digits</b>).</li>" +
+        "<li>Note the transfer code shown (<b>12 characters</b>) and the passcode.</li>" +
+        "<li>Install the app on the new phone and enter them in Settings → “Data Transfer” → “Restore from a code”.</li></ol>" +
+        "<p>Your pets, Pet Book, items, Paws, journey and step records move, along with your ranking records and friends. <b>PawPass and Season Pass are purchases tied to the store</b> you bought them in, so they don’t move between iPhone and Android (within the same store, use “Restore Purchases”). Any data already on the new phone is kept as a backup; within 14 days you can go back with “Restore data from before the transfer” in Settings.</p>" },
+      { id: "lost-code", q: "I lost my transfer code or passcode", a:
+        "<p>Your code and passcode are always shown on the phone that created them, in Settings under “Data Transfer” (tap the eye button to show the passcode). Please check there first.</p>" +
+        "<p>Without that phone, the code and passcode can’t be looked up or created again. The passcode is stored encrypted, so even we can’t see it. Between iPhones with the same Apple ID, iCloud moves your data even without a code.</p>" +
+        "<p>After 10 wrong passcodes in a row, entry is locked for 1 hour.</p>" },
+      { id: "data-lost", q: "My data is gone / I want to go back", a:
+        "<ul>" +
+        "<li><b>You reset by mistake</b>: within 14 days, use “Undo reset” under “Data” in Settings. You compare your current data and the backup before swapping.</li>" +
+        "<li><b>A transfer overwrote your data</b>: within 14 days, use “Restore data from before the transfer” in Settings.</li>" +
+        "<li><b>Reinstalled, or a new iPhone</b>: check that you’re signed in to iCloud with the same Apple ID. If your family shares one Apple ID, you may see “Different data found in iCloud”. Switching doesn’t delete your current data, and you can switch back within 14 days.</li>" +
+        "<li><b>Reinstalled on Android</b>: if you have a transfer code, use “Restore from a code”.</li>" +
+        "<li><b>Your pet is missing</b>: it may just have run away (see “My pet is gone”).</li></ul>" +
+        "<p>None of these? Contact us with your friend code (and transfer code, if you have one) and we’ll look into it.</p>" },
+      { id: "delete", q: "How do I delete my account or data?", a:
+        "<p>PawPlanet has no sign-up. There are two steps to delete data.</p><ol>" +
+        "<li><b>Reset in the app</b>: Settings → “Data” → “Reset Data” erases the save data on your device (pets, Paws, journey records) and switches you to a new anonymous account. Your previous data stays on the device for 14 days as a backup. On iPhone, your account keys stay in the Keychain even if you delete the app, and reinstalling restores the same account (iCloud copies can be removed in your iPhone’s iCloud settings).</li>" +
+        "<li><b>Ask us to delete server data</b>: to delete data stored on our server (display name, steps, friend code, transfer data, etc.), contact us with your <b>friend code or transfer code</b>. We delete it <b>within 30 days</b>. No name or email is needed.</li></ol>" +
+        "<p>Deleting the app does not cancel PawPass (see “Canceling PawPass”).</p>" }
+    ]},
+    { id: "other", icon: "🔒", title: "Privacy & More", items: [
+      { id: "privacy", q: "What information is sent, and what isn’t?", a:
+        "<h4>Not collected</h4><p>No name, email, phone number, precise location (GPS) or contacts. Sign-in is anonymous with no account. We don’t store routes, locations or the names of the devices that counted your steps, and steps are never used for ads or analytics.</p>" +
+        "<h4>Sent when you join the rankings/friends</h4><p>Your display name, pet’s name/look/level, garden look, badges, weekly/previous-week/lifetime steps and today’s steps, points and ranks, the in-game city you’re in (not your real location), friend code, PawPass status, friends/groups/gifts/invite records and the dates you open the app (deleted after 400 days) are sent to our server, linked to an anonymous ID. To keep rankings fair, on days with unusually high steps and similar cases only, we may send that day’s total, your busiest hour’s steps and manually entered steps.</p>" +
+        "<h4>Other</h4><p>Creating a transfer code stores your full save data (deleted one year after the last update); the feedback form stores your message with app/OS version and phone model. To prevent invite abuse, we check with Apple/Google that the app and device are genuine and store the result. When you watch an ad, device identifiers and similar data are sent to the ad provider (Unity).</p>" +
+        "<p>See the <a class=\"js-privacy\" href=\"privacy.html\">Privacy Policy</a> for details.</p>" },
+      { id: "notifications", q: "How do I stop notifications? / I don’t get them", a:
+        "<p>We send notifications such as care reminders, a warning when your pet is about to run away, and a nudge when you haven’t opened the app for a while. The app works without them.</p>" +
+        "<p>To stop them, turn off “Notifications” under “General” in the app’s Settings (you can also turn them off in your phone’s Settings). Not getting them? Check that “Notifications” is on in the app and that PawPlanet is allowed to send notifications in your phone’s Settings.</p>" },
+      { id: "android", q: "Is there an Android version? How is it different?", a:
+        "<p>Yes. Get it on <a href=\"https://play.google.com/store/apps/details?id=com.pawplanet.app\" rel=\"noopener\">Google Play</a> (Android 8.0 or later). The iPhone version is on the <a href=\"https://apps.apple.com/app/id6808814090\" rel=\"noopener\">App Store</a> (iOS 16 or later).</p>" +
+        "<p>Rankings and friends are shared between iPhone and Android, so you can play with friends on either. The main differences:</p><ul>" +
+        "<li>Step source: Health and the iPhone step counter on iPhone; Health Connect and the phone’s step counter on Android.</li>" +
+        "<li>Saving: iPhone saves to iCloud automatically; Android doesn’t move data automatically, so create a transfer code before changing phones.</li>" +
+        "<li>Sending steps: on Android, steps are read and sent only while the app is open.</li>" +
+        "<li>Purchases: App Store on iPhone, Google Play on Android. PawPass doesn’t move between them.</li></ul>" },
+      { id: "contact", q: "How do I contact you?", a:
+        "<p>Use “<b>Feedback &amp; Bug Report</b>” in the app’s Settings. We usually can’t reply individually, but we read every message. Important notices may be sent to “News from the team” in your Inbox.</p>" +
+        "<p>By email: <a href=\"mailto:yoshitetsugames21@gmail.com\">yoshitetsugames21@gmail.com</a> (Japanese or English). Including your friend code, app version and phone model helps us check faster. Reports about other users are also accepted at <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>.</p>" }
+    ]}
+  ]
+};
+</script>
+<script>
+T["zh-Hans"] = {
+  ui: {
+    title: "PawPlanet 客服中心",
+    h1: "PawPlanet 客服中心",
+    sub: "走路养成，环游世界的伙伴",
+    lede: "感谢你游玩 PawPlanet！这里整理了常见问题，点一下问题就能展开答案。如果找不到需要的内容，欢迎通过页面底部的联系方式找我们。",
+    search: "例如：步数、迁移、恢复",
+    hits: "找到 %n 条",
+    nohit: "没有找到相关问题。请换个词再搜，或通过下方的联系方式联系我们。",
+    cH: "联系我们",
+    cNote: "日语或英语均可。附上你的好友码（好友页面）、App 版本和机型，我们能更快确认。",
+    cApp: "也可以在 App 设置的“反馈与报错”中直接发送（原则上无法逐一回复，但每条我们都会认真阅读）。",
+    privacy: "隐私政策",
+    updated: "最后更新 2026-11-02"
+  },
+  cats: [
+    { id: "steps", icon: "👟", title: "步数与伙伴", items: [
+      { id: "steps-missing", q: "步数不显示、不增加", a:
+        "<p>PawPlanet 只会<b>读取</b>手机里记录的步数。打开 App 时步数会更新。</p>" +
+        "<h4>iPhone</h4><ol>" +
+        "<li>先确认“健康”App 里有今天的步数（由 iPhone 或 Apple Watch 计算）。</li>" +
+        "<li>有步数却不增加时，请在 iPhone 的“设置 &gt; 隐私与安全性 &gt; 健康 &gt; PawPlanet”中开启“步数”。</li>" +
+        "<li>“健康”中没有步数时，在“设置 &gt; PawPlanet”中开启“运动与健身”，就能用 iPhone 计步器计步（1.6.3 版起。主页出现“使用 iPhone 计步器”时也可以从那里开启）。</li>" +
+        "<li>在 App 设置的“健康”中，“步数访问权限”显示“可读取”就没问题。也可以通过“申请步数访问权限”确认。</li></ol>" +
+        "<h4>Android</h4><ol>" +
+        "<li>先在“健康数据共享”（Health Connect）App（部分机型在 Android 的“设置”中）确认有今天的步数。PawPlanet 读取手机本身或 Google Fit、Samsung Health、智能手表 App 等写入“健康数据共享”的步数。</li>" +
+        "<li>有步数却不增加时，请在“健康数据共享”的“应用权限”中允许 PawPlanet 读取“步数”。</li>" +
+        "<li>“健康数据共享”中没有步数时，允许“身体活动”权限，就能用手机计步器计步（1.6.3 版起。主页出现“使用手机计步器”时可从那里开启）。</li>" +
+        "<li>在 App 设置的“步数（健康数据共享）”中，“步数访问权限”显示“可读取”就没问题。</li></ol>" },
+      { id: "steps-diff", q: "步数和“健康”不一样、更新得慢", a:
+        "<ul>" +
+        "<li>步数会在打开 App 时读取（主页开着时也会经常重新读取）。没打开 App 的日子，最多可以追溯 <b>14 天</b>补记。</li>" +
+        "<li><b>第一次使用 App 那天之前</b>的步数不计入（当天开始使用前走的步数会计入）。</li>" +
+        "<li>同时使用“健康”（Android 为“健康数据共享”）和手机计步器时，<b>每天取较多的一方</b>，不会相加。Apple Watch 的步数通过“健康”传入。</li>" +
+        "<li>在 Android 上，如果其他 App 写入“健康数据共享”较慢，PawPlanet 的更新也会延后。</li>" +
+        "<li>在 iPhone 上，加入排行榜后，即使关闭 App，也可能在 iOS 允许时（最多约每小时一次）发送步数；如果把 App 上滑关闭则不会发送。Android 只在 App 打开时读取和发送步数。最可靠的方法是打开 App。</li></ul>" },
+      { id: "pet-away", q: "伙伴不见了（离家出走）", a:
+        "<p>如果一直不喂食物，肚子变成 0 后再过 <b>4 天</b>（完全不喂约 7 天），伙伴会因为寂寞而回家。主页显示“离开了一阵子…”就是这个信号。<b>伙伴和图鉴都不会消失。</b></p>" +
+        "<p>点主页的“去接它（1 份食物）”，它马上就会回来。食物不够时，走路就能收集。开启通知的话，在它快要离家前会提醒你。</p>" }
+    ]},
+    { id: "rank", icon: "🏆", title: "排行榜与好友", items: [
+      { id: "rank-schedule", q: "排行榜什么时候截止、结算？", a:
+        "<p>每周排行榜（世界、联赛、好友）比较<b>日本时间周一 0:00 到周日 23:59</b>（UTC+9）的步数。周日结束时截止并成为“暂定”，<b>48 小时后的周三 0:00（日本时间）正式结算</b>。在此之前打开 App，该周步数都会完整计入。</p>" +
+        "<p>暂定期间，其他人之后打开 App，排名仍可能变动。前几名的奖励（每周世界排行榜前 10 名获得爪币）以及联赛的晋级与降级，都在结算时决定。</p>" +
+        "<p>总榜永不重置。总榜累计按每周记录计算，没打开 App 的周最多追溯 <b>4 周</b>（更早的周会计入 App 内的累计，但不计入总榜）。</p>" },
+      { id: "rank-missing", q: "排行榜上没有我、排名或步数不对", a:
+        "<p>请确认以下几点。</p><ul>" +
+        "<li><b>是否已加入</b>：只有加入的人才会显示。请从排行榜页面加入，并确认设置中的“加入排行榜”已开启。</li>" +
+        "<li><b>是否打开过 App</b>：步数在打开 App 时发送。请在本周结算（日本时间周三 0:00）前至少打开一次。</li>" +
+        "<li><b>暂定还是已结算</b>：周一、周二时上一周仍是暂定，排名可能变动。</li>" +
+        "<li><b>开始前的步数</b>：开始使用 App 之前的步数和周不会进入排行榜。</li>" +
+        "<li><b>另一台设备的记录</b>：如果 App 提示这份记录曾在另一台设备上出现在排行榜中，为避免同一个人出现两次，本设备不会发送步数。如果还有之前的设备，请使用设置中的“数据迁移”，继续用同一个账号。</li>" +
+        "<li><b>显示名称</b>：含有不当词语的名字会被自动替换。</li></ul>" +
+        "<p>仍然不对的话，请附上好友码以及发现问题的那一周和页面联系我们。</p>" },
+      { id: "rank-optout", q: "不想在排行榜上显示名字和步数", a:
+        "<p>加入排行榜后，主人名字、一起散步的伙伴（名字、样子、等级）和步数会显示给所有查看排行榜的人。好友还能看到你旅途中所在的城市（游戏里的城市，不是你的真实位置）。</p>" +
+        "<p>不想显示时，请关闭设置中的“<b>加入排行榜</b>”。名字和步数将不再出现在排行榜上，也会停止发送步数。<b>记录不会消失</b>，随时可以恢复。好友关系保持不变（暂停期间的周没有排名和奖励）。加入竞争小组期间，只会为该小组的排名发送本周步数（只显示给小组成员）。</p>" +
+        "<p v164>在最新版（1.6.4）中，加入时还可以选择“<b>只给好友看（不上排行榜）</b>”。主人名字和伙伴只有好友能看到，好友、邀请、礼物和小组照常使用。</p>" +
+        "<p>主人名字随时可以在设置的“主人名字”中修改。建议不要使用真实姓名。</p>" },
+      { id: "invite", q: "邀请码和邀请奖励的条件是什么？", a:
+        "<p>在好友页面用“用链接邀请”或“用图片邀请好友”（二维码），把你的好友码发给好友。</p>" +
+        "<h4>被邀请的好友</h4><ul><li>在开始使用 App 后 <b>14 天内、仅限 1 次</b>，在好友页面的“邀请你的人的代码”中输入代码，立即获得 <b>+150 爪币</b>（送到收件箱）。</li></ul>" +
+        "<h4>邀请人（你）</h4><ul>" +
+        "<li>好友走满 <b>3,000 步</b>，并且<b>第二天以后再次打开 App</b>，就算作“1 人”，<b>+300 爪币</b>会送到收件箱的“邀请奖励”（请在送达后 60 天内领取）。进度可在收件箱的“等待领取”中查看。</li>" +
+        "<li>另外<b>每满 5 人 +1,500 爪币</b>，达到里程碑还有特别奖励（50 人 +5,000、每 100 人 +30,000、1000 人 +200,000）。</li>" +
+        "<li>满 5 人、10 人、30 人时，只有邀请才能获得的限定伙伴（招福猫 Maneki、稻荷 Inari、狛守 Komamori）会加入。</li></ul>" +
+        "<p class=\"note\">同一个人只能被邀请 1 次（互相邀请也只算 1 次）・每天最多 20 人可获得奖励・为防止滥用，我们会通过 Apple／Google 的机制确认 App 和设备是否真实。以不正当方式（如多个账号）获得的奖励可能会被取消。以上数字为 2026 年 11 月时的内容，最新条件请查看 App 内的“好友邀请说明”。</p>" },
+      { id: "names", q: "有人名字令人不快／想举报或屏蔽", a:
+        "<p>不当的显示名称会被自动替换。如果仍有让你在意的人，可以这样做：</p><ul>" +
+        "<li><b>举报</b>：在排行榜或好友中，从对方的菜单（iPhone 可在排行榜的一行向左滑动或长按）选择“举报”，会打开发给运营方的邮件。也可以直接发邮件到 <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>。我们确认后，会视情况删除显示名称等。</li>" +
+        "<li><b>隐藏／屏蔽</b>：对方会从你的画面中消失（屏蔽还会解除好友关系）。可在排行榜页面的“已隐藏的人”中取消。</li></ul>" }
+    ]},
+    { id: "shop", icon: "🥚", title: "爪币、购买与广告", items: [
+      { id: "restore", q: "购买的内容没有到账／想恢复购买", a:
+        "<p>请在网络良好的地方，点“商店”最下方或 PawPass 页面下方的“<b>恢复购买</b>”。用同一个 Apple 账户（Android 为同一个 Google 账号）购买的 <b>PawPass 和季票</b>会恢复。</p>" +
+        "<p>用钱购买的<b>爪币和食物礼包</b>不在恢复范围内。它们会随数据一起转移（iPhone 通过 iCloud，两者都可通过迁移码），重置后也会保留（iPhone 上 1.5.0 版之前购买的部分，重置后无法恢复）。</p>" +
+        "<p>已经扣款却没有到账时，请附上购买时间、商店收据上的订单号和好友码联系我们。</p>" },
+      { id: "cancel-refund", q: "取消 PawPass、退款、孩子的购买", a:
+        "<h4>取消</h4><p>PawPass（按月自动续订）随时可以取消：iPhone 在 App Store 的“订阅”中，Android 在 Google Play 的“订阅”中操作（订阅期间也可以从 PawPass 页面的“管理订阅”打开）。只删除 App 并不会取消订阅。</p>" +
+        "<h4>退款</h4><p>付款由 Apple 或 Google 处理，退款也需要在各商店申请：iPhone 可在 <a href=\"https://reportaproblem.apple.com/\" rel=\"noopener\">reportaproblem.apple.com</a> 申请，Android 可在 Google Play 的订单记录中申请。我们不会收到信用卡号等支付信息。</p>" +
+        "<h4>孩子的购买</h4><p>iPhone 可用“屏幕使用时间”的“购买前询问”，Android 可用 Google Play 的“购买时需要验证身份”和家长控制来限制购买。</p>" },
+      { id: "gacha", q: "蛋扭蛋的概率是多少？", a:
+        "<p>在主页打开“蛋扭蛋”，每种蛋都会显示“<b>掉落概率（每个）</b>”，打开前随时可以确认。还会显示距离必得★4以上或★5还剩几个。</p>" +
+        "<p>概率对每个人都一样，加入 PawPass 也不会改变。</p>" },
+      { id: "ads", q: "一定要看广告吗？", a:
+        "<p>不看也能玩全部内容。只有当<b>你自己点“看视频领奖励”的按钮</b>（例如“今日免费蛋”或订购特产）时，才会播放广告。加入 PawPass 期间，不看广告也能领取同样的奖励（每日次数不变）。</p>" +
+        "<p>广告由 Unity（Unity LevelPlay／Unity Ads）投放。我们不会请求跟踪许可（ATT），也绝不会把健康数据用于广告。在欧洲经济区、英国和瑞士，展示个性化广告前会先征求同意。</p>" }
+    ]},
+    { id: "data", icon: "📱", title: "数据与迁移", items: [
+      { id: "new-phone", q: "换手机或重新安装时，数据会怎样？", a:
+        "<h4>iPhone → iPhone</h4><p>只要用同一个 Apple 账户登录 iCloud，数据就会自动保存到 iCloud，在新 iPhone 或重新安装的 App 中直接恢复。保险起见，也建议生成一个迁移码。</p>" +
+        "<h4>Android → Android</h4><p>数据<b>不会自动转移</b>到新手机（有时会通过 Google 备份恢复，但并不可靠）。换机或重装前，请务必生成迁移码，并和口令一起记下来。</p>" +
+        "<h4>iPhone ⇄ Android（迁移码）</h4><ol>" +
+        "<li>在现在的手机上，打开设置的“数据迁移”→“生成迁移码”，设定口令（<b>4 位数字</b>）。</li>" +
+        "<li>记下显示的迁移码（<b>12 个字符</b>）和口令。</li>" +
+        "<li>在新手机上安装 App，在设置的“数据迁移”→“用迁移码恢复”中输入。</li></ol>" +
+        "<p>伙伴、图鉴、道具、爪币、旅程和步数记录，以及排行榜记录和好友都会转移。<b>PawPass 和季票是按购买商店区分的</b>，无法在 iPhone 和 Android 之间转移（同一商店内可用“恢复购买”）。新手机上原有的数据会保留备份，14 天内可在设置的“恢复迁移前的数据”中恢复。</p>" },
+      { id: "lost-code", q: "迁移码或口令丢了", a:
+        "<p>迁移码和口令会一直显示在生成它的手机的设置“数据迁移”中（点眼睛按钮显示口令）。请先在那里确认。</p>" +
+        "<p>如果那部手机不在身边，就无法重新查询或重新生成迁移码和口令。口令经过加密保存，连运营方也无法得知。同一个 Apple 账户的 iPhone 之间，即使没有迁移码也能通过 iCloud 迁移。</p>" +
+        "<p>连续输错口令 10 次，将有 1 小时无法输入。</p>" },
+      { id: "data-lost", q: "数据不见了／想恢复到之前的状态", a:
+        "<ul>" +
+        "<li><b>不小心重置了</b>：14 天内可在设置“数据”中的“撤销重置”恢复。会先并列显示当前数据和备份，确认后再替换。</li>" +
+        "<li><b>迁移时覆盖了数据</b>：14 天内可在设置的“恢复迁移前的数据”中恢复。</li>" +
+        "<li><b>iPhone 重装或换了新 iPhone</b>：请确认已用同一个 Apple 账户登录 iCloud。家人共用一个 Apple 账户时，可能会出现“iCloud 中有另一份记录”。切换后当前记录也不会消失，14 天内可以切换回来。</li>" +
+        "<li><b>Android 重装</b>：有迁移码的话，可用“用迁移码恢复”找回。</li>" +
+        "<li><b>伙伴不见了</b>：可能只是离家出走了（请看“伙伴不见了”）。</li></ul>" +
+        "<p>以上都不符合时，请附上好友码（如有迁移码也一并附上）联系我们，我们会帮你查询。</p>" },
+      { id: "delete", q: "想注销、删除数据", a:
+        "<p>PawPlanet 没有会员注册。删除数据有以下两个步骤。</p><ol>" +
+        "<li><b>在 App 内重置</b>：在设置“数据”→“重置数据”，设备内的存档（伙伴、爪币、旅程记录等）会被删除，并切换到新的匿名账号。之前的数据会作为备份在设备内保留 14 天。iPhone 上即使删除 App，账号密钥也会留在钥匙串中，重新安装后会回到同一个账号（iCloud 中的部分可在 iPhone 的 iCloud 设置中删除）。</li>" +
+        "<li><b>申请删除服务器上的数据</b>：如需删除保存在服务器上的数据（显示名称、步数、好友码、迁移数据等），请附上<b>好友码或迁移码</b>联系我们。我们会在受理后 <b>30 天内</b>删除。无需提供姓名或邮箱。</li></ol>" +
+        "<p>删除 App 不会自动取消 PawPass（请看“取消 PawPass”）。</p>" }
+    ]},
+    { id: "other", icon: "🔒", title: "隐私与其他", items: [
+      { id: "privacy", q: "会发送哪些信息？哪些不会发送？", a:
+        "<h4>不收集的信息</h4><p>不收集姓名、邮箱、电话号码、精确位置（GPS）和通讯录。登录是匿名的，也没有会员注册。不保存走过的路线、位置或计步设备的名称，步数也绝不会用于广告或分析。</p>" +
+        "<h4>加入排行榜／好友时发送的信息</h4><p>显示名称、伙伴的名字／样子／等级、庭院外观、徽章、本周／上周／累计步数和今天的步数、积分和排名、游戏旅程中所在的城市（不是你的真实位置）、好友码、PawPass 订阅状态、好友／小组／礼物／邀请记录，以及打开 App 的日期（400 天后自动删除）等，会与匿名 ID 关联发送到我们的服务器。为保持排行榜公平，仅在步数特别多等情况下，可能会发送当天的合计、步数最多的 1 小时的步数，以及手动输入的步数。</p>" +
+        "<h4>其他</h4><p>生成迁移码时会保存完整存档（最后更新 1 年后删除）；使用反馈表单时会保存内容以及 App／系统版本和机型。为防止邀请被滥用，我们会通过 Apple／Google 的机制确认 App 和设备是否真实，并保存结果。观看广告时，设备标识符等信息会发送给广告商（Unity）。</p>" +
+        "<p>详情请看<a class=\"js-privacy\" href=\"privacy.html\">隐私政策</a>（英文）。</p>" },
+      { id: "notifications", q: "想关闭通知／收不到通知", a:
+        "<p>我们会发送照顾提醒、伙伴快要离家时的提醒、很久没打开 App 时的问候等通知。不开启通知也能正常游玩。</p>" +
+        "<p>想关闭时，请关闭 App 设置“通用”中的“通知”（也可以在手机的“设置”中关闭）。收不到时，请确认 App 中的“通知”已开启，并且手机的“设置”允许 PawPlanet 发送通知。</p>" },
+      { id: "android", q: "有 Android 版吗？和 iPhone 版有什么不同？", a:
+        "<p>有。请在 <a href=\"https://play.google.com/store/apps/details?id=com.pawplanet.app\" rel=\"noopener\">Google Play</a> 下载（Android 8.0 以上）。iPhone 版在 <a href=\"https://apps.apple.com/app/id6808814090\" rel=\"noopener\">App Store</a>（iOS 16 以上）。</p>" +
+        "<p>排行榜和好友在 iPhone 和 Android 之间是共通的，可以和使用不同系统的好友一起玩。主要区别如下：</p><ul>" +
+        "<li>步数来源：iPhone 为“健康”和 iPhone 计步器，Android 为“健康数据共享”和手机计步器。</li>" +
+        "<li>数据保存：iPhone 会自动保存到 iCloud；Android 不会自动转移，换机前请生成迁移码。</li>" +
+        "<li>步数发送：Android 只在 App 打开时读取和发送步数。</li>" +
+        "<li>购买：iPhone 通过 App Store，Android 通过 Google Play。PawPass 无法跨系统转移。</li></ul>" },
+      { id: "contact", q: "怎样联系你们？", a:
+        "<p>可以在 App 设置的“<b>反馈与报错</b>”中直接发送。原则上无法逐一回复，但每条意见我们都会认真阅读。有重要通知时，可能会通过收件箱的“官方消息”发送。</p>" +
+        "<p>邮件请发送至 <a href=\"mailto:yoshitetsugames21@gmail.com\">yoshitetsugames21@gmail.com</a>（日语或英语均可）。附上好友码、App 版本和机型，我们能更快确认。举报不当用户也可以发送至 <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>。</p>" }
+    ]}
+  ]
+};
+</script>
+<script>
+T["zh-Hant"] = {
+  ui: {
+    title: "PawPlanet 客服中心",
+    h1: "PawPlanet 客服中心",
+    sub: "走路養成，環遊世界的夥伴",
+    lede: "感謝你遊玩 PawPlanet！這裡整理了常見問題，點一下問題就能展開答案。如果找不到需要的內容，歡迎透過頁面最下方的聯絡方式找我們。",
+    search: "例如：步數、轉移、回復",
+    hits: "找到 %n 筆",
+    nohit: "沒有找到相關問題。請換個詞再搜尋，或透過下方的聯絡方式與我們聯繫。",
+    cH: "聯絡我們",
+    cNote: "日文或英文皆可。附上你的好友代碼（好友畫面）、App 版本和機型，我們能更快確認。",
+    cApp: "也可以在 App 設定的「意見回饋與問題回報」中直接傳送（原則上無法逐一回覆，但每一則我們都會仔細閱讀）。",
+    privacy: "隱私權政策",
+    updated: "最後更新 2026-11-02"
+  },
+  cats: [
+    { id: "steps", icon: "👟", title: "步數與夥伴", items: [
+      { id: "steps-missing", q: "步數沒有顯示、沒有增加", a:
+        "<p>PawPlanet 只會<b>讀取</b>手機裡記錄的步數。打開 App 時步數會更新。</p>" +
+        "<h4>iPhone</h4><ol>" +
+        "<li>先確認「健康」App 裡有今天的步數（由 iPhone 或 Apple Watch 計算）。</li>" +
+        "<li>有步數卻沒有增加時，請到 iPhone 的「設定 &gt; 隱私權與安全性 &gt; 健康 &gt; PawPlanet」開啟「步數」。</li>" +
+        "<li>「健康」中沒有步數時，到「設定 &gt; PawPlanet」開啟「動作與健身」，就能用 iPhone 計步器計步（1.6.3 版起。首頁出現「使用 iPhone 計步器」時也可以從那裡開啟）。</li>" +
+        "<li>在 App 設定的「健康」中，「步數存取權」顯示「可讀取」就沒問題。也可以透過「要求步數存取權」確認。</li></ol>" +
+        "<h4>Android</h4><ol>" +
+        "<li>先在「健康資料同步」（Health Connect）App（部分機型在 Android 的「設定」中）確認有今天的步數。PawPlanet 會讀取手機本身或 Google Fit、Samsung Health、智慧手錶 App 等寫入「健康資料同步」的步數。</li>" +
+        "<li>有步數卻沒有增加時，請在「健康資料同步」的「應用程式權限」中允許 PawPlanet 讀取「步數」。</li>" +
+        "<li>「健康資料同步」中沒有步數時，允許「體能活動」權限，就能用手機計步器計步（1.6.3 版起。首頁出現「使用手機計步器」時可從那裡開啟）。</li>" +
+        "<li>在 App 設定的「步數（健康資料同步）」中，「步數存取權」顯示「可讀取」就沒問題。</li></ol>" },
+      { id: "steps-diff", q: "步數和「健康」不一樣、更新得慢", a:
+        "<ul>" +
+        "<li>步數會在打開 App 時讀取（首頁開著時也會經常重新讀取）。沒打開 App 的日子，最多可以回溯 <b>14 天</b>補記。</li>" +
+        "<li><b>第一次使用 App 那天之前</b>的步數不計入（當天開始使用前走的步數會計入）。</li>" +
+        "<li>同時使用「健康」（Android 為「健康資料同步」）和手機計步器時，<b>每天取較多的一方</b>，不會相加。Apple Watch 的步數會透過「健康」傳入。</li>" +
+        "<li>在 Android 上，如果其他 App 寫入「健康資料同步」較慢，PawPlanet 的更新也會延後。</li>" +
+        "<li>在 iPhone 上，參加排行榜後，即使關閉 App，也可能在 iOS 允許時（最多約每小時一次）傳送步數；如果把 App 往上滑關閉則不會傳送。Android 只在 App 打開時讀取和傳送步數。最可靠的方法是打開 App。</li></ul>" },
+      { id: "pet-away", q: "夥伴不見了（離家出走）", a:
+        "<p>如果一直不餵食物，肚子變成 0 之後再過 <b>4 天</b>（完全不餵約 7 天），夥伴會因為寂寞而回家。首頁顯示「出門了一陣子…」就是這個訊號。<b>夥伴和圖鑑都不會消失。</b></p>" +
+        "<p>點首頁的「去接牠（1 份食物）」，牠馬上就會回來。食物不夠時，走路就能收集。開啟通知的話，在牠快要離家前會提醒你。</p>" }
+    ]},
+    { id: "rank", icon: "🏆", title: "排行榜與好友", items: [
+      { id: "rank-schedule", q: "排行榜什麼時候截止、結算？", a:
+        "<p>每週排行榜（世界、聯賽、好友）比較<b>日本時間週一 0:00 到週日 23:59</b>（UTC+9）的步數。週日結束時截止並成為「暫定」，<b>48 小時後的週三 0:00（日本時間）正式結算</b>。在此之前打開 App，該週步數都會完整計入。</p>" +
+        "<p>暫定期間，其他人之後打開 App，排名仍可能變動。前幾名的獎勵（每週世界排行榜前 10 名獲得爪幣）以及聯賽的晉級與降級，都在結算時決定。</p>" +
+        "<p>歷代排行榜不會重設。歷代累計依每週紀錄計算，沒打開 App 的週最多回溯 <b>4 週</b>（更早的週會計入 App 內的累計，但不計入歷代排行榜）。</p>" },
+      { id: "rank-missing", q: "排行榜上沒有我、排名或步數不對", a:
+        "<p>請確認以下幾點。</p><ul>" +
+        "<li><b>是否已參加</b>：只有參加的人才會顯示。請從排行榜畫面參加，並確認設定中的「參加排行榜」已開啟。</li>" +
+        "<li><b>是否打開過 App</b>：步數在打開 App 時傳送。請在該週結算（日本時間週三 0:00）前至少打開一次。</li>" +
+        "<li><b>暫定還是已結算</b>：週一、週二時上一週仍是暫定，排名可能變動。</li>" +
+        "<li><b>開始前的步數</b>：開始使用 App 之前的步數和週不會進入排行榜。</li>" +
+        "<li><b>另一台裝置的紀錄</b>：如果 App 提示這份紀錄曾在另一台裝置上出現在排行榜中，為避免同一個人出現兩次，本裝置不會傳送步數。如果還有之前的裝置，請使用設定中的「資料轉移」，以同一個帳號繼續。</li>" +
+        "<li><b>顯示名稱</b>：含有不當詞語的名字會被自動替換。</li></ul>" +
+        "<p>仍然不對的話，請附上好友代碼以及發現問題的那一週和畫面與我們聯繫。</p>" },
+      { id: "rank-optout", q: "不想在排行榜上顯示名字和步數", a:
+        "<p>參加排行榜後，飼主名字、一起散步的夥伴（名字、樣子、等級）和步數會顯示給所有查看排行榜的人。好友還能看到你旅途中所在的城市（遊戲裡的城市，不是你的真實位置）。</p>" +
+        "<p>不想顯示時，請關閉設定中的「<b>參加排行榜</b>」。名字和步數將不再出現在排行榜上，也會停止傳送步數。<b>紀錄不會消失</b>，隨時可以恢復。好友關係保持不變（暫停期間的週沒有排名和獎勵）。加入競爭小組期間，只會為該小組的排名傳送本週步數（只顯示給小組成員）。</p>" +
+        "<p v164>在最新版（1.6.4）中，參加時還可以選擇「<b>只給好友看（不上排行榜）</b>」。飼主名字和夥伴只有好友看得到，好友、邀請、禮物和小組照常使用。</p>" +
+        "<p>飼主名字隨時可以在設定的「飼主名字」中修改。建議不要使用真實姓名。</p>" },
+      { id: "invite", q: "邀請碼和邀請獎勵的條件是什麼？", a:
+        "<p>在好友畫面用「用連結邀請」或「用圖片邀請好友」（QR 碼），把你的好友代碼傳給好友。</p>" +
+        "<h4>被邀請的好友</h4><ul><li>在開始使用 App 後 <b>14 天內、僅限 1 次</b>，在好友畫面的「邀請你的人的代碼」中輸入代碼，立即獲得 <b>+150 爪幣</b>（送到收件匣）。</li></ul>" +
+        "<h4>邀請人（你）</h4><ul>" +
+        "<li>好友走滿 <b>3,000 步</b>，並且<b>隔天以後再次打開 App</b>，就算作「1 人」，<b>+300 爪幣</b>會送到收件匣的「邀請獎勵」（請在送達後 60 天內領取）。進度可在收件匣的「等待領取」中查看。</li>" +
+        "<li>另外<b>每滿 5 人 +1,500 爪幣</b>，達到里程碑還有特別獎勵（50 人 +5,000、每 100 人 +30,000、1000 人 +200,000）。</li>" +
+        "<li>滿 5 人、10 人、30 人時，只有邀請才能獲得的限定夥伴（招福貓 Maneki、稻荷 Inari、狛守 Komamori）會加入。</li></ul>" +
+        "<p class=\"note\">同一個人只能被邀請 1 次（互相邀請也只算 1 次）・每天最多 20 人可獲得獎勵・為防止濫用，我們會透過 Apple／Google 的機制確認 App 和裝置是否真實。以不正當方式（如多個帳號）獲得的獎勵可能會被取消。以上數字為 2026 年 11 月時的內容，最新條件請查看 App 內的「好友邀請說明」。</p>" },
+      { id: "names", q: "有人名字令人不舒服／想檢舉或封鎖", a:
+        "<p>不當的顯示名稱會被自動替換。如果仍有讓你在意的人，可以這樣做：</p><ul>" +
+        "<li><b>檢舉</b>：在排行榜或好友中，從對方的選單（iPhone 可在排行榜的一列向左滑動或長按）選擇「檢舉」，會打開寄給營運方的郵件。也可以直接寄信到 <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>。我們確認後，會視情況刪除顯示名稱等。</li>" +
+        "<li><b>隱藏／封鎖</b>：對方會從你的畫面中消失（封鎖還會解除好友關係）。可在排行榜畫面的「已隱藏的人」中取消。</li></ul>" }
+    ]},
+    { id: "shop", icon: "🥚", title: "爪幣、購買與廣告", items: [
+      { id: "restore", q: "購買的內容沒有到帳／想回復購買項目", a:
+        "<p>請在網路良好的地方，點「商店」最下方或 PawPass 畫面下方的「<b>回復購買項目</b>」。用同一個 Apple 帳號（Android 為同一個 Google 帳戶）購買的 <b>PawPass 和季票</b>會回復。</p>" +
+        "<p>用錢購買的<b>爪幣和食物組合</b>不在回復範圍內。它們會隨資料一起轉移（iPhone 透過 iCloud，兩者都可透過轉移碼），重設後也會保留（iPhone 上 1.5.0 版之前購買的部分，重設後無法回復）。</p>" +
+        "<p>已經扣款卻沒有到帳時，請附上購買時間、商店收據上的訂單編號和好友代碼與我們聯繫。</p>" },
+      { id: "cancel-refund", q: "取消 PawPass、退款、孩子的購買", a:
+        "<h4>取消</h4><p>PawPass（按月自動續訂）隨時可以取消：iPhone 在 App Store 的「訂閱項目」中，Android 在 Google Play 的「訂閱」中操作（訂閱期間也可以從 PawPass 畫面的「管理訂閱」打開）。只刪除 App 並不會取消訂閱。</p>" +
+        "<h4>退款</h4><p>付款由 Apple 或 Google 處理，退款也需要在各商店申請：iPhone 可在 <a href=\"https://reportaproblem.apple.com/\" rel=\"noopener\">reportaproblem.apple.com</a> 申請，Android 可在 Google Play 的訂單記錄中申請。我們不會收到信用卡號等付款資訊。</p>" +
+        "<h4>孩子的購買</h4><p>iPhone 可用「螢幕使用時間」的「購買前詢問」，Android 可用 Google Play 的「購買時須驗證」和家長監護功能來限制購買。</p>" },
+      { id: "gacha", q: "蛋扭蛋的機率是多少？", a:
+        "<p>在首頁打開「蛋扭蛋」，每種蛋都會顯示「<b>掉落機率（每個）</b>」，打開前隨時可以確認。也會顯示距離必得★4以上或★5還剩幾個。</p>" +
+        "<p>機率對每個人都一樣，加入 PawPass 也不會改變。</p>" },
+      { id: "ads", q: "一定要看廣告嗎？", a:
+        "<p>不看也能玩全部內容。只有當<b>你自己點「看影片領獎勵」的按鈕</b>（例如「今日免費蛋」或訂購特產）時，才會播放廣告。加入 PawPass 期間，不看廣告也能領取同樣的獎勵（每日次數不變）。</p>" +
+        "<p>廣告由 Unity（Unity LevelPlay／Unity Ads）投放。我們不會要求追蹤許可（ATT），也絕不會把健康資料用於廣告。在歐洲經濟區、英國和瑞士，顯示個人化廣告前會先徵求同意。</p>" }
+    ]},
+    { id: "data", icon: "📱", title: "資料與轉移", items: [
+      { id: "new-phone", q: "換手機或重新安裝時，資料會怎樣？", a:
+        "<h4>iPhone → iPhone</h4><p>只要用同一個 Apple 帳號登入 iCloud，資料就會自動儲存到 iCloud，在新 iPhone 或重新安裝的 App 中直接回復。保險起見，也建議產生一組轉移碼。</p>" +
+        "<h4>Android → Android</h4><p>資料<b>不會自動轉移</b>到新手機（有時會透過 Google 備份回復，但並不可靠）。換機或重裝前，請務必產生轉移碼，並和密語一起記下來。</p>" +
+        "<h4>iPhone ⇄ Android（轉移碼）</h4><ol>" +
+        "<li>在現在的手機上，打開設定的「資料轉移」→「產生轉移碼」，設定密語（<b>4 位數字</b>）。</li>" +
+        "<li>記下顯示的轉移碼（<b>12 個字元</b>）和密語。</li>" +
+        "<li>在新手機上安裝 App，在設定的「資料轉移」→「用轉移碼復原」中輸入。</li></ol>" +
+        "<p>夥伴、圖鑑、道具、爪幣、旅程和步數紀錄，以及排行榜紀錄和好友都會轉移。<b>PawPass 和季票是依購買的商店區分的</b>，無法在 iPhone 和 Android 之間轉移（同一商店內可用「回復購買項目」）。新手機上原有的資料會保留備份，14 天內可在設定的「還原轉移前的資料」中還原。</p>" },
+      { id: "lost-code", q: "轉移碼或密語不見了", a:
+        "<p>轉移碼和密語會一直顯示在產生它的手機的設定「資料轉移」中（點眼睛按鈕顯示密語）。請先在那裡確認。</p>" +
+        "<p>如果那支手機不在身邊，就無法重新查詢或重新產生轉移碼和密語。密語經過加密儲存，連營運方也無法得知。同一個 Apple 帳號的 iPhone 之間，即使沒有轉移碼也能透過 iCloud 轉移。</p>" +
+        "<p>連續輸錯密語 10 次，將有 1 小時無法輸入。</p>" },
+      { id: "data-lost", q: "資料不見了／想回到之前的狀態", a:
+        "<ul>" +
+        "<li><b>不小心重設了</b>：14 天內可在設定「資料」中的「復原重設」還原。會先並列顯示目前的資料和備份，確認後再替換。</li>" +
+        "<li><b>轉移時覆蓋了資料</b>：14 天內可在設定的「還原轉移前的資料」中還原。</li>" +
+        "<li><b>iPhone 重裝或換了新 iPhone</b>：請確認已用同一個 Apple 帳號登入 iCloud。家人共用一個 Apple 帳號時，可能會出現「iCloud 中有另一份紀錄」。切換後目前的紀錄也不會消失，14 天內可以切換回來。</li>" +
+        "<li><b>Android 重裝</b>：有轉移碼的話，可用「用轉移碼復原」找回。</li>" +
+        "<li><b>夥伴不見了</b>：可能只是離家出走了（請看「夥伴不見了」）。</li></ul>" +
+        "<p>以上都不符合時，請附上好友代碼（如有轉移碼也一併附上）與我們聯繫，我們會幫你查詢。</p>" },
+      { id: "delete", q: "想退出、刪除資料", a:
+        "<p>PawPlanet 沒有會員註冊。刪除資料有以下兩個步驟。</p><ol>" +
+        "<li><b>在 App 內重設</b>：在設定「資料」→「重設資料」，裝置內的存檔（夥伴、爪幣、旅程紀錄等）會被刪除，並切換到新的匿名帳號。之前的資料會作為備份在裝置內保留 14 天。iPhone 上即使刪除 App，帳號金鑰也會留在鑰匙圈中，重新安裝後會回到同一個帳號（iCloud 中的部分可在 iPhone 的 iCloud 設定中刪除）。</li>" +
+        "<li><b>申請刪除伺服器上的資料</b>：如需刪除儲存在伺服器上的資料（顯示名稱、步數、好友代碼、轉移資料等），請附上<b>好友代碼或轉移碼</b>與我們聯繫。我們會在受理後 <b>30 天內</b>刪除。無需提供姓名或電子郵件。</li></ol>" +
+        "<p>刪除 App 不會自動取消 PawPass（請看「取消 PawPass」）。</p>" }
+    ]},
+    { id: "other", icon: "🔒", title: "隱私與其他", items: [
+      { id: "privacy", q: "會傳送哪些資訊？哪些不會傳送？", a:
+        "<h4>不蒐集的資訊</h4><p>不蒐集姓名、電子郵件、電話號碼、精確位置（GPS）和聯絡人。登入是匿名的，也沒有會員註冊。不儲存走過的路線、位置或計步裝置的名稱，步數也絕不會用於廣告或分析。</p>" +
+        "<h4>參加排行榜／好友時傳送的資訊</h4><p>顯示名稱、夥伴的名字／樣子／等級、庭院外觀、徽章、本週／上週／累計步數和今天的步數、積分和排名、遊戲旅程中所在的城市（不是你的真實位置）、好友代碼、PawPass 訂閱狀態、好友／小組／禮物／邀請紀錄，以及打開 App 的日期（400 天後自動刪除）等，會與匿名 ID 關聯傳送到我們的伺服器。為維持排行榜公平，僅在步數特別多等情況下，可能會傳送當天的合計、步數最多的 1 小時的步數，以及手動輸入的步數。</p>" +
+        "<h4>其他</h4><p>產生轉移碼時會儲存完整存檔（最後更新 1 年後刪除）；使用意見表單時會儲存內容以及 App／系統版本和機型。為防止邀請被濫用，我們會透過 Apple／Google 的機制確認 App 和裝置是否真實，並儲存結果。觀看廣告時，裝置識別碼等資訊會傳送給廣告商（Unity）。</p>" +
+        "<p>詳情請看<a class=\"js-privacy\" href=\"privacy.html\">隱私權政策</a>（英文）。</p>" },
+      { id: "notifications", q: "想關閉通知／收不到通知", a:
+        "<p>我們會傳送照顧提醒、夥伴快要離家時的提醒、很久沒打開 App 時的問候等通知。不開啟通知也能正常遊玩。</p>" +
+        "<p>想關閉時，請關閉 App 設定「一般」中的「通知」（也可以在手機的「設定」中關閉）。收不到時，請確認 App 中的「通知」已開啟，並且手機的「設定」允許 PawPlanet 傳送通知。</p>" },
+      { id: "android", q: "有 Android 版嗎？和 iPhone 版有什麼不同？", a:
+        "<p>有。請在 <a href=\"https://play.google.com/store/apps/details?id=com.pawplanet.app\" rel=\"noopener\">Google Play</a> 下載（Android 8.0 以上）。iPhone 版在 <a href=\"https://apps.apple.com/app/id6808814090\" rel=\"noopener\">App Store</a>（iOS 16 以上）。</p>" +
+        "<p>排行榜和好友在 iPhone 和 Android 之間是共通的，可以和使用不同系統的好友一起玩。主要差異如下：</p><ul>" +
+        "<li>步數來源：iPhone 為「健康」和 iPhone 計步器，Android 為「健康資料同步」和手機計步器。</li>" +
+        "<li>資料儲存：iPhone 會自動儲存到 iCloud；Android 不會自動轉移，換機前請產生轉移碼。</li>" +
+        "<li>步數傳送：Android 只在 App 打開時讀取和傳送步數。</li>" +
+        "<li>購買：iPhone 透過 App Store，Android 透過 Google Play。PawPass 無法跨系統轉移。</li></ul>" },
+      { id: "contact", q: "要怎麼聯絡你們？", a:
+        "<p>可以在 App 設定的「<b>意見回饋與問題回報</b>」中直接傳送。原則上無法逐一回覆，但每則意見我們都會仔細閱讀。有重要通知時，可能會透過收件匣的「官方消息」傳送。</p>" +
+        "<p>電子郵件請寄到 <a href=\"mailto:yoshitetsugames21@gmail.com\">yoshitetsugames21@gmail.com</a>（日文或英文皆可）。附上好友代碼、App 版本和機型，我們能更快確認。檢舉不當使用者也可以寄到 <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>。</p>" }
+    ]}
+  ]
+};
+</script>
+<script>
+T.ko = {
+  ui: {
+    title: "PawPlanet 고객 지원",
+    h1: "PawPlanet 고객 지원",
+    sub: "걸으며 키우는, 세계 일주 펫",
+    lede: "PawPlanet을 즐겨 주셔서 감사합니다! 자주 묻는 질문을 모았어요. 질문을 탭하면 답이 열려요. 원하는 내용이 없으면 페이지 맨 아래의 문의처로 편하게 연락해 주세요.",
+    search: "예: 걸음 수, 이전, 복원",
+    hits: "%n개를 찾았어요",
+    nohit: "해당하는 질문을 찾지 못했어요. 다른 말로 찾아보거나 아래 문의처로 연락해 주세요.",
+    cH: "문의하기",
+    cNote: "일본어·영어 모두 괜찮아요. 친구 코드(친구 화면)·앱 버전·기종을 함께 적어 주시면 더 빨리 확인할 수 있어요.",
+    cApp: "앱 설정의 \"의견 및 버그 신고\"에서도 보낼 수 있어요(개별 답장은 어렵지만 모두 읽고 있어요).",
+    privacy: "개인정보 처리방침",
+    updated: "최종 업데이트 2026-11-02"
+  },
+  cats: [
+    { id: "steps", icon: "👟", title: "걸음 수와 펫", items: [
+      { id: "steps-missing", q: "걸음 수가 안 나오거나 늘지 않아요", a:
+        "<p>PawPlanet은 휴대폰에 기록된 걸음 수를 <b>읽기만</b> 해요. 걸음 수는 앱을 열 때 반영돼요.</p>" +
+        "<h4>iPhone</h4><ol>" +
+        "<li>\"건강\" 앱에 오늘 걸음 수가 들어와 있는지 확인해 주세요(iPhone이나 Apple Watch가 센 걸음 수예요).</li>" +
+        "<li>들어와 있는데 늘지 않으면 iPhone의 설정 &gt; 개인정보 보호 및 보안 &gt; 건강 &gt; PawPlanet에서 \"걸음\"을 켜 주세요.</li>" +
+        "<li>건강에 걸음 수가 없으면 설정 &gt; PawPlanet에서 \"동작 및 피트니스\"를 켜면 iPhone 만보계로 셀 수 있어요(버전 1.6.3부터. 홈에 \"iPhone 만보계 사용하기\"가 보이면 거기서도 고를 수 있어요).</li>" +
+        "<li>앱 설정의 \"건강\"에서 \"걸음 수 접근\"이 \"읽을 수 있음\"이면 괜찮아요. \"걸음 수 접근 요청\"으로도 확인할 수 있어요.</li></ol>" +
+        "<h4>Android</h4><ol>" +
+        "<li>헬스 커넥트(Health Connect) 앱(기종에 따라 Android \"설정\" 안)에 오늘 걸음 수가 들어와 있는지 확인해 주세요. 휴대폰 자체나 Google 피트니스·삼성 헬스·스마트워치 앱 등이 헬스 커넥트에 기록한 걸음 수를 읽어요.</li>" +
+        "<li>들어와 있는데 늘지 않으면 헬스 커넥트의 \"앱 권한\"에서 PawPlanet의 \"걸음 수\" 읽기를 허용해 주세요.</li>" +
+        "<li>헬스 커넥트에 걸음 수가 없으면 \"신체 활동\" 권한을 허용하면 휴대폰 만보기로 셀 수 있어요(버전 1.6.3부터. 홈에 \"휴대폰 만보기 사용\"이 보이면 거기서 고를 수 있어요).</li>" +
+        "<li>앱 설정의 \"걸음 수 (헬스 커넥트)\"에서 \"걸음 수 접근\"이 \"읽을 수 있음\"이면 괜찮아요.</li></ol>" },
+      { id: "steps-diff", q: "걸음 수가 건강 앱과 다르거나 늦게 반영돼요", a:
+        "<ul>" +
+        "<li>걸음 수는 앱을 열 때(홈 화면을 열어 둔 동안에도 자주) 읽어요. 앱을 열지 않은 날의 걸음 수도 <b>14일 전까지</b> 거슬러 올라가 받을 수 있어요.</li>" +
+        "<li><b>앱을 처음 쓴 날보다 앞</b>의 걸음 수는 세지 않아요(그날은 쓰기 시작하기 전 걸음 수도 세요).</li>" +
+        "<li>건강(Android는 헬스 커넥트)과 휴대폰 만보기를 함께 쓰면 <b>날마다 더 많은 쪽</b>을 써요. 더하지는 않아요. Apple Watch 걸음 수는 건강 앱을 통해 들어와요.</li>" +
+        "<li>Android에서는 다른 앱이 헬스 커넥트에 걸음 수를 늦게 기록하면 PawPlanet 반영도 늦어져요.</li>" +
+        "<li>iPhone에서 랭킹에 참여 중이면 앱을 닫아 두어도 iOS가 허락할 때(많아야 1시간에 1번 정도) 걸음 수를 보낼 수 있어요. 앱을 위로 쓸어 올려 종료했다면 보내지 않아요. Android는 앱을 연 동안에만 읽고 보내요. 가장 확실한 방법은 앱을 여는 거예요.</li></ul>" },
+      { id: "pet-away", q: "펫이 없어졌어요(집을 나갔어요)", a:
+        "<p>먹이를 주지 않아 배부름이 0이 된 채로 <b>4일</b>이 지나면(먹이를 전혀 주지 않으면 약 7일), 펫은 외로워져서 집으로 돌아가요. 홈 화면의 \"잠깐 외출 중…\"이 그 표시예요. <b>펫과 도감은 절대 사라지지 않아요.</b></p>" +
+        "<p>홈 화면에서 \"데리러 가기 (먹이 1개)\"를 탭하면 바로 돌아와요. 먹이가 부족하면 걸어서 모아요. 알림이 켜져 있으면 집을 나가기 전에 미리 알려 드려요.</p>" }
+    ]},
+    { id: "rank", icon: "🏆", title: "랭킹과 친구", items: [
+      { id: "rank-schedule", q: "랭킹은 언제 마감되고 확정되나요?", a:
+        "<p>주간 랭킹(세계·리그·친구)은 <b>일본 시간 월요일 0:00부터 일요일 23:59까지</b>(UTC+9)의 걸음 수를 겨뤄요. 일요일이 끝나면 \"잠정\"이 되고, <b>48시간 뒤인 수요일 0:00(일본 시간)에 확정</b>돼요. 그 전에 앱을 열면 그 주의 걸음 수가 모두 집계돼요.</p>" +
+        "<p>잠정인 동안에는 다른 사람이 나중에 앱을 열면 순위가 바뀔 수 있어요. 상위 보상(주간 세계 랭킹 10위 안에 파우)과 리그 승급/강등은 확정될 때 정해져요.</p>" +
+        "<p>역대 랭킹은 초기화되지 않아요. 역대 누적은 주마다의 기록으로 세며, 앱을 열지 않은 주도 <b>4주 전까지</b>는 거슬러 올라가 들어가요(그보다 오래된 주는 앱 안의 누적에는 들어가지만 역대 랭킹에는 들어가지 않아요).</p>" },
+      { id: "rank-missing", q: "랭킹에 안 나오거나 순위·걸음 수가 이상해요", a:
+        "<p>다음을 확인해 주세요.</p><ul>" +
+        "<li><b>참여했나요?</b> 랭킹에는 참여한 사람만 나와요. 랭킹 화면에서 참여하고, 설정의 \"랭킹 참여\"가 켜져 있는지 확인해 주세요.</li>" +
+        "<li><b>앱을 열었나요?</b> 걸음 수는 앱을 열 때 보내요. 주가 확정되기 전(일본 시간 수요일 0:00)에 한 번은 열어 주세요.</li>" +
+        "<li><b>잠정인가요, 확정인가요?</b> 월요일·화요일에는 지난주가 아직 잠정이라 순위가 바뀔 수 있어요.</li>" +
+        "<li><b>시작하기 전의 걸음 수</b>: 앱을 시작한 날보다 앞의 걸음 수와 주는 랭킹에 들어가지 않아요.</li>" +
+        "<li><b>다른 기기의 기록</b>: 이 기록이 다른 기기에서 랭킹에 나오던 것이라는 안내가 보이면, 같은 사람이 두 번 나오지 않도록 이 기기에서는 걸음 수를 보내지 않아요. 이전 기기가 있다면 설정의 \"데이터 이전\"으로 같은 계정 그대로 이어 갈 수 있어요.</li>" +
+        "<li><b>표시 이름</b>: 부적절한 말이 들어간 이름은 자동으로 다른 이름으로 바뀌어요.</li></ul>" +
+        "<p>그래도 이상하면 친구 코드와 알아챈 주·화면을 적어 연락해 주세요.</p>" },
+      { id: "rank-optout", q: "랭킹에 이름이나 걸음 수를 내고 싶지 않아요", a:
+        "<p>랭킹에 참여하면 내 이름, 함께 걷는 펫(이름·모습·레벨), 걸음 수가 랭킹을 보는 모두에게 표시돼요. 친구에게는 여행 중인 도시(게임 속 도시이며 실제 위치가 아니에요)도 보여요.</p>" +
+        "<p>나오고 싶지 않다면 설정의 \"<b>랭킹 참여</b>\"를 꺼 주세요. 이름과 걸음 수가 랭킹에 나오지 않고 걸음 수 전송도 멈춰요. <b>기록은 지워지지 않으며</b> 언제든 돌아올 수 있어요. 친구는 그대로예요(쉬는 동안의 주는 순위·보상이 없어요). 경쟁 그룹에 있는 동안에는 그룹 순위를 위해 이번 주 걸음 수만 보내요(그 그룹 멤버에게만 보여요).</p>" +
+        "<p v164>최신 버전(1.6.4)에서는 참여할 때 \"<b>친구에게만(랭킹에는 안 나옴)</b>\"도 고를 수 있어요. 이름과 펫은 친구에게만 보이고, 친구·초대·선물·그룹은 그대로 쓸 수 있어요.</p>" +
+        "<p>이름은 설정의 \"내 이름\"에서 언제든 바꿀 수 있어요. 실명은 쓰지 않는 걸 추천해요.</p>" },
+      { id: "invite", q: "초대 코드와 초대 보상의 조건은?", a:
+        "<p>친구 화면의 \"링크로 초대\"나 \"이미지로 친구 초대\"(QR 코드)로 내 친구 코드를 친구에게 보내요.</p>" +
+        "<h4>초대받은 친구</h4><ul><li>앱을 시작한 지 <b>14일 이내에 한 번만</b>, 친구 화면의 \"초대해 준 사람\"에 코드를 넣으면 바로 <b>+150 파우</b>(우편함으로 도착해요).</li></ul>" +
+        "<h4>초대한 나</h4><ul>" +
+        "<li>친구가 <b>3,000걸음</b>을 걷고 <b>다음 날 이후에도 앱을 열면</b> \"1명\"으로 세고, <b>+300 파우</b>가 우편함의 \"초대 보너스\"로 도착해요(도착 후 60일 이내에 받아 주세요). 진행 상황은 우편함의 \"도착 예정\"에서 볼 수 있어요.</li>" +
+        "<li>게다가 <b>5명마다 +1,500 파우</b>, 고비마다 특별 보너스(50명 +5,000·100명마다 +30,000·1000명 +200,000)도 있어요.</li>" +
+        "<li>5명·10명·30명이 되면 초대로만 만날 수 있는 한정 펫(마네키·이나리·코마모리)이 동료가 돼요.</li></ul>" +
+        "<p class=\"note\">같은 사람이 초대받은 것으로 치는 건 한 번뿐(서로 초대해도 1번)·보상 대상은 하루 20명까지·부정을 막기 위해 Apple/Google의 구조로 앱과 기기가 진짜인지 확인해요. 여러 계정 등 부정한 방법으로 얻은 보상은 취소할 수 있어요. 숫자는 2026년 11월 기준이며, 최신 조건은 앱의 \"친구 초대 안내\"에 표시돼요.</p>" },
+      { id: "names", q: "불쾌한 이름의 사람이 있어요 / 신고나 차단을 하고 싶어요", a:
+        "<p>부적절한 표시 이름은 자동으로 바꾸고 있지만, 신경 쓰이는 사람이 있으면 이렇게 할 수 있어요.</p><ul>" +
+        "<li><b>신고</b>: 랭킹이나 친구에서 상대의 메뉴(iPhone은 랭킹의 줄을 왼쪽으로 밀거나 길게 누르기)에서 \"신고\"를 고르면 운영팀에 보내는 메일이 열려요. <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>으로 직접 보내셔도 돼요. 확인 후 필요하면 표시 이름 삭제 등을 해요.</li>" +
+        "<li><b>숨기기·차단</b>: 상대가 내 화면에서 사라져요(차단하면 친구에서도 빠져요). 랭킹 화면의 \"숨긴 사람\"에서 해제할 수 있어요.</li></ul>" }
+    ]},
+    { id: "shop", icon: "🥚", title: "파우·구입·광고", items: [
+      { id: "restore", q: "구입한 게 반영되지 않아요 / 구입 항목을 복원하고 싶어요", a:
+        "<p>통신이 잘 되는 곳에서 \"상점\" 맨 아래나 PawPass 화면 아래의 \"<b>구입 항목 복원</b>\"을 탭하세요. 같은 Apple 계정(Android는 같은 Google 계정)으로 구입한 <b>PawPass와 시즌 패스</b>가 돌아와요.</p>" +
+        "<p>돈으로 산 <b>파우·먹이 팩</b>은 복원 대상이 아니에요. 데이터와 함께 옮겨지고(iPhone은 iCloud, 둘 다 이전 코드), 초기화해도 남아요(iPhone에서 버전 1.5.0 이전에 산 분은 초기화하면 돌아오지 않아요).</p>" +
+        "<p>결제는 됐는데 도착하지 않았다면 구입 일시, 스토어 영수증의 주문 번호, 친구 코드를 적어 연락해 주세요.</p>" },
+      { id: "cancel-refund", q: "PawPass 해지·환불·아이의 결제", a:
+        "<h4>해지</h4><p>PawPass(월간 자동 갱신)는 언제든 해지할 수 있어요. iPhone은 App Store의 \"구독\", Android는 Google Play의 \"정기 결제\"에서 해요(가입 중에는 PawPass 화면의 \"구독 관리\"에서도 열 수 있어요). 앱을 삭제하는 것만으로는 해지되지 않아요.</p>" +
+        "<h4>환불</h4><p>결제는 Apple 또는 Google이 처리하므로 환불도 각 스토어에서 신청해요. iPhone은 <a href=\"https://reportaproblem.apple.com/\" rel=\"noopener\">reportaproblem.apple.com</a>, Android는 Google Play 주문 내역에서 환불을 요청할 수 있어요. 카드 번호 같은 결제 정보는 저희가 받지 않아요.</p>" +
+        "<h4>아이의 결제</h4><p>iPhone은 \"스크린 타임\"의 \"구입 요청\", Android는 Google Play의 \"구매 시 인증\"과 자녀 보호 기능으로 결제를 막을 수 있어요.</p>" },
+      { id: "gacha", q: "알 뽑기의 확률은?", a:
+        "<p>홈 화면에서 \"알 뽑기\"를 열면 알마다 \"<b>출현 확률 (알 1개당)</b>\"이 표시돼서 열기 전에 언제든 확인할 수 있어요. ★4 이상이나 ★5 확정까지 남은 알 개수도 보여요.</p>" +
+        "<p>확률은 모두에게 같고 PawPass로 바뀌지 않아요.</p>" },
+      { id: "ads", q: "광고를 꼭 봐야 하나요?", a:
+        "<p>아니요, 보지 않아도 모든 걸 즐길 수 있어요. 광고는 \"오늘의 무료 알\"이나 특산품 주문처럼 <b>\"영상 보고 보상 받기\" 버튼을 직접 탭했을 때만</b> 재생돼요. PawPass가 있으면 광고 없이 같은 보상을 받아요(하루 횟수는 그대로).</p>" +
+        "<p>광고는 Unity(Unity LevelPlay/Unity Ads)가 제공해요. 추적 허락(ATT)은 요청하지 않으며, 건강 데이터를 광고에 쓰는 일은 없어요. 유럽 경제 지역·영국·스위스에서는 맞춤 광고 전에 동의를 여쭤봐요.</p>" }
+    ]},
+    { id: "data", icon: "📱", title: "데이터·이전", items: [
+      { id: "new-phone", q: "기기를 바꾸거나 앱을 다시 설치하면 데이터는?", a:
+        "<h4>iPhone → iPhone</h4><p>같은 Apple 계정으로 iCloud에 로그인되어 있으면 데이터가 iCloud에 자동으로 저장되고, 새 iPhone이나 다시 설치한 앱에서 그대로 돌아와요. 혹시 모르니 이전 코드도 만들어 두면 안심이에요.</p>" +
+        "<h4>Android → Android</h4><p>데이터는 새 휴대폰으로 <b>자동으로 옮겨지지 않아요</b>(Google 백업으로 돌아올 때도 있지만 확실하지 않아요). 기기 변경이나 재설치 전에 꼭 이전 코드를 만들고 비밀번호와 함께 적어 두세요.</p>" +
+        "<h4>iPhone ⇄ Android (이전 코드)</h4><ol>" +
+        "<li>지금 휴대폰의 설정 \"데이터 이전\" → \"이전 코드 만들기\"를 탭하고 비밀번호(<b>숫자 4자리</b>)를 정해요.</li>" +
+        "<li>표시된 이전 코드(<b>12자</b>)와 비밀번호를 적어 둬요.</li>" +
+        "<li>새 휴대폰에 앱을 설치하고 설정 \"데이터 이전\" → \"코드로 복원\"에서 입력해요.</li></ol>" +
+        "<p>펫·도감·아이템·파우·여행·걸음 수 기록과 함께 랭킹 기록과 친구도 옮겨져요. <b>PawPass와 시즌 패스는 구입한 스토어별 구입</b>이라 iPhone과 Android 사이에는 옮겨지지 않아요(같은 스토어라면 \"구입 항목 복원\"으로 돌아와요). 새 휴대폰에 원래 있던 데이터는 백업으로 남고, 14일 이내라면 설정의 \"이전하기 전 데이터로 복원\"으로 되돌릴 수 있어요.</p>" },
+      { id: "lost-code", q: "이전 코드나 비밀번호를 잃어버렸어요", a:
+        "<p>코드와 비밀번호는 코드를 만든 휴대폰의 설정 \"데이터 이전\"에 항상 표시돼요(눈 모양 버튼을 탭하면 비밀번호가 보여요). 먼저 그곳을 확인해 주세요.</p>" +
+        "<p>그 휴대폰이 없으면 코드와 비밀번호를 조회하거나 다시 만들 수 없어요. 비밀번호는 암호화되어 저장되므로 저희도 볼 수 없어요. 같은 Apple 계정의 iPhone끼리는 코드 없이도 iCloud로 데이터가 옮겨져요.</p>" +
+        "<p>비밀번호를 10번 연속 틀리면 1시간 동안 입력이 잠겨요.</p>" },
+      { id: "data-lost", q: "데이터가 사라졌어요 / 예전 상태로 되돌리고 싶어요", a:
+        "<ul>" +
+        "<li><b>실수로 초기화했어요</b>: 14일 이내라면 설정 \"데이터\"의 \"초기화 되돌리기\"로 돌아갈 수 있어요. 지금 데이터와 백업을 나란히 확인한 뒤 바꿔요.</li>" +
+        "<li><b>이전으로 데이터를 덮어썼어요</b>: 14일 이내라면 설정의 \"이전하기 전 데이터로 복원\"으로 돌아갈 수 있어요.</li>" +
+        "<li><b>iPhone에서 다시 설치했거나 새 iPhone</b>: 같은 Apple 계정으로 iCloud에 로그인되어 있는지 확인해 주세요. 가족이 같은 Apple 계정을 쓰면 \"iCloud에 다른 기록이 있어요\"가 나올 수 있어요. 바꿔도 지금 기록은 지워지지 않고 14일 동안은 되돌릴 수 있어요.</li>" +
+        "<li><b>Android에서 다시 설치했어요</b>: 이전 코드가 있다면 \"코드로 복원\"으로 되찾을 수 있어요.</li>" +
+        "<li><b>펫이 없어요</b>: 집을 나갔을 뿐일 수 있어요(\"펫이 없어졌어요\"를 보세요).</li></ul>" +
+        "<p>어디에도 해당하지 않으면 친구 코드(있다면 이전 코드도)를 적어 연락해 주세요. 확인해 드릴게요.</p>" },
+      { id: "delete", q: "탈퇴하거나 데이터를 지우고 싶어요", a:
+        "<p>PawPlanet에는 회원 가입이 없어요. 데이터를 지우는 방법은 다음 두 단계예요.</p><ol>" +
+        "<li><b>앱에서 초기화</b>: 설정 \"데이터\" → \"데이터 초기화\"로 기기 안의 저장 데이터(펫·파우·여행 기록 등)가 지워지고 새 익명 계정으로 바뀌어요. 직전 데이터는 14일 동안만 기기 안에 백업으로 남아요. iPhone에서는 앱을 삭제해도 계정 키가 키체인에 남아, 다시 설치하면 같은 계정으로 돌아와요(iCloud 분은 iPhone의 iCloud 설정에서 삭제할 수 있어요).</li>" +
+        "<li><b>서버 데이터 삭제 요청</b>: 표시 이름·걸음 수·친구 코드·이전 데이터 등 서버에 저장된 데이터의 삭제를 원하시면 <b>친구 코드 또는 이전 코드</b>를 적어 연락해 주세요. 접수 후 <b>30일 이내</b>에 삭제해요. 이름이나 메일 주소는 필요 없어요.</li></ol>" +
+        "<p>앱을 지워도 PawPass는 자동으로 해지되지 않아요(\"PawPass 해지\"를 보세요).</p>" }
+    ]},
+    { id: "other", icon: "🔒", title: "개인정보·기타", items: [
+      { id: "privacy", q: "어떤 정보를 보내고, 무엇을 보내지 않나요?", a:
+        "<h4>수집하지 않는 정보</h4><p>이름·메일 주소·전화번호·정확한 위치(GPS)·연락처는 수집하지 않아요. 로그인은 익명이고 회원 가입도 없어요. 걸은 경로나 위치, 걸음 수를 잰 기기 이름도 저장하지 않으며, 걸음 수를 광고·분석에 쓰지 않아요.</p>" +
+        "<h4>랭킹·친구에 참여했을 때 보내는 정보</h4><p>표시 이름, 펫의 이름·모습·레벨, 정원 모습, 배지, 이번 주·지난주·누적 걸음 수와 오늘 걸음 수, 포인트와 순위, 게임 속 여행 중인 도시(실제 위치가 아니에요), 친구 코드, PawPass 가입 상태, 친구·그룹·선물·초대 기록, 앱을 연 날짜(400일 뒤 자동 삭제) 등을 익명 ID에 연결해 서버로 보내요. 랭킹을 공정하게 지키기 위해 걸음 수가 특히 많은 날 등에 한해 그날 합계·가장 많이 걸은 1시간의 걸음 수·직접 입력한 걸음 수를 보낼 수 있어요.</p>" +
+        "<h4>그 밖에</h4><p>이전 코드를 만들면 저장 데이터 전체를(마지막 업데이트 후 1년 뒤 삭제), 의견 양식을 쓰면 본문과 앱·OS 버전·기종을 저장해요. 초대 부정을 막기 위해 Apple/Google의 구조로 앱과 기기가 진짜인지 확인하고 결과를 저장해요. 광고를 볼 때는 기기 식별자 등이 광고 회사(Unity)로 보내져요.</p>" +
+        "<p>자세한 내용은 <a class=\"js-privacy\" href=\"privacy.html\">개인정보 처리방침</a>(영어)을 보세요.</p>" },
+      { id: "notifications", q: "알림을 끄고 싶어요 / 알림이 안 와요", a:
+        "<p>알림은 돌보기 리마인드, 펫이 집을 나갈 것 같을 때, 한동안 앱을 열지 않았을 때 등에 보내요. 알림이 없어도 즐길 수 있어요.</p>" +
+        "<p>끄고 싶으면 앱 설정 \"일반\"의 \"알림\"을 꺼 주세요(휴대폰 \"설정\"에서도 끌 수 있어요). 알림이 안 오면 앱의 \"알림\"이 켜져 있는지, 휴대폰 \"설정\"에서 PawPlanet 알림이 허용되어 있는지 확인해 주세요.</p>" },
+      { id: "android", q: "Android 버전이 있나요? iPhone 버전과 다른 점은?", a:
+        "<p>있어요. <a href=\"https://play.google.com/store/apps/details?id=com.pawplanet.app\" rel=\"noopener\">Google Play</a>에서 받으세요(Android 8.0 이상). iPhone 버전은 <a href=\"https://apps.apple.com/app/id6808814090\" rel=\"noopener\">App Store</a>(iOS 16 이상)에 있어요.</p>" +
+        "<p>랭킹과 친구는 iPhone·Android 공통이라 OS가 다른 친구와도 함께 즐길 수 있어요. 주요 차이점은 다음과 같아요.</p><ul>" +
+        "<li>걸음 수 출처: iPhone은 건강 앱과 iPhone 만보계, Android는 헬스 커넥트와 휴대폰 만보기.</li>" +
+        "<li>데이터 저장: iPhone은 iCloud에 자동 저장되지만 Android는 자동으로 옮겨지지 않아요. 기기 변경 전에 이전 코드를 만들어 주세요.</li>" +
+        "<li>걸음 수 전송: Android는 앱을 연 동안에만 걸음 수를 읽고 보내요.</li>" +
+        "<li>구입: iPhone은 App Store, Android는 Google Play. PawPass는 OS를 넘어 옮겨지지 않아요.</li></ul>" },
+      { id: "contact", q: "문의처는 어디인가요?", a:
+        "<p>앱 설정의 \"<b>의견 및 버그 신고</b>\"에서 바로 보낼 수 있어요. 개별 답장은 어렵지만 보내 주신 의견은 모두 읽고 있어요. 중요한 소식이 있을 때는 우편함의 \"운영팀 소식\"으로 전해 드릴 수 있어요.</p>" +
+        "<p>메일은 <a href=\"mailto:yoshitetsugames21@gmail.com\">yoshitetsugames21@gmail.com</a>으로(일본어·영어 모두 가능). 친구 코드·앱 버전·기종을 함께 적어 주시면 더 빨리 확인할 수 있어요. 부적절한 사용자 신고는 <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>에서도 받아요.</p>" }
+    ]}
+  ]
+};
+</script>
+<script>
+T.es = {
+  ui: {
+    title: "Soporte de PawPlanet",
+    h1: "Soporte de PawPlanet",
+    sub: "Camina y cría a tu mascota viajera",
+    lede: "¡Gracias por jugar a PawPlanet! Aquí tienes las preguntas más frecuentes. Toca una pregunta para ver la respuesta. Si no encuentras lo que buscas, escríbenos (los datos de contacto están al final de la página).",
+    search: "p. ej.: pasos, traspaso, restaurar",
+    hits: "%n resultados",
+    nohit: "No hay preguntas que coincidan. Prueba con otras palabras o escríbenos.",
+    cH: "Contacto",
+    cNote: "Puedes escribirnos en japonés o en inglés. Si incluyes tu código de amigo (pantalla Amigos), la versión de la app y el modelo de tu teléfono, podremos revisarlo antes.",
+    cApp: "También puedes escribirnos desde «Opiniones y errores» en los Ajustes de la app (normalmente no podemos responder a cada mensaje, pero los leemos todos).",
+    privacy: "Política de privacidad",
+    updated: "Última actualización: 2026-11-02"
+  },
+  cats: [
+    { id: "steps", icon: "👟", title: "Pasos y mascotas", items: [
+      { id: "steps-missing", q: "Mis pasos no aparecen o no suben", a:
+        "<p>PawPlanet solo <b>lee</b> los pasos registrados en tu teléfono. Los pasos se actualizan al abrir la app.</p>" +
+        "<h4>iPhone</h4><ol>" +
+        "<li>Comprueba que los pasos de hoy aparecen en la app Salud (los cuenta tu iPhone o tu Apple Watch).</li>" +
+        "<li>Si aparecen pero en PawPlanet no suben, activa «Pasos» en Ajustes del iPhone &gt; Privacidad y seguridad &gt; Salud &gt; PawPlanet.</li>" +
+        "<li>Si Salud no tiene pasos, activa «Movimiento y forma física» en Ajustes &gt; PawPlanet para contarlos con el podómetro del iPhone (desde la versión 1.6.3; si en Inicio aparece «Usar el podómetro del iPhone», también puedes elegirlo ahí).</li>" +
+        "<li>En los Ajustes de la app, en «Salud», «Acceso a pasos» debe decir «Leyendo pasos». También puedes comprobarlo con «Pedir acceso a pasos».</li></ol>" +
+        "<h4>Android</h4><ol>" +
+        "<li>Comprueba que los pasos de hoy aparecen en la app Health Connect (en algunos teléfonos está dentro de los Ajustes de Android). PawPlanet lee los pasos que guardan en Health Connect tu teléfono o apps como Google Fit, Samsung Health o la de tu reloj inteligente.</li>" +
+        "<li>Si aparecen pero en PawPlanet no suben, abre «Permisos de apps» en Health Connect y permite que PawPlanet lea «Pasos».</li>" +
+        "<li>Si Health Connect no tiene pasos, permite «Actividad física» para contarlos con el podómetro del móvil (desde la versión 1.6.3; si en Inicio aparece «Usar el podómetro del móvil», elígelo ahí).</li>" +
+        "<li>En los Ajustes de la app, en «Pasos (Health Connect)», «Acceso a pasos» debe decir «Leyendo pasos».</li></ol>" },
+      { id: "steps-diff", q: "Mis pasos no coinciden con Salud o tardan en aparecer", a:
+        "<ul>" +
+        "<li>Los pasos se leen al abrir la app (y con frecuencia mientras la pantalla de Inicio está abierta). Los días en que no abriste la app se recuperan hasta <b>14 días atrás</b>.</li>" +
+        "<li>No se cuentan los pasos <b>anteriores al día en que usaste la app por primera vez</b> (ese primer día sí cuentan también los pasos de antes de empezar).</li>" +
+        "<li>Si se usan Salud (Health Connect en Android) y el podómetro del teléfono, tomamos <b>la cifra más alta de cada día</b>. Nunca se suman. Los pasos del Apple Watch llegan a través de Salud.</li>" +
+        "<li>En Android, si otra app tarda en guardar los pasos en Health Connect, PawPlanet también se actualiza más tarde.</li>" +
+        "<li>En iPhone, si participas en los rankings, los pasos pueden enviarse con la app cerrada cuando iOS lo permite (como mucho, más o menos una vez por hora). No ocurre si cerraste la app deslizándola hacia arriba. En Android, los pasos solo se leen y envían con la app abierta. Lo más seguro es abrir la app.</li></ul>" },
+      { id: "pet-away", q: "Mi mascota ha desaparecido (se fue de casa)", a:
+        "<p>Si la barriga de tu mascota se queda en 0 durante <b>4 días</b> sin comer (unos 7 días sin nada de comida), se siente sola y se va a casa. «Salió un rato…» en la pantalla de Inicio es la señal. <b>Tus mascotas y tu Colección nunca se pierden.</b></p>" +
+        "<p>Toca «Ir a buscarlo (1 comida)» en Inicio y tu mascota vuelve enseguida. ¿Te falta comida? Camina para conseguir más. Con las notificaciones activadas, te avisamos antes de que se vaya.</p>" }
+    ]},
+    { id: "rank", icon: "🏆", title: "Rankings y amigos", items: [
+      { id: "rank-schedule", q: "¿Cuándo cierran y se confirman los rankings?", a:
+        "<p>Los rankings semanales (Mundo, Liga, Amigos) comparan los pasos <b>del lunes 00:00 al domingo 23:59, hora de Japón (UTC+9)</b>. Al terminar el domingo pasan a ser «provisionales» y se <b>confirman 48 horas después, el miércoles a las 00:00 (hora de Japón)</b>. Si abres la app antes, se cuentan todos los pasos de esa semana.</p>" +
+        "<p>Mientras son provisionales, las posiciones pueden cambiar cuando otras personas abren la app. Los premios (Paws para el top 10 del ranking mundial semanal) y los ascensos y descensos de liga se deciden al confirmarse la semana.</p>" +
+        "<p>El ranking histórico nunca se reinicia. El total histórico se calcula con los registros semanales; las semanas en que no abriste la app cuentan hasta <b>4 semanas atrás</b> (las más antiguas sí cuentan en el total de la app, pero no en el ranking histórico).</p>" },
+      { id: "rank-missing", q: "No salgo en el ranking, o mi posición o mis pasos no cuadran", a:
+        "<p>Revisa lo siguiente.</p><ul>" +
+        "<li><b>¿Te has unido?</b> Solo aparece quien se une. Únete desde la pantalla de Ranking y comprueba que «Unirme a los rankings» está activado en Ajustes.</li>" +
+        "<li><b>¿Has abierto la app?</b> Los pasos se envían al abrir la app. Ábrela al menos una vez antes de que se confirme la semana (miércoles 00:00, hora de Japón).</li>" +
+        "<li><b>¿Provisional o confirmado?</b> El lunes y el martes la semana anterior aún es provisional y las posiciones pueden moverse.</li>" +
+        "<li><b>Pasos de antes de empezar</b>: los pasos y las semanas anteriores al día en que empezaste no entran en el ranking.</li>" +
+        "<li><b>Datos de otro dispositivo</b>: si la app indica que estos datos se mostraban en los rankings desde otro dispositivo, este dispositivo no envía pasos, para que nadie aparezca dos veces. Si aún tienes el otro dispositivo, usa «Traspaso de datos» en Ajustes para seguir con la misma cuenta.</li>" +
+        "<li><b>Nombre visible</b>: los nombres con palabras inapropiadas se sustituyen automáticamente.</li></ul>" +
+        "<p>¿Sigue sin cuadrar? Escríbenos con tu código de amigo y la semana o pantalla donde lo notaste.</p>" },
+      { id: "rank-optout", q: "No quiero que mi nombre ni mis pasos salgan en los rankings", a:
+        "<p>Al unirte a los rankings, tu nombre, la mascota que camina contigo (nombre, aspecto, nivel) y tus pasos se muestran a todos los que ven los rankings. Tus amigos también ven la ciudad en la que está tu viaje (una ciudad del juego, no tu ubicación real).</p>" +
+        "<p>Para no aparecer, desactiva «<b>Unirme a los rankings</b>» en Ajustes. Tu nombre y tus pasos dejan de mostrarse y se deja de enviar los pasos. <b>Tus registros se conservan</b> y puedes volver cuando quieras. Tus amigos siguen ahí (las semanas en pausa no tienen posición ni premios). Mientras estés en un grupo competitivo, solo se envían los pasos de esta semana para el ranking de ese grupo (solo lo ven sus miembros).</p>" +
+        "<p v164>En la última versión (1.6.4), al unirte también puedes elegir «<b>Solo amigos (sin salir en los rankings)</b>». Tu nombre y tu mascota solo los ven tus amigos, y los amigos, las invitaciones, los regalos y los grupos siguen funcionando.</p>" +
+        "<p>Puedes cambiar tu nombre cuando quieras en «Tu nombre» en Ajustes. Te recomendamos no usar tu nombre real.</p>" },
+      { id: "invite", q: "¿Cómo funcionan los códigos y los premios por invitar?", a:
+        "<p>Envía tu código de amigo con «Invitar con enlace» o «Invitar con una imagen» (código QR) en la pantalla Amigos.</p>" +
+        "<h4>La persona invitada</h4><ul><li>Durante sus <b>primeros 14 días con la app, y una sola vez</b>, escribe tu código en «¿Quién te invitó?» de su pantalla Amigos y recibe <b>+150 Paws</b> al momento (en su Buzón).</li></ul>" +
+        "<h4>Tú</h4><ul>" +
+        "<li>Cuando tu amigo camina <b>3.000 pasos</b> y <b>vuelve a abrir la app otro día</b>, cuenta como «1 persona» y recibes <b>+300 Paws</b> en «Bono por invitar» del Buzón (recógelos en 60 días). Puedes seguir el progreso en «En camino» del Buzón.</li>" +
+        "<li>Además, <b>+1.500 Paws por cada 5 personas</b> y bonos especiales en los hitos (50 personas +5.000 · cada 100 personas +30.000 · 1.000 personas +200.000).</li>" +
+        "<li>Con 5, 10 y 30 personas se unen mascotas limitadas que solo se consiguen invitando (Maneki, Inari y Komamori).</li></ul>" +
+        "<p class=\"note\">Cada persona solo puede ser invitada una vez (si os invitáis mutuamente cuenta una vez) · los premios cuentan hasta 20 personas al día · para evitar abusos, comprobamos con servicios de Apple/Google que la app y el dispositivo son auténticos. Los premios obtenidos de forma fraudulenta (p. ej. con varias cuentas) pueden anularse. Cifras de noviembre de 2026; las condiciones actuales se muestran en la app, en «Cómo invitar amigos».</p>" },
+      { id: "names", q: "Alguien tiene un nombre ofensivo / Quiero denunciar o bloquear", a:
+        "<p>Los nombres inapropiados se sustituyen automáticamente, pero si alguien te molesta:</p><ul>" +
+        "<li><b>Denunciar</b>: elige «Denunciar» en el menú de esa persona en los rankings o en Amigos (en iPhone, desliza una fila del ranking hacia la izquierda o mantenla pulsada). Se abrirá un correo para nosotros. También puedes escribir directamente a <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>. Revisamos cada denuncia y eliminamos nombres cuando hace falta.</li>" +
+        "<li><b>Ocultar / Bloquear</b>: la persona desaparece de tus pantallas (bloquear también la quita de tus amigos). Puedes deshacerlo en «Personas ocultas» de la pantalla de Ranking.</li></ul>" }
+    ]},
+    { id: "shop", icon: "🥚", title: "Paws, compras y anuncios", items: [
+      { id: "restore", q: "Mi compra no aparece / ¿Cómo restauro mis compras?", a:
+        "<p>Con buena conexión, toca «<b>Restaurar compras</b>» al final de la Tienda o de la pantalla de PawPass. Vuelven <b>PawPass y el Pase de temporada</b> comprados con la misma Cuenta de Apple (la misma cuenta de Google en Android).</p>" +
+        "<p>Los <b>packs de Paws y de comida</b> comprados con dinero no se restauran así. Viajan con tus datos (iCloud en iPhone; código de traspaso en ambos) y se conservan aunque borres los datos (en iPhone, los packs comprados antes de la versión 1.5.0 no vuelven tras un borrado).</p>" +
+        "<p>¿Se te cobró y no llegó nada? Escríbenos con la fecha y hora de la compra, el número de pedido del recibo de la tienda y tu código de amigo.</p>" },
+      { id: "cancel-refund", q: "Cancelar PawPass, reembolsos y compras de menores", a:
+        "<h4>Cancelar</h4><p>PawPass (mensual, con renovación automática) se puede cancelar en cualquier momento: en iPhone desde «Suscripciones» del App Store y en Android desde «Suscripciones» de Google Play (mientras estés suscrito, también desde «Gestionar suscripción» en la pantalla de PawPass). Borrar la app no cancela la suscripción.</p>" +
+        "<h4>Reembolsos</h4><p>Los pagos los gestiona Apple o Google, así que los reembolsos se piden a la tienda: en iPhone en <a href=\"https://reportaproblem.apple.com/\" rel=\"noopener\">reportaproblem.apple.com</a> y en Android desde tu historial de pedidos de Google Play. Nunca recibimos datos de pago como números de tarjeta.</p>" +
+        "<h4>Menores</h4><p>Puedes bloquear las compras con «Solicitar la compra» de Tiempo de uso en iPhone, o con la autenticación de compras y el control parental de Google Play en Android.</p>" },
+      { id: "gacha", q: "¿Qué probabilidades tiene el Gacha de huevos?", a:
+        "<p>Abre «Gacha de huevos» desde Inicio: cada huevo muestra sus «<b>Probabilidades (por huevo)</b>», así que puedes verlas siempre antes de abrirlo. También indica cuántos huevos faltan para un ★4+ o un ★5 asegurado.</p>" +
+        "<p>Las probabilidades son iguales para todos y no cambian con PawPass.</p>" },
+      { id: "ads", q: "¿Tengo que ver anuncios?", a:
+        "<p>No: puedes jugar a todo sin ellos. Los anuncios solo se reproducen <b>cuando tú tocas un botón de «mira un video y recibe un premio»</b>, como «Huevo gratis de hoy» o pedir una especialidad local. Con PawPass recibes los mismos premios sin anuncios (los límites diarios no cambian).</p>" +
+        "<p>Los anuncios los sirve Unity (Unity LevelPlay / Unity Ads). No pedimos permiso de rastreo (ATT) y los datos de salud nunca se usan para anuncios. En el EEE, el Reino Unido y Suiza pedimos tu consentimiento antes de mostrar anuncios personalizados.</p>" }
+    ]},
+    { id: "data", icon: "📱", title: "Datos y traspaso", items: [
+      { id: "new-phone", q: "¿Qué pasa con mis datos si cambio de teléfono o reinstalo?", a:
+        "<h4>iPhone → iPhone</h4><p>Si has iniciado sesión en iCloud con la misma Cuenta de Apple, tus datos se guardan en iCloud automáticamente y vuelven en el nuevo iPhone o al reinstalar. Por si acaso, conviene crear también un código de traspaso.</p>" +
+        "<h4>Android → Android</h4><p>Los datos <b>no se pasan automáticamente</b> (a veces vuelven con la copia de seguridad de Google, pero no es seguro). Antes de cambiar de teléfono o reinstalar, crea siempre un código de traspaso y apúntalo junto con la clave.</p>" +
+        "<h4>iPhone ⇄ Android (código de traspaso)</h4><ol>" +
+        "<li>En tu teléfono actual, ve a Ajustes → «Traspaso de datos» → «Crear código de traspaso» y elige una clave (<b>4 cifras</b>).</li>" +
+        "<li>Apunta el código de traspaso que aparece (<b>12 caracteres</b>) y la clave.</li>" +
+        "<li>Instala la app en el nuevo teléfono y escríbelos en Ajustes → «Traspaso de datos» → «Recuperar con un código».</li></ol>" +
+        "<p>Se pasan tus mascotas, tu Colección, objetos, Paws, viaje y registros de pasos, además de tus registros de ranking y tus amigos. <b>PawPass y el Pase de temporada son compras de cada tienda</b>, así que no pasan entre iPhone y Android (en la misma tienda, usa «Restaurar compras»). Los datos que ya había en el nuevo teléfono se guardan como copia; durante 14 días puedes volver a ellos con «Recuperar los datos de antes del traspaso» en Ajustes.</p>" },
+      { id: "lost-code", q: "He perdido el código de traspaso o la clave", a:
+        "<p>Tu código y tu clave siempre se muestran en el teléfono que los creó, en Ajustes, en «Traspaso de datos» (toca el botón del ojo para ver la clave). Revisa allí primero.</p>" +
+        "<p>Sin ese teléfono, el código y la clave no se pueden consultar ni volver a crear. La clave se guarda cifrada, así que ni siquiera nosotros podemos verla. Entre iPhone con la misma Cuenta de Apple, iCloud pasa tus datos aunque no tengas código.</p>" +
+        "<p>Si fallas la clave 10 veces seguidas, no podrás introducirla durante 1 hora.</p>" },
+      { id: "data-lost", q: "Mis datos han desaparecido / Quiero volver atrás", a:
+        "<ul>" +
+        "<li><b>Borraste los datos por error</b>: durante 14 días, usa «Deshacer borrado» en «Datos» de Ajustes. Antes de cambiar, compararás los datos actuales con la copia.</li>" +
+        "<li><b>Un traspaso sobrescribió tus datos</b>: durante 14 días, usa «Recuperar los datos de antes del traspaso» en Ajustes.</li>" +
+        "<li><b>Reinstalaste o tienes un iPhone nuevo</b>: comprueba que has iniciado sesión en iCloud con la misma Cuenta de Apple. Si tu familia comparte una Cuenta de Apple, puede aparecer «Hay otros datos en iCloud». Cambiar no borra tus datos actuales y puedes volver durante 14 días.</li>" +
+        "<li><b>Reinstalaste en Android</b>: si tienes un código de traspaso, usa «Recuperar con un código».</li>" +
+        "<li><b>No está tu mascota</b>: puede que solo se haya ido de casa (mira «Mi mascota ha desaparecido»).</li></ul>" +
+        "<p>¿Nada de esto? Escríbenos con tu código de amigo (y el de traspaso, si lo tienes) y lo revisaremos.</p>" },
+      { id: "delete", q: "¿Cómo borro mi cuenta o mis datos?", a:
+        "<p>PawPlanet no tiene registro de usuario. Para borrar datos hay dos pasos.</p><ol>" +
+        "<li><b>Borrar en la app</b>: Ajustes → «Datos» → «Borrar datos» elimina los datos guardados en tu dispositivo (mascotas, Paws, registros del viaje) y te pasa a una nueva cuenta anónima. Los datos anteriores se quedan 14 días en el dispositivo como copia. En iPhone, las claves de la cuenta permanecen en el Llavero aunque borres la app, y al reinstalar vuelves a la misma cuenta (las copias de iCloud se pueden borrar en los ajustes de iCloud del iPhone).</li>" +
+        "<li><b>Pedirnos que borremos los datos del servidor</b>: para borrar los datos guardados en nuestro servidor (nombre visible, pasos, código de amigo, datos de traspaso, etc.), escríbenos con tu <b>código de amigo o código de traspaso</b>. Los borramos <b>en un plazo de 30 días</b>. No hace falta nombre ni correo.</li></ol>" +
+        "<p>Borrar la app no cancela PawPass (mira «Cancelar PawPass»).</p>" }
+    ]},
+    { id: "other", icon: "🔒", title: "Privacidad y más", items: [
+      { id: "privacy", q: "¿Qué información se envía y qué no?", a:
+        "<h4>Lo que no recogemos</h4><p>Ni nombre, ni correo, ni teléfono, ni ubicación precisa (GPS), ni contactos. El inicio de sesión es anónimo y no hay registro. No guardamos recorridos, ubicaciones ni el nombre de los dispositivos que contaron tus pasos, y los pasos nunca se usan para publicidad ni análisis.</p>" +
+        "<h4>Lo que se envía si te unes a los rankings o amigos</h4><p>Tu nombre visible, el nombre, aspecto y nivel de tu mascota, el aspecto de tu jardín, insignias, pasos de esta semana, de la anterior y totales, los pasos de hoy, puntos y posiciones, la ciudad del juego en la que estás (no tu ubicación real), código de amigo, estado de PawPass, registros de amigos, grupos, regalos e invitaciones, y las fechas en que abres la app (se borran a los 400 días), vinculados a un ID anónimo. Para que los rankings sean justos, solo en días con muchísimos pasos y casos parecidos, podemos enviar el total de ese día, los pasos de tu hora con más actividad y los pasos introducidos a mano.</p>" +
+        "<h4>Otros</h4><p>Al crear un código de traspaso se guardan todos tus datos de juego (se borran un año después de la última actualización); el formulario de opiniones guarda tu mensaje con la versión de la app y del sistema y el modelo del teléfono. Para evitar abusos en las invitaciones, comprobamos con Apple/Google que la app y el dispositivo son auténticos y guardamos el resultado. Cuando ves un anuncio, se envían identificadores del dispositivo y datos similares al proveedor de anuncios (Unity).</p>" +
+        "<p>Más detalles en la <a class=\"js-privacy\" href=\"privacy.html\">Política de privacidad</a> (en inglés).</p>" },
+      { id: "notifications", q: "¿Cómo desactivo las notificaciones? / No me llegan", a:
+        "<p>Enviamos notificaciones como recordatorios de cuidado, un aviso cuando tu mascota está a punto de irse y un recordatorio si llevas tiempo sin abrir la app. La app funciona sin ellas.</p>" +
+        "<p>Para desactivarlas, apaga «Notificaciones» en «General» de los Ajustes de la app (también puedes hacerlo en los Ajustes del teléfono). ¿No te llegan? Comprueba que «Notificaciones» está activado en la app y que PawPlanet tiene permiso para enviar notificaciones en los Ajustes del teléfono.</p>" },
+      { id: "android", q: "¿Hay versión para Android? ¿En qué se diferencia?", a:
+        "<p>Sí. Descárgala en <a href=\"https://play.google.com/store/apps/details?id=com.pawplanet.app\" rel=\"noopener\">Google Play</a> (Android 8.0 o posterior). La versión para iPhone está en el <a href=\"https://apps.apple.com/app/id6808814090\" rel=\"noopener\">App Store</a> (iOS 16 o posterior).</p>" +
+        "<p>Los rankings y los amigos son comunes a iPhone y Android, así que puedes jugar con amigos de cualquiera de los dos. Las principales diferencias:</p><ul>" +
+        "<li>Origen de los pasos: Salud y el podómetro del iPhone en iPhone; Health Connect y el podómetro del móvil en Android.</li>" +
+        "<li>Guardado: el iPhone guarda en iCloud automáticamente; Android no pasa los datos solo, así que crea un código de traspaso antes de cambiar de teléfono.</li>" +
+        "<li>Envío de pasos: en Android, los pasos solo se leen y envían con la app abierta.</li>" +
+        "<li>Compras: App Store en iPhone y Google Play en Android. PawPass no pasa de uno a otro.</li></ul>" },
+      { id: "contact", q: "¿Cómo puedo contactar con vosotros?", a:
+        "<p>Usa «<b>Opiniones y errores</b>» en los Ajustes de la app. Normalmente no podemos responder a cada mensaje, pero los leemos todos. Los avisos importantes pueden llegar a «Noticias del equipo» en tu Buzón.</p>" +
+        "<p>Por correo: <a href=\"mailto:yoshitetsugames21@gmail.com\">yoshitetsugames21@gmail.com</a> (en japonés o en inglés). Si incluyes tu código de amigo, la versión de la app y el modelo del teléfono, podremos revisarlo antes. Las denuncias de otros usuarios también se aceptan en <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>.</p>" }
+    ]}
+  ]
+};
+</script>
+<script>
+T.de = {
+  ui: {
+    title: "PawPlanet Support",
+    h1: "PawPlanet Support",
+    sub: "Geh spazieren und zieh dein reiselustiges Tier groß",
+    lede: "Danke, dass du PawPlanet spielst! Hier findest du Antworten auf häufige Fragen. Tippe auf eine Frage, um die Antwort zu öffnen. Nichts Passendes dabei? Schreib uns – die Kontaktdaten stehen ganz unten.",
+    search: "z. B. Schritte, Übertragung, Käufe",
+    hits: "%n Treffer",
+    nohit: "Keine passende Frage gefunden. Versuch es mit anderen Wörtern oder schreib uns.",
+    cH: "Kontakt",
+    cNote: "Gern auf Japanisch oder Englisch. Wenn du deinen Freundescode (Freunde-Bildschirm), die App-Version und dein Handymodell angibst, können wir schneller nachsehen.",
+    cApp: "Du kannst uns auch über „Feedback & Fehler melden“ in den Optionen der App schreiben (wir können meist nicht einzeln antworten, lesen aber jede Nachricht).",
+    privacy: "Datenschutzerklärung",
+    updated: "Zuletzt aktualisiert: 2026-11-02"
+  },
+  cats: [
+    { id: "steps", icon: "👟", title: "Schritte & Tiere", items: [
+      { id: "steps-missing", q: "Meine Schritte erscheinen nicht oder steigen nicht", a:
+        "<p>PawPlanet <b>liest</b> nur die Schritte, die auf deinem Handy aufgezeichnet sind. Die Schritte werden beim Öffnen der App aktualisiert.</p>" +
+        "<h4>iPhone</h4><ol>" +
+        "<li>Prüfe, ob die heutigen Schritte in der Health-App stehen (gezählt von deinem iPhone oder deiner Apple Watch).</li>" +
+        "<li>Wenn ja, PawPlanet aber nicht mitzählt, aktiviere „Schritte“ unter Einstellungen &gt; Datenschutz &amp; Sicherheit &gt; Health &gt; PawPlanet.</li>" +
+        "<li>Hat Health keine Schritte, aktiviere „Bewegung &amp; Fitness“ unter Einstellungen &gt; PawPlanet – dann zählt der iPhone-Schrittzähler (ab Version 1.6.3; erscheint auf dem Startbildschirm „iPhone-Schrittzähler nutzen“, kannst du es auch dort wählen).</li>" +
+        "<li>In den Optionen der App sollte unter „Health“ bei „Schrittzugriff“ „Liest Schritte“ stehen. Mit „Schrittzugriff anfragen“ kannst du es ebenfalls prüfen.</li></ol>" +
+        "<h4>Android</h4><ol>" +
+        "<li>Prüfe, ob die heutigen Schritte in der Health Connect-App stehen (auf manchen Handys in den Android-Einstellungen). PawPlanet liest Schritte, die dein Handy oder Apps wie Google Fit, Samsung Health oder die App deiner Smartwatch in Health Connect schreiben.</li>" +
+        "<li>Wenn ja, PawPlanet aber nicht mitzählt, öffne in Health Connect „App-Berechtigungen“ und erlaube PawPlanet, „Schritte“ zu lesen.</li>" +
+        "<li>Hat Health Connect keine Schritte, erlaube „Körperliche Aktivität“ – dann zählt der Schrittzähler deines Handys (ab Version 1.6.3; erscheint auf dem Startbildschirm „Schrittzähler des Handys nutzen“, wähle es dort).</li>" +
+        "<li>In den Optionen der App sollte unter „Schritte (Health Connect)“ bei „Schrittzugriff“ „Liest Schritte“ stehen.</li></ol>" },
+      { id: "steps-diff", q: "Meine Schritte weichen von Health ab oder kommen verspätet", a:
+        "<ul>" +
+        "<li>Die Schritte werden beim Öffnen der App gelesen (und regelmäßig, solange der Startbildschirm offen ist). Tage, an denen du die App nicht geöffnet hast, werden bis zu <b>14 Tage rückwirkend</b> übernommen.</li>" +
+        "<li>Schritte von <b>vor dem Tag, an dem du die App zum ersten Mal genutzt hast</b>, zählen nicht (an diesem ersten Tag zählen auch die Schritte von vor dem Start).</li>" +
+        "<li>Werden Health (unter Android Health Connect) und der Schrittzähler des Handys genutzt, nehmen wir <b>pro Tag den höheren Wert</b>. Sie werden nie addiert. Schritte der Apple Watch kommen über Health.</li>" +
+        "<li>Unter Android: Schreibt eine andere App die Schritte verzögert in Health Connect, aktualisiert sich auch PawPlanet später.</li>" +
+        "<li>Auf dem iPhone können die Schritte, wenn du bei den Ranglisten mitmachst, auch bei geschlossener App gesendet werden, sobald iOS es zulässt (höchstens etwa einmal pro Stunde). Das passiert nicht, wenn du die App nach oben weggewischt hast. Unter Android werden Schritte nur bei geöffneter App gelesen und gesendet. Am sichersten ist es, die App zu öffnen.</li></ul>" },
+      { id: "pet-away", q: "Mein Tier ist weg (es ist ausgezogen)", a:
+        "<p>Bleibt die Sattheit deines Tiers <b>4 Tage</b> lang ohne Futter auf 0 (etwa 7 Tage ganz ohne Futter), wird es einsam und geht nach Hause. Das Zeichen dafür ist „Mal weg …“ auf dem Startbildschirm. <b>Deine Tiere und dein Tierbuch gehen nie verloren.</b></p>" +
+        "<p>Tippe auf dem Startbildschirm auf „Abholen (1× Futter)“, und dein Tier kommt sofort zurück. Zu wenig Futter? Geh spazieren und sammle neues. Mit aktivierten Mitteilungen warnen wir dich, bevor es geht.</p>" }
+    ]},
+    { id: "rank", icon: "🏆", title: "Ranglisten & Freunde", items: [
+      { id: "rank-schedule", q: "Wann schließen die Ranglisten und wann sind sie endgültig?", a:
+        "<p>Die Wochenranglisten (Welt, Liga, Freunde) vergleichen die Schritte von <b>Montag 00:00 bis Sonntag 23:59 japanischer Zeit (UTC+9)</b>. Am Ende des Sonntags werden sie „vorläufig“ und <b>48 Stunden später, am Mittwoch um 00:00 (japanische Zeit), endgültig</b>. Öffnest du die App bis dahin, zählen alle Schritte dieser Woche.</p>" +
+        "<p>Solange sie vorläufig sind, können sich Plätze noch ändern, wenn andere die App öffnen. Belohnungen (Paw für die Top 10 der Wochen-Weltrangliste) sowie Auf- und Abstiege in der Liga werden festgelegt, wenn die Woche endgültig ist.</p>" +
+        "<p>Die Allzeit-Rangliste wird nie zurückgesetzt. Die Allzeit-Summe entsteht aus den Wochenwerten; Wochen, in denen du die App nicht geöffnet hast, zählen bis zu <b>4 Wochen rückwirkend</b> (ältere Wochen zählen in der Summe in der App, aber nicht in der Allzeit-Rangliste).</p>" },
+      { id: "rank-missing", q: "Ich stehe nicht in der Rangliste, oder Platz/Schritte stimmen nicht", a:
+        "<p>Bitte prüfe Folgendes.</p><ul>" +
+        "<li><b>Machst du mit?</b> Es erscheint nur, wer mitmacht. Tritt über den Ranglisten-Bildschirm bei und prüfe, ob „Bei Ranglisten mitmachen“ in den Optionen eingeschaltet ist.</li>" +
+        "<li><b>Hast du die App geöffnet?</b> Schritte werden beim Öffnen der App gesendet. Öffne sie mindestens einmal, bevor die Woche endgültig wird (Mittwoch 00:00 japanischer Zeit).</li>" +
+        "<li><b>Vorläufig oder endgültig?</b> Montags und dienstags ist die Vorwoche noch vorläufig, Plätze können sich verschieben.</li>" +
+        "<li><b>Schritte von vor deinem Start</b>: Schritte und Wochen von vor dem Tag, an dem du angefangen hast, kommen nicht in die Rangliste.</li>" +
+        "<li><b>Daten von einem anderen Gerät</b>: Zeigt die App an, dass diese Daten von einem anderen Gerät in den Ranglisten angezeigt wurden, sendet dieses Gerät keine Schritte – damit niemand doppelt erscheint. Wenn du das andere Gerät noch hast, nutze „Datenübertragung“ in den Optionen, um mit demselben Konto weiterzumachen.</li>" +
+        "<li><b>Anzeigename</b>: Namen mit unangemessenen Wörtern werden automatisch ersetzt.</li></ul>" +
+        "<p>Stimmt es immer noch nicht? Schreib uns mit deinem Freundescode und der Woche bzw. dem Bildschirm, wo es dir aufgefallen ist.</p>" },
+      { id: "rank-optout", q: "Ich möchte meinen Namen oder meine Schritte nicht in der Rangliste zeigen", a:
+        "<p>Wenn du mitmachst, sehen alle, die die Ranglisten ansehen, deinen Namen, das Tier, das mit dir läuft (Name, Aussehen, Level), und deine Schritte. Freunde sehen außerdem die Stadt, in der deine Reise gerade ist (eine Stadt im Spiel, nicht dein echter Standort).</p>" +
+        "<p>Schalte dafür „<b>Bei Ranglisten mitmachen</b>“ in den Optionen aus. Name und Schritte erscheinen dann nicht mehr, und es werden keine Schritte mehr gesendet. <b>Deine Daten bleiben erhalten</b>, und du kannst jederzeit zurückkehren. Deine Freunde bleiben (Wochen in der Pause haben keinen Platz und keine Belohnungen). Solange du in einer Wettbewerbsgruppe bist, werden nur die Schritte dieser Woche für die Rangliste dieser Gruppe gesendet (nur für ihre Mitglieder sichtbar).</p>" +
+        "<p v164>In der neuesten Version (1.6.4) kannst du beim Mitmachen auch „<b>Nur Freunde (nicht in den Ranglisten)</b>“ wählen. Name und Tier sehen dann nur deine Freunde, und Freunde, Einladungen, Geschenke und Gruppen funktionieren weiter.</p>" +
+        "<p>Deinen Namen kannst du jederzeit unter „Dein Name“ in den Optionen ändern. Wir empfehlen, nicht deinen echten Namen zu verwenden.</p>" },
+      { id: "invite", q: "Wie funktionieren Einladungscodes und Einladungsbelohnungen?", a:
+        "<p>Schick deinen Freundescode mit „Per Link einladen“ oder „Freunde per Bild einladen“ (QR-Code) im Freunde-Bildschirm.</p>" +
+        "<h4>Die eingeladene Person</h4><ul><li>Innerhalb der <b>ersten 14 Tage mit der App und nur einmal</b> gibt sie deinen Code im Freunde-Bildschirm bei „Wer hat dich eingeladen?“ ein und bekommt sofort <b>+150 Paw</b> (ins Postfach).</li></ul>" +
+        "<h4>Du</h4><ul>" +
+        "<li>Läuft dein Freund <b>3.000 Schritte</b> und <b>öffnet die App an einem späteren Tag erneut</b>, zählt er als „1 Person“, und <b>+300 Paw</b> kommen unter „Einladungsbonus“ in dein Postfach (innerhalb von 60 Tagen abholen). Den Fortschritt siehst du unter „Unterwegs“ im Postfach.</li>" +
+        "<li>Dazu <b>+1.500 Paw für je 5 Personen</b> und Sonderboni an Meilensteinen (50 Personen +5.000 · je 100 Personen +30.000 · 1.000 Personen +200.000).</li>" +
+        "<li>Bei 5, 10 und 30 Personen kommen Tiere dazu, die es nur über Einladungen gibt (Maneki, Inari, Komamori).</li></ul>" +
+        "<p class=\"note\">Jede Person kann nur einmal eingeladen werden (gegenseitiges Einladen zählt einmal) · Belohnungen gibt es für bis zu 20 Personen pro Tag · um Missbrauch zu verhindern, prüfen wir mit Diensten von Apple/Google, ob App und Gerät echt sind. Unfair erhaltene Belohnungen (z. B. mit mehreren Konten) können zurückgenommen werden. Stand: November 2026; die aktuellen Regeln findest du in der App unter „So funktionieren Einladungen“.</p>" },
+      { id: "names", q: "Jemand hat einen anstößigen Namen / Ich möchte melden oder blockieren", a:
+        "<p>Unangemessene Namen werden automatisch ersetzt. Falls dich trotzdem jemand stört:</p><ul>" +
+        "<li><b>Melden</b>: Wähle im Menü der Person in den Ranglisten oder bei Freunden „Melden“ (auf dem iPhone eine Ranglistenzeile nach links wischen oder lange drücken). Es öffnet sich eine E-Mail an uns. Du kannst auch direkt an <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a> schreiben. Wir prüfen Meldungen und entfernen Namen bei Bedarf.</li>" +
+        "<li><b>Ausblenden / Blockieren</b>: Die Person verschwindet von deinen Bildschirmen (Blockieren entfernt sie auch aus deinen Freunden). Rückgängig machen kannst du das unter „Ausgeblendete Personen“ im Ranglisten-Bildschirm.</li></ul>" }
+    ]},
+    { id: "shop", icon: "🥚", title: "Paw, Käufe & Werbung", items: [
+      { id: "restore", q: "Mein Kauf ist nicht angekommen / Wie stelle ich Käufe wieder her?", a:
+        "<p>Tippe bei guter Verbindung ganz unten im Shop oder unten im PawPass-Bildschirm auf „<b>Käufe wiederherstellen</b>“. <b>PawPass und Season Pass</b>, die mit demselben Apple Account (unter Android mit demselben Google-Konto) gekauft wurden, kommen zurück.</p>" +
+        "<p>Mit Geld gekaufte <b>Paw- und Futterpakete</b> werden so nicht wiederhergestellt. Sie wandern mit deinen Daten mit (auf dem iPhone über iCloud, auf beiden per Übertragungscode) und bleiben auch nach dem Zurücksetzen erhalten (auf dem iPhone kommen vor Version 1.5.0 gekaufte Pakete nach einem Zurücksetzen nicht zurück).</p>" +
+        "<p>Bezahlt, aber nichts angekommen? Schreib uns mit Datum und Uhrzeit des Kaufs, der Bestellnummer aus dem Store-Beleg und deinem Freundescode.</p>" },
+      { id: "cancel-refund", q: "PawPass kündigen, Erstattungen und Käufe von Kindern", a:
+        "<h4>Kündigen</h4><p>PawPass (monatlich, automatisch verlängernd) kannst du jederzeit kündigen: auf dem iPhone unter „Abonnements“ im App Store, unter Android unter „Abos“ in Google Play (während du Mitglied bist, auch über „Abo verwalten“ im PawPass-Bildschirm). Das Löschen der App kündigt das Abo nicht.</p>" +
+        "<h4>Erstattungen</h4><p>Zahlungen wickeln Apple oder Google ab, daher beantragst du Erstattungen beim jeweiligen Store: auf dem iPhone unter <a href=\"https://reportaproblem.apple.com/\" rel=\"noopener\">reportaproblem.apple.com</a>, unter Android über deinen Bestellverlauf in Google Play. Zahlungsdaten wie Kartennummern erhalten wir nie.</p>" +
+        "<h4>Kinder</h4><p>Käufe kannst du auf dem iPhone mit „Kaufanfrage“ in der Bildschirmzeit sperren, unter Android mit der Authentifizierung für Käufe und der Jugendschutzeinstellung von Google Play.</p>" },
+      { id: "gacha", q: "Wie hoch sind die Chancen beim Ei-Gacha?", a:
+        "<p>Öffne „Ei-Gacha“ vom Startbildschirm: Jedes Ei zeigt seine „<b>Chancen (pro Ei)</b>“, die du vor dem Öffnen jederzeit prüfen kannst. Außerdem siehst du, wie viele Eier es noch bis zu einem garantierten ★4+ oder ★5 sind.</p>" +
+        "<p>Die Chancen sind für alle gleich und ändern sich mit PawPass nicht.</p>" },
+      { id: "ads", q: "Muss ich Werbung ansehen?", a:
+        "<p>Nein – du kannst alles ohne Werbung spielen. Werbung läuft nur, <b>wenn du selbst einen Button „Video ansehen für eine Belohnung“ tippst</b>, etwa beim „Gratis-Ei des Tages“ oder beim Bestellen einer Spezialität. Mit PawPass bekommst du dieselben Belohnungen ohne Werbung (Tageslimits bleiben gleich).</p>" +
+        "<p>Die Werbung kommt von Unity (Unity LevelPlay / Unity Ads). Wir fragen nicht nach einer Tracking-Erlaubnis (ATT), und Gesundheitsdaten werden nie für Werbung genutzt. Im EWR, im Vereinigten Königreich und in der Schweiz fragen wir vor personalisierter Werbung nach deiner Einwilligung.</p>" }
+    ]},
+    { id: "data", icon: "📱", title: "Daten & Übertragung", items: [
+      { id: "new-phone", q: "Was passiert mit meinen Daten bei einem neuen Handy oder einer Neuinstallation?", a:
+        "<h4>iPhone → iPhone</h4><p>Bist du mit demselben Apple Account bei iCloud angemeldet, werden deine Daten automatisch in iCloud gesichert und kommen auf einem neuen iPhone oder nach einer Neuinstallation zurück. Zur Sicherheit lohnt sich zusätzlich ein Übertragungscode.</p>" +
+        "<h4>Android → Android</h4><p>Die Daten werden <b>nicht automatisch übertragen</b> (eine Google-Sicherung stellt sie manchmal wieder her, aber nicht zuverlässig). Erstelle vor einem Handywechsel oder einer Neuinstallation immer einen Übertragungscode und notiere ihn zusammen mit der PIN.</p>" +
+        "<h4>iPhone ⇄ Android (Übertragungscode)</h4><ol>" +
+        "<li>Öffne auf deinem jetzigen Handy Optionen → „Datenübertragung“ → „Übertragungscode erstellen“ und wähle eine PIN (<b>4 Ziffern</b>).</li>" +
+        "<li>Notiere den angezeigten Übertragungscode (<b>12 Zeichen</b>) und die PIN.</li>" +
+        "<li>Installiere die App auf dem neuen Handy und gib beides unter Optionen → „Datenübertragung“ → „Mit Code wiederherstellen“ ein.</li></ol>" +
+        "<p>Übertragen werden deine Tiere, das Tierbuch, Gegenstände, Paw, Reise und Schrittdaten sowie deine Ranglisten-Daten und Freunde. <b>PawPass und Season Pass gehören zum Store, in dem du sie gekauft hast</b>, und wandern daher nicht zwischen iPhone und Android (im selben Store hilft „Käufe wiederherstellen“). Daten, die schon auf dem neuen Handy waren, bleiben als Sicherung erhalten; innerhalb von 14 Tagen kommst du mit „Daten von vor der Übertragung wiederherstellen“ in den Optionen zurück.</p>" },
+      { id: "lost-code", q: "Ich habe meinen Übertragungscode oder die PIN verloren", a:
+        "<p>Code und PIN werden auf dem Handy, das sie erstellt hat, immer in den Optionen unter „Datenübertragung“ angezeigt (tippe auf das Auge, um die PIN zu zeigen). Bitte sieh zuerst dort nach.</p>" +
+        "<p>Ohne dieses Handy können Code und PIN weder nachgeschlagen noch neu erstellt werden. Die PIN wird verschlüsselt gespeichert, sodass selbst wir sie nicht sehen können. Zwischen iPhones mit demselben Apple Account überträgt iCloud deine Daten auch ohne Code.</p>" +
+        "<p>Nach 10 falschen PIN-Eingaben in Folge ist die Eingabe 1 Stunde lang gesperrt.</p>" },
+      { id: "data-lost", q: "Meine Daten sind weg / Ich möchte zurück", a:
+        "<ul>" +
+        "<li><b>Versehentlich zurückgesetzt</b>: Innerhalb von 14 Tagen hilft „Zurücksetzen rückgängig machen“ unter „Daten“ in den Optionen. Du vergleichst vor dem Tausch die aktuellen Daten mit der Sicherung.</li>" +
+        "<li><b>Eine Übertragung hat deine Daten überschrieben</b>: Innerhalb von 14 Tagen hilft „Daten von vor der Übertragung wiederherstellen“ in den Optionen.</li>" +
+        "<li><b>Neu installiert oder neues iPhone</b>: Prüfe, ob du mit demselben Apple Account bei iCloud angemeldet bist. Nutzt deine Familie einen gemeinsamen Apple Account, kann „Andere Daten in iCloud gefunden“ erscheinen. Ein Wechsel löscht deine aktuellen Daten nicht, und du kannst 14 Tage lang zurückwechseln.</li>" +
+        "<li><b>Unter Android neu installiert</b>: Mit einem Übertragungscode nutzt du „Mit Code wiederherstellen“.</li>" +
+        "<li><b>Dein Tier fehlt</b>: Vielleicht ist es nur ausgezogen (siehe „Mein Tier ist weg“).</li></ul>" +
+        "<p>Nichts davon trifft zu? Schreib uns mit deinem Freundescode (und, falls vorhanden, dem Übertragungscode) – wir sehen nach.</p>" },
+      { id: "delete", q: "Wie lösche ich mein Konto oder meine Daten?", a:
+        "<p>PawPlanet hat keine Registrierung. Zum Löschen gibt es zwei Schritte.</p><ol>" +
+        "<li><b>In der App zurücksetzen</b>: Optionen → „Daten“ → „Daten zurücksetzen“ löscht die Spieldaten auf deinem Gerät (Tiere, Paw, Reisedaten) und wechselt zu einem neuen anonymen Konto. Die vorherigen Daten bleiben 14 Tage als Sicherung auf dem Gerät. Auf dem iPhone bleiben die Kontoschlüssel auch nach dem Löschen der App im Schlüsselbund, und nach einer Neuinstallation bist du wieder im selben Konto (iCloud-Kopien kannst du in den iCloud-Einstellungen deines iPhone löschen).</li>" +
+        "<li><b>Löschung der Serverdaten beantragen</b>: Um auf unserem Server gespeicherte Daten (Anzeigename, Schritte, Freundescode, Übertragungsdaten usw.) zu löschen, schreib uns mit deinem <b>Freundescode oder Übertragungscode</b>. Wir löschen sie <b>innerhalb von 30 Tagen</b>. Name oder E-Mail-Adresse sind nicht nötig.</li></ol>" +
+        "<p>Das Löschen der App kündigt PawPass nicht (siehe „PawPass kündigen“).</p>" }
+    ]},
+    { id: "other", icon: "🔒", title: "Datenschutz & mehr", items: [
+      { id: "privacy", q: "Welche Daten werden gesendet – und welche nicht?", a:
+        "<h4>Nicht erfasst</h4><p>Kein Name, keine E-Mail, keine Telefonnummer, kein genauer Standort (GPS), keine Kontakte. Die Anmeldung ist anonym, ein Konto gibt es nicht. Wir speichern keine Wege, Standorte oder Namen der Geräte, die deine Schritte gezählt haben, und Schritte werden nie für Werbung oder Analysen genutzt.</p>" +
+        "<h4>Gesendet, wenn du bei Ranglisten/Freunden mitmachst</h4><p>Anzeigename, Name/Aussehen/Level deines Tiers, Aussehen deines Gartens, Abzeichen, Schritte dieser Woche, der Vorwoche und gesamt sowie heute, Punkte und Plätze, die Spielstadt, in der du bist (nicht dein echter Standort), Freundescode, PawPass-Status, Daten zu Freunden, Gruppen, Geschenken und Einladungen sowie die Tage, an denen du die App öffnest (nach 400 Tagen gelöscht) – verknüpft mit einer anonymen ID. Um die Ranglisten fair zu halten, können wir nur an Tagen mit ungewöhnlich vielen Schritten o. Ä. die Tagessumme, die Schritte deiner aktivsten Stunde und manuell eingetragene Schritte senden.</p>" +
+        "<h4>Sonstiges</h4><p>Beim Erstellen eines Übertragungscodes speichern wir deine kompletten Spieldaten (ein Jahr nach der letzten Aktualisierung gelöscht); das Feedback-Formular speichert deine Nachricht mit App-/Systemversion und Handymodell. Um Missbrauch bei Einladungen zu verhindern, prüfen wir mit Apple/Google, ob App und Gerät echt sind, und speichern das Ergebnis. Beim Ansehen von Werbung werden Gerätekennungen und ähnliche Daten an den Werbeanbieter (Unity) gesendet.</p>" +
+        "<p>Details in der <a class=\"js-privacy\" href=\"privacy.html\">Datenschutzerklärung</a> (auf Englisch).</p>" },
+      { id: "notifications", q: "Wie schalte ich Mitteilungen aus? / Ich bekomme keine", a:
+        "<p>Wir senden Mitteilungen wie Pflege-Erinnerungen, eine Warnung, wenn dein Tier bald auszieht, und einen Hinweis, wenn du die App länger nicht geöffnet hast. Die App funktioniert auch ohne.</p>" +
+        "<p>Zum Ausschalten deaktiviere „Mitteilungen“ unter „Allgemein“ in den Optionen der App (oder in den Einstellungen deines Handys). Bekommst du keine? Prüfe, ob „Mitteilungen“ in der App an ist und PawPlanet in den Einstellungen deines Handys Mitteilungen senden darf.</p>" },
+      { id: "android", q: "Gibt es eine Android-Version? Was ist anders?", a:
+        "<p>Ja, bei <a href=\"https://play.google.com/store/apps/details?id=com.pawplanet.app\" rel=\"noopener\">Google Play</a> (Android 8.0 oder neuer). Die iPhone-Version gibt es im <a href=\"https://apps.apple.com/app/id6808814090\" rel=\"noopener\">App Store</a> (iOS 16 oder neuer).</p>" +
+        "<p>Ranglisten und Freunde sind für iPhone und Android gemeinsam – du kannst also mit Freunden auf beiden Systemen spielen. Die wichtigsten Unterschiede:</p><ul>" +
+        "<li>Schrittquelle: auf dem iPhone Health und der iPhone-Schrittzähler, unter Android Health Connect und der Schrittzähler des Handys.</li>" +
+        "<li>Speichern: Das iPhone sichert automatisch in iCloud; unter Android werden Daten nicht automatisch übertragen – erstelle vor einem Handywechsel einen Übertragungscode.</li>" +
+        "<li>Senden der Schritte: Unter Android werden Schritte nur bei geöffneter App gelesen und gesendet.</li>" +
+        "<li>Käufe: App Store auf dem iPhone, Google Play unter Android. PawPass lässt sich nicht zwischen beiden übertragen.</li></ul>" },
+      { id: "contact", q: "Wie erreiche ich euch?", a:
+        "<p>Nutze „<b>Feedback &amp; Fehler melden</b>“ in den Optionen der App. Wir können meist nicht einzeln antworten, lesen aber jede Nachricht. Wichtige Hinweise kommen eventuell als „News vom Team“ in dein Postfach.</p>" +
+        "<p>Per E-Mail: <a href=\"mailto:yoshitetsugames21@gmail.com\">yoshitetsugames21@gmail.com</a> (Japanisch oder Englisch). Mit Freundescode, App-Version und Handymodell können wir schneller nachsehen. Meldungen über andere Nutzer nehmen wir auch unter <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a> entgegen.</p>" }
+    ]}
+  ]
+};
+</script>
+<script>
+T.fr = {
+  ui: {
+    title: "Assistance PawPlanet",
+    h1: "Assistance PawPlanet",
+    sub: "Marche et élève ton compagnon globe-trotteur",
+    lede: "Merci de jouer à PawPlanet ! Voici les réponses aux questions les plus fréquentes. Touche une question pour afficher la réponse. Tu ne trouves pas ce que tu cherches ? Écris-nous (le contact est en bas de la page).",
+    search: "ex. : pas, transfert, restaurer",
+    hits: "%n résultats",
+    nohit: "Aucune question ne correspond. Essaie d'autres mots, ou écris-nous.",
+    cH: "Nous contacter",
+    cNote: "En japonais ou en anglais. Indique ton code ami (écran Amis), la version de l'app et le modèle de ton téléphone : nous pourrons vérifier plus vite.",
+    cApp: "Tu peux aussi nous écrire depuis « Avis et bugs » dans les Réglages de l'app (nous ne pouvons généralement pas répondre à chacun, mais nous lisons tous les messages).",
+    privacy: "Politique de confidentialité",
+    updated: "Dernière mise à jour : 2026-11-02"
+  },
+  cats: [
+    { id: "steps", icon: "👟", title: "Pas et animaux", items: [
+      { id: "steps-missing", q: "Mes pas ne s'affichent pas ou n'augmentent pas", a:
+        "<p>PawPlanet se contente de <b>lire</b> les pas enregistrés sur ton téléphone. Les pas sont mis à jour à l'ouverture de l'app.</p>" +
+        "<h4>iPhone</h4><ol>" +
+        "<li>Vérifie que les pas d'aujourd'hui apparaissent dans l'app Santé (comptés par ton iPhone ou ton Apple Watch).</li>" +
+        "<li>S'ils y sont mais que PawPlanet n'augmente pas, active « Pas » dans Réglages &gt; Confidentialité et sécurité &gt; Santé &gt; PawPlanet.</li>" +
+        "<li>Si Santé n'a aucun pas, active « Mouvements et forme » dans Réglages &gt; PawPlanet pour que le podomètre de l'iPhone les compte (depuis la version 1.6.3 ; si « Utiliser le podomètre de l'iPhone » apparaît sur l'écran Accueil, tu peux aussi le choisir là).</li>" +
+        "<li>Dans les Réglages de l'app, sous « Santé », « Accès aux pas » doit indiquer « Lecture OK ». Tu peux aussi vérifier avec « Demander l'accès aux pas ».</li></ol>" +
+        "<h4>Android</h4><ol>" +
+        "<li>Vérifie que les pas d'aujourd'hui apparaissent dans l'app Santé Connect (sur certains téléphones, elle se trouve dans les Paramètres d'Android). PawPlanet lit les pas que ton téléphone ou des apps comme Google Fit, Samsung Health ou celle de ta montre connectée envoient à Santé Connect.</li>" +
+        "<li>S'ils y sont mais que PawPlanet n'augmente pas, ouvre « Autorisations des applis » dans Santé Connect et autorise PawPlanet à lire « Pas ».</li>" +
+        "<li>Si Santé Connect n'a aucun pas, autorise « Activité physique » pour que le podomètre du téléphone les compte (depuis la version 1.6.3 ; si « Utiliser le podomètre du téléphone » apparaît sur l'écran Accueil, choisis-le là).</li>" +
+        "<li>Dans les Réglages de l'app, sous « Pas (Santé Connect) », « Accès aux pas » doit indiquer « Lecture OK ».</li></ol>" },
+      { id: "steps-diff", q: "Mes pas diffèrent de Santé, ou arrivent en retard", a:
+        "<ul>" +
+        "<li>Les pas sont lus à l'ouverture de l'app (et régulièrement tant que l'écran Accueil est ouvert). Les jours où tu n'as pas ouvert l'app sont récupérés jusqu'à <b>14 jours en arrière</b>.</li>" +
+        "<li>Les pas <b>antérieurs au jour de ta première utilisation</b> ne comptent pas (ce premier jour, les pas faits avant de commencer comptent aussi).</li>" +
+        "<li>Si Santé (Santé Connect sous Android) et le podomètre du téléphone sont utilisés, nous prenons <b>le chiffre le plus élevé pour chaque jour</b>. Ils ne sont jamais additionnés. Les pas de l'Apple Watch passent par Santé.</li>" +
+        "<li>Sous Android, si une autre app tarde à envoyer les pas à Santé Connect, PawPlanet se met aussi à jour plus tard.</li>" +
+        "<li>Sur iPhone, si tu participes aux classements, les pas peuvent être envoyés app fermée quand iOS le permet (au plus environ une fois par heure). Ce n'est pas le cas si tu as fermé l'app en la balayant vers le haut. Sous Android, les pas ne sont lus et envoyés que lorsque l'app est ouverte. Le plus sûr reste d'ouvrir l'app.</li></ul>" },
+      { id: "pet-away", q: "Mon animal a disparu (il est parti)", a:
+        "<p>Si le ventre de ton animal reste à 0 pendant <b>4 jours</b> sans repas (environ 7 jours sans aucun repas), il se sent seul et rentre chez lui. « Parti un moment… » sur l'écran Accueil en est le signe. <b>Tes animaux et ton Carnet ne sont jamais perdus.</b></p>" +
+        "<p>Touche « Aller le chercher (1 repas) » sur l'écran Accueil et ton animal revient tout de suite. Pas assez de repas ? Marche pour en récolter. Avec les notifications activées, nous te prévenons avant qu'il parte.</p>" }
+    ]},
+    { id: "rank", icon: "🏆", title: "Classements et amis", items: [
+      { id: "rank-schedule", q: "Quand les classements se terminent-ils et deviennent-ils définitifs ?", a:
+        "<p>Les classements hebdo (Monde, Ligue, Amis) comparent les pas <b>du lundi 00:00 au dimanche 23:59, heure du Japon (UTC+9)</b>. À la fin du dimanche, ils deviennent « provisoires », puis <b>définitifs 48 heures plus tard, le mercredi à 00:00 (heure du Japon)</b>. Ouvre l'app avant et tous les pas de la semaine comptent.</p>" +
+        "<p>Tant qu'ils sont provisoires, les places peuvent encore changer quand d'autres ouvrent l'app. Les récompenses (des Paw pour le top 10 du classement mondial hebdo) ainsi que les montées et descentes de ligue sont décidées quand la semaine devient définitive.</p>" +
+        "<p>Le classement de tous les temps n'est jamais remis à zéro. Le total est calculé à partir des semaines ; celles où tu n'as pas ouvert l'app comptent jusqu'à <b>4 semaines en arrière</b> (les plus anciennes comptent dans le total de l'app, mais pas dans le classement de tous les temps).</p>" },
+      { id: "rank-missing", q: "Je n'apparais pas dans le classement, ou ma place / mes pas semblent faux", a:
+        "<p>Vérifie les points suivants.</p><ul>" +
+        "<li><b>As-tu rejoint les classements ?</b> Seules les personnes inscrites apparaissent. Rejoins-les depuis l'écran Classement et vérifie que « Rejoindre les classements » est activé dans les Réglages.</li>" +
+        "<li><b>As-tu ouvert l'app ?</b> Les pas sont envoyés à l'ouverture de l'app. Ouvre-la au moins une fois avant que la semaine devienne définitive (mercredi 00:00, heure du Japon).</li>" +
+        "<li><b>Provisoire ou définitif ?</b> Le lundi et le mardi, la semaine précédente est encore provisoire et les places peuvent bouger.</li>" +
+        "<li><b>Pas d'avant tes débuts</b> : les pas et les semaines antérieurs au jour où tu as commencé ne sont pas classés.</li>" +
+        "<li><b>Données d'un autre appareil</b> : si l'app indique que ces données apparaissaient dans les classements depuis un autre appareil, cet appareil n'envoie pas ses pas, pour qu'une même personne n'apparaisse pas deux fois. Si tu as encore l'autre appareil, utilise « Transfert de données » dans les Réglages pour garder le même compte.</li>" +
+        "<li><b>Nom affiché</b> : les noms contenant des mots inappropriés sont remplacés automatiquement.</li></ul>" +
+        "<p>Toujours faux ? Écris-nous avec ton code ami et la semaine ou l'écran où tu l'as remarqué.</p>" },
+      { id: "rank-optout", q: "Je ne veux pas que mon nom ou mes pas apparaissent dans les classements", a:
+        "<p>Quand tu rejoins les classements, ton nom, l'animal qui marche avec toi (nom, apparence, niveau) et tes pas sont visibles par tous ceux qui consultent les classements. Tes amis voient aussi la ville où se trouve ton voyage (une ville du jeu, pas ta position réelle).</p>" +
+        "<p>Pour ne pas apparaître, désactive « <b>Rejoindre les classements</b> » dans les Réglages. Ton nom et tes pas ne s'affichent plus et l'envoi des pas s'arrête. <b>Tes données sont conservées</b> et tu peux revenir quand tu veux. Tes amis restent (les semaines de pause n'ont ni place ni récompense). Tant que tu es dans un groupe compétitif, seuls les pas de la semaine sont envoyés pour le classement de ce groupe (visible uniquement par ses membres).</p>" +
+        "<p v164>Dans la dernière version (1.6.4), tu peux aussi choisir « <b>Amis seulement (pas dans les classements)</b> » en rejoignant. Ton nom et ton animal ne sont visibles que par tes amis, et les amis, invitations, cadeaux et groupes fonctionnent toujours.</p>" +
+        "<p>Tu peux changer ton nom à tout moment dans « Ton nom » des Réglages. Nous te conseillons de ne pas utiliser ton vrai nom.</p>" },
+      { id: "invite", q: "Comment marchent les codes d'invitation et les récompenses ?", a:
+        "<p>Envoie ton code ami avec « Inviter par lien » ou « Inviter avec une image » (code QR) sur l'écran Amis.</p>" +
+        "<h4>La personne invitée</h4><ul><li>Dans ses <b>14 premiers jours avec l'app, une seule fois</b>, elle saisit ton code dans « Qui t'a invité ? » sur son écran Amis et reçoit tout de suite <b>+150 Paw</b> (dans son Courrier).</li></ul>" +
+        "<h4>Toi</h4><ul>" +
+        "<li>Quand ton ami marche <b>3 000 pas</b> et <b>rouvre l'app un autre jour</b>, il compte comme « 1 personne » et <b>+300 Paw</b> arrivent dans « Bonus d'invitation » de ton Courrier (à récupérer sous 60 jours). Tu peux suivre l'avancement dans « En route » du Courrier.</li>" +
+        "<li>En plus, <b>+1 500 Paw toutes les 5 personnes</b>, et des bonus spéciaux aux étapes (50 personnes +5 000 · toutes les 100 personnes +30 000 · 1 000 personnes +200 000).</li>" +
+        "<li>À 5, 10 et 30 personnes, des animaux limités qu'on n'obtient qu'en invitant (Maneki, Inari, Komamori) te rejoignent.</li></ul>" +
+        "<p class=\"note\">Une personne ne peut être invitée qu'une fois (s'inviter mutuellement compte une fois) · les récompenses comptent jusqu'à 20 personnes par jour · pour éviter les abus, nous vérifions avec les services d'Apple/Google que l'app et l'appareil sont authentiques. Les récompenses obtenues de façon abusive (par ex. avec plusieurs comptes) peuvent être annulées. Chiffres de novembre 2026 ; les règles à jour sont affichées dans l'app, sous « Fonctionnement des invitations ».</p>" },
+      { id: "names", q: "Quelqu'un a un nom choquant / Je veux signaler ou bloquer", a:
+        "<p>Les noms inappropriés sont remplacés automatiquement, mais si quelqu'un te dérange :</p><ul>" +
+        "<li><b>Signaler</b> : choisis « Signaler » dans le menu de la personne, dans les classements ou les Amis (sur iPhone, balaie une ligne du classement vers la gauche ou appuie longuement). Un e-mail pour nous s'ouvre. Tu peux aussi écrire directement à <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>. Nous examinons les signalements et supprimons les noms si nécessaire.</li>" +
+        "<li><b>Masquer / Bloquer</b> : la personne disparaît de tes écrans (bloquer la retire aussi de tes amis). Tu peux annuler dans « Personnes masquées » sur l'écran Classement.</li></ul>" }
+    ]},
+    { id: "shop", icon: "🥚", title: "Paw, achats et pubs", items: [
+      { id: "restore", q: "Mon achat n'est pas arrivé / Comment restaurer mes achats ?", a:
+        "<p>Avec une bonne connexion, touche « <b>Restaurer les achats</b> » tout en bas de la Boutique ou de l'écran PawPass. Le <b>PawPass et le Pass Saison</b> achetés avec le même compte Apple (le même compte Google sous Android) sont récupérés.</p>" +
+        "<p>Les <b>packs de Paw et de repas</b> achetés avec de l'argent ne se restaurent pas ainsi. Ils suivent tes données (iCloud sur iPhone, code de transfert sur les deux) et restent même après une réinitialisation (sur iPhone, les packs achetés avant la version 1.5.0 ne reviennent pas après une réinitialisation).</p>" +
+        "<p>Débité mais rien reçu ? Écris-nous avec la date et l'heure de l'achat, le numéro de commande du reçu de la boutique et ton code ami.</p>" },
+      { id: "cancel-refund", q: "Résilier le PawPass, remboursements et achats des enfants", a:
+        "<h4>Résilier</h4><p>Le PawPass (mensuel, renouvelé automatiquement) se résilie à tout moment : sur iPhone dans « Abonnements » de l'App Store, sous Android dans « Abonnements » de Google Play (pendant l'abonnement, aussi via « Gérer l'abonnement » sur l'écran PawPass). Supprimer l'app ne résilie pas l'abonnement.</p>" +
+        "<h4>Remboursements</h4><p>Les paiements sont gérés par Apple ou Google, donc les remboursements se demandent auprès de la boutique : sur iPhone via <a href=\"https://reportaproblem.apple.com/\" rel=\"noopener\">reportaproblem.apple.com</a>, sous Android depuis ton historique de commandes Google Play. Nous ne recevons jamais de données de paiement comme les numéros de carte.</p>" +
+        "<h4>Enfants</h4><p>Tu peux bloquer les achats avec « Autorisation d'achat » dans Temps d'écran sur iPhone, ou avec l'authentification des achats et le contrôle parental de Google Play sous Android.</p>" },
+      { id: "gacha", q: "Quels sont les taux du Gacha d'œufs ?", a:
+        "<p>Ouvre « Gacha d'œufs » depuis l'écran Accueil : chaque œuf affiche ses « <b>Taux d'obtention (par œuf)</b> », consultables à tout moment avant d'ouvrir. Tu y vois aussi combien d'œufs il reste avant un ★4+ ou un ★5 garanti.</p>" +
+        "<p>Les taux sont les mêmes pour tous et ne changent pas avec le PawPass.</p>" },
+      { id: "ads", q: "Dois-je regarder des pubs ?", a:
+        "<p>Non — tu peux tout faire sans elles. Les pubs ne se lancent <b>que si tu touches toi-même un bouton « regarder une vidéo pour une récompense »</b>, comme « Œuf gratuit du jour » ou la commande d'une spécialité locale. Avec le PawPass, tu reçois les mêmes récompenses sans pub (limites quotidiennes inchangées).</p>" +
+        "<p>Les pubs sont diffusées par Unity (Unity LevelPlay / Unity Ads). Nous ne demandons pas l'autorisation de suivi (ATT) et les données de santé ne servent jamais à la publicité. Dans l'EEE, au Royaume-Uni et en Suisse, nous demandons ton consentement avant d'afficher des pubs personnalisées.</p>" }
+    ]},
+    { id: "data", icon: "📱", title: "Données et transfert", items: [
+      { id: "new-phone", q: "Que deviennent mes données si je change de téléphone ou réinstalle ?", a:
+        "<h4>iPhone → iPhone</h4><p>Si tu es connecté à iCloud avec le même compte Apple, tes données sont enregistrées automatiquement dans iCloud et reviennent sur un nouvel iPhone ou après une réinstallation. Par précaution, crée aussi un code de transfert.</p>" +
+        "<h4>Android → Android</h4><p>Les données <b>ne sont pas transférées automatiquement</b> (une sauvegarde Google peut parfois les restaurer, mais ce n'est pas fiable). Avant de changer de téléphone ou de réinstaller, crée toujours un code de transfert et note-le avec le code secret.</p>" +
+        "<h4>iPhone ⇄ Android (code de transfert)</h4><ol>" +
+        "<li>Sur ton téléphone actuel, va dans Réglages → « Transfert de données » → « Créer un code de transfert » et choisis un code secret (<b>4 chiffres</b>).</li>" +
+        "<li>Note le code de transfert affiché (<b>12 caractères</b>) et le code secret.</li>" +
+        "<li>Installe l'app sur le nouveau téléphone et saisis-les dans Réglages → « Transfert de données » → « Restaurer avec un code ».</li></ol>" +
+        "<p>Tes animaux, ton Carnet, tes objets, tes Paw, ton voyage et tes pas sont transférés, ainsi que tes données de classement et tes amis. <b>Le PawPass et le Pass Saison sont liés à la boutique</b> où tu les as achetés : ils ne passent donc pas d'iPhone à Android (dans la même boutique, utilise « Restaurer les achats »). Les données déjà présentes sur le nouveau téléphone sont gardées en sauvegarde ; pendant 14 jours, tu peux y revenir avec « Restaurer les données d'avant le transfert » dans les Réglages.</p>" },
+      { id: "lost-code", q: "J'ai perdu mon code de transfert ou mon code secret", a:
+        "<p>Ton code et ton code secret sont toujours affichés sur le téléphone qui les a créés, dans Réglages, sous « Transfert de données » (touche le bouton œil pour voir le code secret). Vérifie d'abord là.</p>" +
+        "<p>Sans ce téléphone, le code et le code secret ne peuvent être ni retrouvés ni recréés. Le code secret est stocké chiffré : même nous ne pouvons pas le voir. Entre iPhone utilisant le même compte Apple, iCloud transfère tes données même sans code.</p>" +
+        "<p>Après 10 codes secrets erronés d'affilée, la saisie est bloquée pendant 1 heure.</p>" },
+      { id: "data-lost", q: "Mes données ont disparu / Je veux revenir en arrière", a:
+        "<ul>" +
+        "<li><b>Tu as réinitialisé par erreur</b> : pendant 14 jours, utilise « Annuler la réinitialisation » dans « Données » des Réglages. Tu compares les données actuelles et la sauvegarde avant l'échange.</li>" +
+        "<li><b>Un transfert a écrasé tes données</b> : pendant 14 jours, utilise « Restaurer les données d'avant le transfert » dans les Réglages.</li>" +
+        "<li><b>Réinstallation ou nouvel iPhone</b> : vérifie que tu es connecté à iCloud avec le même compte Apple. Si ta famille partage un compte Apple, le message « D'autres données sont dans iCloud » peut apparaître. Changer ne supprime pas tes données actuelles, et tu peux revenir en arrière pendant 14 jours.</li>" +
+        "<li><b>Réinstallation sous Android</b> : si tu as un code de transfert, utilise « Restaurer avec un code ».</li>" +
+        "<li><b>Ton animal n'est plus là</b> : il est peut-être simplement parti (voir « Mon animal a disparu »).</li></ul>" +
+        "<p>Rien de tout cela ? Écris-nous avec ton code ami (et ton code de transfert si tu en as un) : nous regarderons.</p>" },
+      { id: "delete", q: "Comment supprimer mon compte ou mes données ?", a:
+        "<p>PawPlanet ne demande aucune inscription. La suppression se fait en deux étapes.</p><ol>" +
+        "<li><b>Réinitialiser dans l'app</b> : Réglages → « Données » → « Réinitialiser » efface les données de jeu de ton appareil (animaux, Paw, voyage) et te fait passer à un nouveau compte anonyme. Les données précédentes restent 14 jours sur l'appareil en sauvegarde. Sur iPhone, les clés du compte restent dans le trousseau même si tu supprimes l'app, et une réinstallation te ramène au même compte (les copies iCloud se suppriment dans les réglages iCloud de l'iPhone).</li>" +
+        "<li><b>Demander la suppression des données du serveur</b> : pour supprimer les données enregistrées sur notre serveur (nom affiché, pas, code ami, données de transfert, etc.), écris-nous avec ton <b>code ami ou ton code de transfert</b>. Nous les supprimons <b>sous 30 jours</b>. Aucun nom ni e-mail n'est nécessaire.</li></ol>" +
+        "<p>Supprimer l'app ne résilie pas le PawPass (voir « Résilier le PawPass »).</p>" }
+    ]},
+    { id: "other", icon: "🔒", title: "Confidentialité et plus", items: [
+      { id: "privacy", q: "Quelles informations sont envoyées, et lesquelles ne le sont pas ?", a:
+        "<h4>Non collecté</h4><p>Ni nom, ni e-mail, ni numéro de téléphone, ni position précise (GPS), ni contacts. La connexion est anonyme, sans compte. Nous n'enregistrons ni trajets, ni positions, ni le nom des appareils qui ont compté tes pas, et les pas ne servent jamais à la publicité ou à l'analyse.</p>" +
+        "<h4>Envoyé si tu rejoins les classements / amis</h4><p>Ton nom affiché, le nom, l'apparence et le niveau de ton animal, l'apparence de ton jardin, tes badges, tes pas de la semaine, de la semaine précédente, au total et d'aujourd'hui, tes points et places, la ville du jeu où tu te trouves (pas ta position réelle), ton code ami, ton statut PawPass, tes amis, groupes, cadeaux et invitations, et les dates où tu ouvres l'app (supprimées après 400 jours), liés à un identifiant anonyme. Pour garder les classements équitables, uniquement les jours avec un nombre de pas inhabituel et cas semblables, nous pouvons envoyer le total du jour, les pas de ton heure la plus active et les pas saisis à la main.</p>" +
+        "<h4>Autres</h4><p>Créer un code de transfert enregistre toutes tes données de jeu (supprimées un an après la dernière mise à jour) ; le formulaire d'avis enregistre ton message avec la version de l'app et du système et le modèle du téléphone. Pour éviter les abus d'invitation, nous vérifions avec Apple/Google que l'app et l'appareil sont authentiques et enregistrons le résultat. Quand tu regardes une pub, des identifiants de l'appareil et des données similaires sont envoyés à la régie (Unity).</p>" +
+        "<p>Plus de détails dans la <a class=\"js-privacy\" href=\"privacy.html\">Politique de confidentialité</a> (en anglais).</p>" },
+      { id: "notifications", q: "Comment couper les notifications ? / Je ne les reçois pas", a:
+        "<p>Nous envoyons des notifications comme des rappels de soins, une alerte quand ton animal est sur le point de partir, et un petit mot si tu n'as pas ouvert l'app depuis longtemps. L'app fonctionne sans.</p>" +
+        "<p>Pour les couper, désactive « Notifications » dans « Général » des Réglages de l'app (ou dans les réglages de ton téléphone). Tu ne les reçois pas ? Vérifie que « Notifications » est activé dans l'app et que PawPlanet a le droit d'envoyer des notifications dans les réglages du téléphone.</p>" },
+      { id: "android", q: "Existe-t-il une version Android ? Quelles différences ?", a:
+        "<p>Oui, sur <a href=\"https://play.google.com/store/apps/details?id=com.pawplanet.app\" rel=\"noopener\">Google Play</a> (Android 8.0 ou ultérieur). La version iPhone est sur l'<a href=\"https://apps.apple.com/app/id6808814090\" rel=\"noopener\">App Store</a> (iOS 16 ou ultérieur).</p>" +
+        "<p>Les classements et les amis sont communs à iPhone et Android : tu peux jouer avec des amis sur l'un ou l'autre. Les principales différences :</p><ul>" +
+        "<li>Source des pas : Santé et le podomètre de l'iPhone sur iPhone ; Santé Connect et le podomètre du téléphone sous Android.</li>" +
+        "<li>Sauvegarde : l'iPhone enregistre automatiquement dans iCloud ; Android ne transfère pas les données tout seul, crée donc un code de transfert avant de changer de téléphone.</li>" +
+        "<li>Envoi des pas : sous Android, les pas ne sont lus et envoyés que lorsque l'app est ouverte.</li>" +
+        "<li>Achats : App Store sur iPhone, Google Play sous Android. Le PawPass ne passe pas de l'un à l'autre.</li></ul>" },
+      { id: "contact", q: "Comment vous contacter ?", a:
+        "<p>Utilise « <b>Avis et bugs</b> » dans les Réglages de l'app. Nous ne pouvons généralement pas répondre à chacun, mais nous lisons tous les messages. Les annonces importantes peuvent arriver dans « Nouvelles de l'équipe » de ton Courrier.</p>" +
+        "<p>Par e-mail : <a href=\"mailto:yoshitetsugames21@gmail.com\">yoshitetsugames21@gmail.com</a> (en japonais ou en anglais). Avec ton code ami, la version de l'app et le modèle du téléphone, nous vérifions plus vite. Les signalements d'autres joueurs sont aussi acceptés à <a href=\"mailto:yoshitetsugames21+report@gmail.com\">yoshitetsugames21+report@gmail.com</a>.</p>" }
+    ]}
+  ]
+};
+</script>
+<script>
+(function () {
+  var LANGS = ["ja","en","zh-Hans","zh-Hant","ko","es","de","fr"];
+  var STORE_KEY = "pp_site_lang";   // トップページ（index.html）と同じ鍵＝選んだ言語を共有
+  function norm(tag) {
+    var l = (tag || "").toLowerCase();
+    if (l.indexOf("ja") === 0) return "ja";
+    if (l.indexOf("zh") === 0) return /hant|tw|hk|mo/.test(l) ? "zh-Hant" : "zh-Hans";
+    if (l.indexOf("en") === 0) return "en";
+    if (l.indexOf("ko") === 0) return "ko";
+    if (l.indexOf("es") === 0) return "es";
+    if (l.indexOf("de") === 0) return "de";
+    if (l.indexOf("fr") === 0) return "fr";
+    return null;
+  }
+  function pickLang() {
+    try { var q = new URLSearchParams(location.search).get("lang"); var n = norm(q); if (n && T[n]) return n; } catch (e) {}
+    try { var s = localStorage.getItem(STORE_KEY); if (s && T[s]) return s; } catch (e) {}
+    var list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || "ja"];
+    for (var i = 0; i < list.length; i++) { var m = norm(list[i]); if (m && T[m]) return m; }
+    return "en";
+  }
+
+  var $ = function (id) { return document.getElementById(id); };
+  var LANG = pickLang();
+  var openIds = {};
+
+  // フランス語：? ! : ; » の前と « の後ろは改行しない空白に（index.html と同じ扱い）
+  function frStr(s) { return LANG === "fr" ? s.replace(/ ([?!:;»])/g, "\u00a0$1").replace(/« /g, "«\u00a0") : s; }
+  function frNodes(node) {
+    if (LANG !== "fr") return;
+    if (node.nodeType === 3) node.nodeValue = frStr(node.nodeValue);
+    else for (var i = 0; i < node.childNodes.length; i++) frNodes(node.childNodes[i]);
+  }
+  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+  function render(lang) {
+    LANG = lang;
+    var d = T[lang] || T.en;
+    var u = {}; for (var key in d.ui) u[key] = frStr(d.ui[key]);
+    document.documentElement.lang = lang;
+    document.title = u.title;
+    $("h1").textContent = u.h1;
+    $("sub").textContent = u.sub;
+    $("lede").textContent = u.lede;
+    $("q").setAttribute("placeholder", u.search);
+    $("q").setAttribute("aria-label", u.search);
+    $("cH").textContent = u.cH;
+    $("cNote").textContent = u.cNote;
+    $("cApp").textContent = u.cApp;
+    $("nohit").textContent = u.nohit;
+    $("updated").textContent = u.updated;
+    var privHref = lang === "ja" ? "privacy.html" : "privacy.html?lang=en";   // ポリシーは日本語・英語の2つ
+    $("privacyLink").textContent = u.privacy;
+    $("privacyLink").setAttribute("href", privHref);
+
+    var toc = $("toc"), faq = $("faq");
+    toc.innerHTML = ""; faq.innerHTML = "";
+    d.cats.forEach(function (c) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = "#cat-" + c.id; a.textContent = c.icon + " " + frStr(c.title);
+      li.appendChild(a); toc.appendChild(li);
+
+      var sec = document.createElement("section");
+      sec.className = "cat"; sec.id = "cat-" + c.id;
+      var h = document.createElement("h2");
+      h.innerHTML = "<span aria-hidden=\"true\">" + c.icon + "</span>";
+      h.appendChild(document.createTextNode(frStr(c.title)));
+      sec.appendChild(h);
+      var box = document.createElement("div"); box.className = "faq";
+      c.items.forEach(function (it) {
+        var det = document.createElement("details");
+        det.id = it.id;
+        var sum = document.createElement("summary");
+        sum.innerHTML = "<span class=\"mk\">Q.</span>";
+        var qs = document.createElement("span"); qs.className = "qt"; qs.textContent = frStr(it.q);
+        sum.appendChild(qs);
+        var ans = document.createElement("div"); ans.className = "ans";
+        ans.innerHTML = it.a;
+        frNodes(ans);
+        // 1.6.4 の段落は公開まで出さない
+        var v = ans.querySelectorAll("[v164]");
+        for (var i = 0; i < v.length; i++) if (!SHOW_164) v[i].parentNode.removeChild(v[i]);
+        var pl = ans.querySelectorAll("a.js-privacy");
+        for (var j = 0; j < pl.length; j++) pl[j].setAttribute("href", privHref);
+        det.appendChild(sum); det.appendChild(ans);
+        det.dataset.text = (it.q + " " + ans.textContent).toLowerCase();
+        det.dataset.html = ans.innerHTML;
+        if (openIds[it.id]) det.open = true;
+        det.addEventListener("toggle", function () { if (det.open) openIds[it.id] = true; else delete openIds[it.id]; });
+        box.appendChild(det);
+      });
+      sec.appendChild(box);
+      faq.appendChild(sec);
+    });
+
+    var bs = document.querySelectorAll("#langs button");
+    for (var k = 0; k < bs.length; k++) bs[k].setAttribute("aria-pressed", bs[k].getAttribute("data-l") === lang ? "true" : "false");
+    filter();
+  }
+
+  // 検索：質問と答えの文字で絞り込み、当たった言葉に印を付けて開く
+  function highlight(node, re) {
+    if (node.nodeType === 3) {
+      var t = node.nodeValue; if (!re.test(t)) return; re.lastIndex = 0;
+      var frag = document.createDocumentFragment(), last = 0, m;
+      while ((m = re.exec(t))) {
+        frag.appendChild(document.createTextNode(t.slice(last, m.index)));
+        var mk = document.createElement("mark"); mk.textContent = m[0]; frag.appendChild(mk);
+        last = m.index + m[0].length;
+        if (m[0].length === 0) re.lastIndex++;
+      }
+      frag.appendChild(document.createTextNode(t.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    } else if (node.nodeType === 1 && node.tagName !== "MARK") {
+      var kids = Array.prototype.slice.call(node.childNodes);
+      for (var i = 0; i < kids.length; i++) highlight(kids[i], re);
+    }
+  }
+  function filter() {
+    var raw = ($("q").value || "").trim().toLowerCase();
+    var words = raw.split(/\s+/).filter(Boolean);
+    var total = 0;
+    var secs = document.querySelectorAll("section.cat");
+    for (var s = 0; s < secs.length; s++) {
+      var dets = secs[s].querySelectorAll("details"), shown = 0;
+      for (var i = 0; i < dets.length; i++) {
+        var det = dets[i], ans = det.querySelector(".ans"), qt = det.querySelector(".qt");
+        ans.innerHTML = det.dataset.html;
+        qt.textContent = qt.textContent;   // 印を外す
+        var ok = words.every(function (w) { return det.dataset.text.indexOf(w) !== -1; });
+        det.hidden = !ok;
+        if (ok) { shown++; total++; }
+        if (ok && words.length) {
+          var re = new RegExp(words.map(esc).join("|"), "gi");
+          highlight(ans, re); re.lastIndex = 0; highlight(qt, re);
+          det.open = true;
+        }
+      }
+      secs[s].hidden = shown === 0;
+    }
+    $("toc").parentNode.hidden = words.length > 0;
+    $("hits").textContent = words.length ? T[LANG].ui.hits.replace("%n", total) : "";
+    $("nohit").hidden = !(words.length && total === 0);
+  }
+
+  $("q").addEventListener("input", filter);
+  $("langs").addEventListener("click", function (e) {
+    var l = e.target && e.target.getAttribute && e.target.getAttribute("data-l");
+    if (l && T[l]) { try { localStorage.setItem(STORE_KEY, l); } catch (err) {} render(l); }
+  });
+
+  render(LANG);
+
+  // #質問ID で開いてその質問へ（例：support.html#new-phone）
+  function openHash() {
+    var id = decodeURIComponent((location.hash || "").slice(1));
+    var el = id && document.getElementById(id);
+    if (el && el.tagName === "DETAILS") { el.open = true; openIds[id] = true; el.scrollIntoView(); }
+  }
+  window.addEventListener("hashchange", openHash);
+  openHash();
+})();
+</script>
+</body>
+</html>
