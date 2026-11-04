@@ -84,13 +84,13 @@
     </div>
     <div class="meta">
       <span><b>アプリ / App</b> PawPlanet — iOS / Android (com.pawplanet.app)</span>
-      <span><b id="upd-ja">最終更新</b><b id="upd-en" hidden>Last updated</b> 2026-11-03</span>
+      <span><b id="upd-ja">最終更新</b><b id="upd-en" hidden>Last updated</b> 2026-11-04</span>
     </div>
   </header>
 
   <!-- ============ 日本語 ============ -->
   <div id="doc-ja" role="tabpanel" aria-labelledby="tab-ja">
-    <p class="lede">PawPlanet は、あなたの歩数に合わせてペットが育つおさんぽ育成アプリです。<b>氏名・メールアドレス・正確な位置情報は収集しません</b>。あなたのデータは基本的に端末内にとどまり、<b>ランキング・フレンド（友だちだけを含む）に参加したとき、引き継ぎコードを発行したとき、アプリ内のご意見フォームを使ったときだけ</b>、必要な情報を当社サーバー（Supabase）へ送ります。このページは、その扱いを分かりやすくまとめたものです。</p>
+    <p class="lede">PawPlanet は、あなたの歩数に合わせてペットが育つおさんぽ育成アプリです。<b>氏名・メールアドレス・正確な位置情報は収集しません</b>。あなたのデータは基本的に端末内にとどまり、<b>ランキング・フレンド（友だちだけを含む）に参加したとき、引き継ぎコードを発行したとき、アプリ内のご意見フォームを使ったとき、お知らせ（プッシュ通知）の受け取りに同意したときだけ</b>、必要な情報を当社サーバー（Supabase）へ送ります。このページは、その扱いを分かりやすくまとめたものです。</p>
 
     <section class="item">
       <h2><span class="no">01</span>収集しない情報</h2>
@@ -157,6 +157,8 @@
     <section class="item">
       <h2><span class="no">07</span>通知</h2>
       <p>お世話のリマインドなどの通知を送ることがあります。通知は任意で、許可しなくてもアプリは遊べますし、設定アプリからいつでもオフにできます。</p>
+      <p><b>お知らせ（プッシュ通知）の送り先</b> — iPhone 版（1.6.6 から）では、アプリ内で「受け取る」を選んだ場合だけ、新しい版のご案内や、歩数が届かないときのお知らせなどを送るために、Apple の通知サービス（APNs）が端末ごとに発行する<b>通知の送り先の番号（デバイストークン）</b>を、<b>アプリの版・言語・端末の時間帯</b>とあわせて当社サーバーに保存します。匿名IDに紐づけて保存し、氏名・メールアドレス・歩数・位置情報は含みません。通知の配信にだけ使い、広告やトラッキングには使わず、ほかの会社へ提供することもありません（配信のために Apple の通知サービスを経由します）。</p>
+      <p>「受け取る」を選ばなければ、送り先の番号は取得も保存もしません。設定の「お知らせ（プッシュ通知）」をオフにするか、「データをリセット」を行うと、サーバーに保存した送り先の番号を削除します（通信できないときは、次につながったときに削除します）。通知が届かなくなるだけでよい場合は、iPhone の「設定」アプリからこのアプリの通知をオフにすることもできます。サーバー上のデータの削除をご依頼いただいた場合（第10項）も削除します。また、<b>400 日</b>更新のない送り先の番号は自動的に削除します。</p>
     </section>
 
     <section class="item">
@@ -211,7 +213,7 @@
 
   <!-- ============ English ============ -->
   <div id="doc-en" role="tabpanel" aria-labelledby="tab-en" hidden>
-    <p class="lede">PawPlanet is a cozy pet-raising app where your pet grows with the steps you take. It <b>collects no name, email, or precise location</b>. Your data stays, as a rule, on your device. Information is sent to our server (Supabase) <b>only when you join the leaderboards/friends (including Friends only), issue a transfer code, or send feedback in the app</b>. This page explains how that works.</p>
+    <p class="lede">PawPlanet is a cozy pet-raising app where your pet grows with the steps you take. It <b>collects no name, email, or precise location</b>. Your data stays, as a rule, on your device. Information is sent to our server (Supabase) <b>only when you join the leaderboards/friends (including Friends only), issue a transfer code, send feedback in the app, or agree to receive push notifications</b>. This page explains how that works.</p>
 
     <section class="item">
       <h2><span class="no">01</span>Information we don't collect</h2>
@@ -278,6 +280,8 @@
     <section class="item">
       <h2><span class="no">07</span>Notifications</h2>
       <p>We may send reminders (for example, to care for your pet). Notifications are optional; the app works without them, and you can turn them off anytime in Settings.</p>
+      <p><b>Push notification address</b> — On iPhone (from version 1.6.6), only if you choose "Turn on" in the app, we store on our server the <b>push notification address (device token)</b> issued by Apple's push notification service (APNs) for your device, together with the <b>app version, language and device time zone</b>, so that we can send things like new-version news and alerts when your steps aren't arriving. It is stored linked to your anonymous ID and contains no name, email, step count or location. It is used only to deliver notifications, never for advertising or tracking, and is not provided to other companies (delivery goes through Apple's push notification service).</p>
+      <p>If you don't choose "Turn on", no push address is obtained or stored. If you turn off "News &amp; alerts (push)" in the app's Settings, or use "Reset data", we delete the stored push address from our server (if you are offline, it is deleted the next time the app can connect). If you only want notifications to stop arriving, you can also turn them off for this app in the iPhone Settings app. We also delete it if you request deletion of server data (section 10). A push address that has not been updated for <b>400 days</b> is deleted automatically.</p>
     </section>
 
     <section class="item">
