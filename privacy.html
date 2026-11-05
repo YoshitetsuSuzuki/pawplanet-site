@@ -84,13 +84,13 @@
     </div>
     <div class="meta">
       <span><b>アプリ / App</b> PawPlanet — iOS / Android (com.pawplanet.app)</span>
-      <span><b id="upd-ja">最終更新</b><b id="upd-en" hidden>Last updated</b> 2026-11-04</span>
+      <span><b id="upd-ja">最終更新</b><b id="upd-en" hidden>Last updated</b> 2026-11-06</span>
     </div>
   </header>
 
   <!-- ============ 日本語 ============ -->
   <div id="doc-ja" role="tabpanel" aria-labelledby="tab-ja">
-    <p class="lede">PawPlanet は、あなたの歩数に合わせてペットが育つおさんぽ育成アプリです。<b>氏名・メールアドレス・正確な位置情報は収集しません</b>。あなたのデータは基本的に端末内にとどまり、<b>ランキング・フレンド（友だちだけを含む）に参加したとき、引き継ぎコードを発行したとき、アプリ内のご意見フォームを使ったとき、お知らせ（プッシュ通知）の受け取りに同意したときだけ</b>、必要な情報を当社サーバー（Supabase）へ送ります。このページは、その扱いを分かりやすくまとめたものです。</p>
+    <p class="lede">PawPlanet は、あなたの歩数に合わせてペットが育つおさんぽ育成アプリです。<b>氏名・メールアドレス・正確な位置情報は収集しません</b>。あなたのデータは基本的に端末内にとどまり、<b>ランキング・フレンド（友だちだけを含む）に参加したとき、引き継ぎコードを発行したとき、アプリ内のご意見フォームを使ったとき、お知らせ（プッシュ通知）の受け取りに同意したときだけ</b>、必要な情報を当社サーバー（Supabase）へ送ります（このほか、アプリが落ちたときの技術的な要約を自動で送ります。第12項）。このページは、その扱いを分かりやすくまとめたものです。</p>
 
     <section class="item">
       <h2><span class="no">01</span>収集しない情報</h2>
@@ -134,7 +134,7 @@
         <li>読み取った歩数は、育成・旅の計算に使います</li>
         <li>ランキングに参加している場合は、<b>今週・前週・累計の合計歩数</b>、今日の歩数（フレンドのお庭に表示）、グループの期間中の合計歩数を、匿名IDに紐づけて当社サーバーへ送ります</li>
         <li>引き継ぎコードを発行した場合は、セーブデータの一部として<b>日付ごとの歩数の合計と最高記録</b>も当社サーバーに保存されます（第05項）</li>
-        <li>ランキングを公平に保つため（不正防止）、歩数がとくに多い日や手入力の歩数が多い日に限り、<b>その日の合計歩数・いちばん歩いた1時間の歩数とその時間帯・手入力された歩数</b>を送ることがあります。これは確認のための記録にだけ使い、これを理由に自動で記録を消したりアカウントを止めたりすることはありません</li>
+        <li>ランキングを公平に保つため（不正防止）、歩数がとくに多い日や手入力の歩数が多い日に限り、<b>その日の合計歩数・いちばん歩いた1時間の歩数とその時間帯・手入力された歩数・ほかのアプリが書き込んだ歩数の割合</b>を送ることがあります。これは確認のための記録にだけ使い、これを理由に自動で記録を消したりアカウントを止めたりすることはありません</li>
         <li>歩いた区間・位置、計測に使った機器の名前は保存しません。第三者への提供はありません</li>
         <li>広告・分析・プロファイリングには一切利用しません</li>
         <li>設定でオンにできる<b>消費カロリーの目安</b>は、歩数から端末の中だけで計算し、当社サーバーには送りません</li>
@@ -200,7 +200,17 @@
     </section>
 
     <section class="item">
-      <h2><span class="no">12</span>本ポリシーの変更</h2>
+      <h2><span class="no">12</span>アプリの不具合の自動報告</h2>
+      <p>1.6.6 から、アプリが落ちたり固まったりしたときに、原因を調べて直すため、<b>技術的な要約</b>を当社サーバーへ自動で送ります。</p>
+      <ul class="facts">
+        <li>送るのは、<b>アプリの版・ビルド番号・OS の版・機種・落ち方の種類・落ちたプログラムの場所</b>だけです。<b>氏名・表示名・歩数・ヘルスケアのデータ・位置情報は含みません</b></li>
+        <li>ランキングへの参加の有無にかかわらず送ります。iPhone 版は匿名IDにも紐づけません。Android 版は、ランキングやフレンド機能を使っている場合に限り匿名IDに紐づけます</li>
+        <li class="no">不具合の調査と修正にだけ使い、広告やトラッキングには使わず、第三者へ提供することもありません。<b>7日</b>で自動的に削除します</li>
+      </ul>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">13</span>本ポリシーの変更</h2>
       <p>機能追加などに伴い、本ポリシーを更新することがあります。重要な変更がある場合は、このページの更新日を改めてお知らせします。</p>
     </section>
 
@@ -213,7 +223,7 @@
 
   <!-- ============ English ============ -->
   <div id="doc-en" role="tabpanel" aria-labelledby="tab-en" hidden>
-    <p class="lede">PawPlanet is a cozy pet-raising app where your pet grows with the steps you take. It <b>collects no name, email, or precise location</b>. Your data stays, as a rule, on your device. Information is sent to our server (Supabase) <b>only when you join the leaderboards/friends (including Friends only), issue a transfer code, send feedback in the app, or agree to receive push notifications</b>. This page explains how that works.</p>
+    <p class="lede">PawPlanet is a cozy pet-raising app where your pet grows with the steps you take. It <b>collects no name, email, or precise location</b>. Your data stays, as a rule, on your device. Information is sent to our server (Supabase) <b>only when you join the leaderboards/friends (including Friends only), issue a transfer code, send feedback in the app, or agree to receive push notifications</b>. In addition, the app automatically sends a technical summary when it crashes (section 12). This page explains how that works.</p>
 
     <section class="item">
       <h2><span class="no">01</span>Information we don't collect</h2>
@@ -257,7 +267,7 @@
         <li>Steps are used to calculate growth and travel</li>
         <li>If you join the leaderboards, your <b>weekly, previous-week and lifetime totals</b>, today's steps (shown in your garden to friends) and group-mission totals are sent to our server, linked to an anonymous ID</li>
         <li>If you issue a transfer code, your <b>per-day step totals and personal bests</b> are stored on our server as part of your save data (section 05)</li>
-        <li>To keep the leaderboards fair (fraud prevention), only on days with unusually high or manually entered steps, we may send <b>that day's total, the step count of your busiest hour and which hour it was, and the manually entered amount</b>. This is used only for review records; we never automatically delete your records or suspend accounts because of it</li>
+        <li>To keep the leaderboards fair (fraud prevention), only on days with unusually high or manually entered steps, we may send <b>that day's total, the step count of your busiest hour and which hour it was, the manually entered amount, and the share of steps written by other apps</b>. This is used only for review records; we never automatically delete your records or suspend accounts because of it</li>
         <li>We do not store routes, location, or the names of the devices that measured your steps. Nothing is shared with third parties</li>
         <li>It is never used for advertising, analytics, or profiling</li>
         <li>The optional <b>calorie estimate</b> is calculated from your steps on your device only and is never sent to our server</li>
@@ -323,7 +333,17 @@
     </section>
 
     <section class="item">
-      <h2><span class="no">12</span>Changes to this policy</h2>
+      <h2><span class="no">12</span>Automatic crash reports</h2>
+      <p>Starting with version 1.6.6, when the app crashes or freezes, it automatically sends a <b>technical summary</b> to our server so we can find and fix the cause.</p>
+      <ul class="facts">
+        <li>It contains only the <b>app version, build number, OS version, device model, type of crash and where in the program it happened</b>. It <b>does not include your name, display name, steps, health data or location</b></li>
+        <li>It is sent whether or not you join the leaderboards. On iPhone it is not linked to your anonymous ID. On Android it is linked to your anonymous ID only if you use the leaderboards or friends features</li>
+        <li class="no">It is used only to investigate and fix problems, never for advertising or tracking, and is not shared with third parties. It is deleted automatically after <b>7 days</b></li>
+      </ul>
+    </section>
+
+    <section class="item">
+      <h2><span class="no">13</span>Changes to this policy</h2>
       <p>We may update this policy as features change. For significant changes, we will update the date shown on this page.</p>
     </section>
 
