@@ -14,6 +14,9 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="PawPlanet — 歩いて育てる、世界一周ペット。招待コードで +150パウ">
 <meta name="twitter:card" content="summary_large_image">
+<!-- 1.6.6 点検 W-7：コード付きの URL を検索に載せない・ストアへ移るときに引数（コード）を送らない -->
+<meta name="robots" content="noindex">
+<meta name="referrer" content="strict-origin">
 <script>
   // ・招待コード付き（?c=XXXXXXXX）：コードを大きく見せて「コピーしてストアへ」「アプリで開く」を出す（自動では飛ばない）。
   // ・コード無し：端末を見てそのままストアへ（iPhone/iPad → App Store、Android → Google Play、PC はボタン表示）。
@@ -21,34 +24,77 @@
   var ANDROID = "https://play.google.com/store/apps/details?id=com.pawplanet.app";
   // Google Play で公開されるまでは false（Android の人には「もうすぐ公開」を出し、ストアへは送らない）。公開されたら true に。
   var ANDROID_LIVE = true;
+  // iPhone で招待リンクそのものをコピーするか。★iOS 1.6.6 の公開（App Store で配信中）を確かめてから true に★
+  //   false のあいだ、iPhone は今までどおりコードだけ（グループ＋招待は1行 gcopy・グループだけは1行 gocopy）をコピーする。
+  //   iOS 1.6.5 のはじめかたの入力欄は、長押しで直接貼ったリンクを読めない（貼るボタンなら読める）ため。
+  //   Android・PC は今からリンクをコピーする（Android 1.6.5 はどの欄でもリンクから読める）。
+  var IOS_LINK_COPY = false;
   var ua = navigator.userAgent || "";
   var isIOS = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
   var isAndroid = /Android/i.test(ua);
+  // 引数を1つ取り出す（1.6.6 点検 W-4：?c=%E0 のような壊れた % で decodeURIComponent が止まり、ストアのボタンが
+  //   href="undefined" になっていた → 失敗したら空の文字。検査は呼ぶ側の正規表現）
+  function qp(name) {
+    var m = new RegExp("[?&]" + name + "=([^&#]*)").exec(location.search || "");
+    if (!m) return "";
+    try { return decodeURIComponent(m[1]); } catch (e) { return ""; }
+  }
   var CODE = (function () {
-    var m = /[?&]c=([^&#]+)/.exec(location.search);
-    var c = m ? decodeURIComponent(m[1]).toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
+    var c = qp("c").toUpperCase().replace(/[^A-Z0-9]/g, "");
     return /^[A-HJ-NP-Z2-9]{8}$/.test(c) ? c : "";   // フレンドコードの形（8文字・紛らわしい0/O/1/I なし）だけ受け付ける
   })();
-  // グループ招待（?g=XXXXXX）：グループコード（6文字・同じ文字種）。招待コードより後ろの扱い（両方あれば招待コードを優先）
-  var GROUP = CODE ? "" : (function () {
-    var m = /[?&]g=([^&#]+)/.exec(location.search);
-    var g = m ? decodeURIComponent(m[1]).toUpperCase().replace(/[^A-Z0-9]/g, "") : "";
+  // グループ招待（?g=XXXXXX）：グループコード（6文字・同じ文字種）。
+  //   1.6.4：?g=G&c=C（グループの招待に送った人の招待コードつき）は、グループの見た目のまま、リファラにも両方を入れる。
+  var GROUP = (function () {
+    var g = qp("g").toUpperCase().replace(/[^A-Z0-9]/g, "");
     return /^[A-HJ-NP-Z2-9]{6}$/.test(g) ? g : "";
   })();
+  // 1.6.4 おすそわけたまご（?c=CODE&e=1）：見出しだけ「たまごのおすそわけ」にする（名前はページに出さない・コードから名前を引かない）
+  // 1.6.6 あけおめカード（?ny=1・設計 §4.5）：見出しを「友だちからのあけおめ🎍」にして、お正月の見た目にする。
+  //   ?c=&e=1&ny=1 → あけおめ＋おすそわけたまご（中身は今までどおり）／?c=&ny=1 → あけおめ＋ふつうの招待／?ny=1 → あけおめ＋入手ボタンだけ。
+  // 1.6.7：グループがあっても ny=1 を見て、お正月の見た目のまま「グループに誘われています」の一行を足す（グループ名・人の名前は出さない）。
+  //   ・?g=G&ny=1 → グループの案内／?c=&e=1&g=&ny=1 → たまごの案内を残す（コードはフレンドコードを大きく）／?c=&g=&ny=1 → グループの案内。
+  //   ・ny=1 の無いグループの招待（?g=・?g=&c=・e=1 つきでも）は今までどおり（NY=false・グループの見た目）。
+  var NY = /[?&]ny=1(?:[&#]|$)/.test(location.search);
+  // クリスマス2026 ③（?xm=1）：見出しを「友だちからのクリスマスカード🎄」にして、赤と緑を少しだけ足す。中身（おすそわけたまご・入手ボタン）は今までどおり・ごほうびは足さない。
+  //   グループ（?g=）か ny=1 があれば XM は立てない＝そちらの見た目のまま。?xm=1 だけ（コード無し）のスマホは ny=1 と同じく自動では移らずボタンを出す。
+  var XM = !GROUP && !NY && /[?&]xm=1(?:[&#]|$)/.test(location.search);
+  var EGG = !!CODE && /[?&]e=1(?:[&#]|$)/.test(location.search) && (!GROUP || NY);
+  // 見た目：group（?g= だけ・?g=&c=）／egg（?c=&e=1）／invite（?c= だけ）
+  var MODE = (NY && EGG) ? "egg" : (GROUP ? "group" : (EGG ? "egg" : (CODE ? "invite" : "")));
+  // 1.6.6 点検 W-3：「コピーしてストアへ」でコピーするのは招待リンクそのもの（設計 2026-11-02-invite-one-tap-ios-design.md §A）。
+  //   iPhone 1.6.6 のはじめての起動は、リンクらしいもの（.probableWebURL）がコピーされているときだけ「🎁 招待を受け取る」を出す。
+  //   ・形は /get/（/get/ny/ はアプリが招待ページと見なさない＝点検 C-3）。ホストは独自ドメインに固定（どちらの Pages で開いても同じ）。
+  //   ・グループ＋招待：?g=G&c=C（アプリの共有と同じ形）／招待：?c=C（たまご &e=1・あけおめ &ny=1）。
+  //   ・グループだけ（?g=G）はリンクにしない。1.6.7 からコピーするのは言語ごとの1行 gocopy「PawPlanet グループ G」
+  //     （下の apply の MEMO_TEXT）＝はじめかたの貼り付けが合図の語からコードを読む（iOS groupKeywords・Android extractCodes）。
+  //     「グループ」→「コードで参加」の欄は 1.6.6 以前は6文字で切る（1行を貼ると「PawPla」）＝gstep2 は、アプリを持っている人には
+  //     「上の6文字を入力」と書く（1.6.7 の欄は貼った1行からコードを取り出す）。
+  //   古いアプリ（iOS・Android とも）も、貼った文のリンクの c=／g= からコードを取り出せる。
+  var COPY_LINK = "https://pawplanet.01-infinity.com/get/?" + (GROUP ? ("g=" + GROUP + (CODE ? "&c=" + CODE : ""))
+                    : ("c=" + CODE + (EGG ? "&e=1" : "") + (NY ? "&ny=1" : "")));
+  // 招待コードがあり、iPhone 以外か IOS_LINK_COPY が true のときだけリンク。それ以外は下の apply で MEMO_TEXT（コード）にする。
+  var USE_LINK = !!CODE && (!isIOS || IOS_LINK_COPY);
+  var COPY_TEXT = USE_LINK ? COPY_LINK : (CODE || GROUP);
   // ── 招待の計測（1.6.3・設計 B4/B5）。公開はよしてつ様の確認後 ──
   // App Store のキャンペーン用プロバイダID（pt）。★よしてつ様が ASC で確認した数字に差し替える★
   //   （App Store Connect →「アナリティクス」→「獲得」→「キャンペーン」→「キャンペーンリンクを生成」で出るリンクの pt=の数字）
   //   数字でないあいだ（PROVIDER_ID_TBD のまま）は pt を付けない＝ ct=invite と mt=8 だけ付く。
   var APP_STORE_PROVIDER_ID = "PROVIDER_ID_TBD";
-  // 招待コード（?c=）があるときだけ、ストアへのリンクに印を付ける。コード無し・グループ招待（?g=）は今までどおり。
+  // 招待コード（?c=）があるときは、App Store のリンクにも印を付ける。グループだけ（?g=）は App Store は今までどおり（Play のリファラだけ group=）。
   var IOS_LINK = IOS;
   var ANDROID_LINK = ANDROID;
   if (CODE && /^[A-Z0-9]{1,16}$/.test(CODE)) {   // 英大文字と数字だけ（上の CODE の検査に加えて念のため）
     IOS_LINK = IOS + "?" + (/^[0-9]{1,20}$/.test(APP_STORE_PROVIDER_ID) ? "pt=" + APP_STORE_PROVIDER_ID + "&" : "") + "ct=invite&mt=8";
     // Google Play のインストールリファラ：referrer=invite%3D<CODE>（アプリは初回起動で一度だけ読む）
-    ANDROID_LINK = ANDROID + "&referrer=" + encodeURIComponent("invite=" + CODE);
+    //   1.6.4：グループの招待（?g=G&c=C）は invite=<CODE>&group=<GROUP>（1.6.3 の Android は invite= だけを読む＝今までどおり招待として動く）
+    ANDROID_LINK = ANDROID + "&referrer=" + encodeURIComponent("invite=" + CODE + (GROUP ? "&group=" + GROUP : ""));
+  } else if (GROUP) {
+    // 1.6.7：グループだけ（?g=G）は group=<GROUP> だけ（アプリは初回起動でグループの参加欄に入れる・招待コードは無し）
+    ANDROID_LINK = ANDROID + "&referrer=" + encodeURIComponent("group=" + GROUP);
   }
-  if (!CODE && !GROUP) {
+  // コード無しはストアへ自動で移る。ただし ?ny=1／?xm=1 だけのときは、あいさつを見せるため移らずにボタンを出す。
+  if (!CODE && !GROUP && !NY && !XM) {
     if (isIOS) location.replace(IOS);
     else if (isAndroid && ANDROID_LIVE) location.replace(ANDROID);
   }
@@ -74,6 +120,8 @@
   .invite .lbl{font-size:.8rem;color:var(--muted)}
   .invite .code{font-size:1.8rem;font-weight:800;letter-spacing:.12em;margin:.1rem 0;font-family:ui-monospace,Menlo,monospace}
   .invite .bonus{font-size:.88rem;font-weight:700;color:var(--pink)}
+  .invite .note{font-size:.78rem;color:var(--muted);margin-top:.2rem}
+  .invite .copyline{font-size:.78rem;color:var(--muted);margin-top:.25rem;font-family:ui-monospace,Menlo,monospace;overflow-wrap:anywhere}
   .steps{text-align:left;font-size:.84rem;color:var(--muted);margin:.4rem 0 .5rem;padding-left:1.2rem;line-height:1.55}
   button.btn,a.btn{display:block;width:100%;border:0;cursor:pointer;text-decoration:none;font:inherit;font-weight:700;font-size:.95rem;
     padding:12px 14px;border-radius:999px;margin:8px 0;background:var(--ink);color:var(--bg)}
@@ -85,6 +133,25 @@
   .langs{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:.5rem}
   .langs button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;font:inherit;font-size:.75rem;padding:3px 9px;cursor:pointer}
   .langs button[aria-pressed="true"]{color:var(--ink);border-color:var(--ink);font-weight:700}
+  /* 1.6.6 あけおめ（?ny=1 のときだけ body.ny）：紅白と金を少しだけ。ほかの見た目は今までどおり */
+  :root{--ny-red:#C0392B;--ny-gold:#C9A227;--ny-bg:#FFF7EE;--ny-glow:rgba(201,162,39,.16)}
+  @media (prefers-color-scheme: dark){:root{--ny-red:#FF8A7A;--ny-gold:#E3C25A;--ny-bg:#1E1917;--ny-glow:rgba(227,194,90,.12)}}
+  body.ny{background:radial-gradient(circle at 50% 0,var(--ny-glow),transparent 55%),
+    radial-gradient(circle at 0 100%,rgba(192,57,43,.08),transparent 40%),radial-gradient(circle at 100% 100%,rgba(192,57,43,.08),transparent 40%),var(--ny-bg)}
+  body.ny .card{border-color:var(--ny-gold);box-shadow:0 0 0 3px var(--ny-glow);
+    background-image:linear-gradient(90deg,var(--ny-red) 0 33%,var(--panel) 33% 67%,var(--ny-red) 67%);background-size:100% 6px;background-repeat:no-repeat;padding-top:22px}
+  body.ny h1{color:var(--ny-red);font-size:1.3rem}
+  /* クリスマス2026 ③（?xm=1 のときだけ body.xm）：赤と緑を少しだけ。ほかの見た目は今までどおり */
+  :root{--xm-red:#B83A3A;--xm-green:#2F7D4F;--xm-bg:#F6FBF4;--xm-glow:rgba(47,125,79,.14)}
+  @media (prefers-color-scheme: dark){:root{--xm-red:#FF8E8E;--xm-green:#7FD39B;--xm-bg:#171D1A;--xm-glow:rgba(127,211,155,.12)}}
+  body.xm{background:radial-gradient(circle at 50% 0,var(--xm-glow),transparent 55%),
+    radial-gradient(circle at 0 100%,rgba(184,58,58,.08),transparent 40%),radial-gradient(circle at 100% 100%,rgba(184,58,58,.08),transparent 40%),var(--xm-bg)}
+  body.xm .card{border-color:var(--xm-green);box-shadow:0 0 0 3px var(--xm-glow);
+    background-image:linear-gradient(90deg,var(--xm-red) 0 33%,var(--xm-green) 33% 67%,var(--xm-red) 67%);background-size:100% 6px;background-repeat:no-repeat;padding-top:22px}
+  body.xm h1{color:var(--xm-red);font-size:1.3rem}
+  .nygreet{margin:0 0 .3rem;font-weight:700;font-size:.98rem;line-height:1.5;word-break:keep-all;overflow-wrap:anywhere}
+  .nygroup{margin:0 0 .45rem;font-weight:700;font-size:.9rem;color:var(--ny-red)}
+  .nygreet::after{content:"";display:block;width:56px;height:2px;margin:.45rem auto 0;background:var(--ny-gold);border-radius:2px}
 </style>
 </head>
 <body>
@@ -94,18 +161,24 @@
       <img src="img/draco.webp" alt="" width="96" height="96">
       <img src="img/nyanti.webp" alt="" width="84" height="84">
     </div>
-    <h1>PawPlanet</h1>
+    <h1 id="head">PawPlanet</h1>
+    <p class="nygreet" id="nyGreet" hidden></p>
+    <p class="nygroup" id="nyGroup" hidden></p>
     <p class="tag" data-i="tag"></p>
 
     <section id="invite" class="invite" hidden>
-      <div class="lbl" data-i="lbl" data-g="glbl"></div>
+      <div class="lbl" data-i="lbl" data-g="glbl" data-e="egift"></div>
       <div class="code" id="code"></div>
-      <div class="bonus" data-i="bonus" data-g="gbonus"></div>
+      <div class="bonus" data-i="bonus" data-g="gbonus" data-e="ebonus"></div>
+      <div class="note" id="eggNote" data-i="enote" hidden></div>
+      <div class="note" id="cond" data-i="cond" hidden></div>
+      <div class="copyline" id="copyLine" hidden></div>
       <ol class="steps">
         <li data-i="step1"></li>
-        <li data-i="step2" data-g="gstep2"></li>
+        <li data-i="step2" data-g="gstep2" data-gc="gcstep2"></li>
       </ol>
       <button class="btn" id="copyGo" data-i="copyGo"></button>
+      <div class="note" id="pasteHint" data-i="pastehint" hidden></div>
       <a class="btn sub" id="openApp" href="#" data-i="openApp" data-g="gopenApp"></a>
       <div class="toast" id="toast"></div>
     </section>
@@ -148,9 +221,21 @@
       about: "PawPlanet について",
       privacy: "プライバシー",
       glbl: "グループへの招待",
-      gbonus: "仲間と毎週の歩数を競おう！ 🏃",
-      gstep2: "アプリの「グループ」で「コードで参加」に貼り付け",
-      gopenApp: "アプリを持っている人：そのままグループに参加"
+      gbonus: "仲間といっしょに歩こう！ 🏃",
+      gstep2: "アプリを入れたら、はじめかたの「招待コードを貼る」で貼り付け（アプリを持っている人は「グループ」→「コードで参加」に上の6文字を入力）",
+      gopenApp: "アプリを持っている人：そのままグループに参加",
+      egift: "友だちから たまごのおすそわけ🥚",
+      ebonus: "はじめて始める人は、コードを入れるとレアたまごがもらえます",
+      enote: "受け取れるのは、はじめて PawPlanet を始める人だけです",
+      gcopy: "PawPlanet グループ %G ／ 招待 %C",
+      gcstep2: "アプリを入れたら、はじめかたの「招待コードを貼る」で貼り付け",
+      nyhead: "友だちからのあけおめ🎍",
+      xmhead: "友だちからのクリスマスカード🎄",
+      nygreet: "あけましておめでとう！ 今年もいっしょに歩こう",
+      cond: "条件：はじめて PawPlanet を始める方が、始めてから14日以内にランキングに参加して入力したときだけ。内容は変わる場合があります。",
+      nygroup: "グループに誘われています",
+      gocopy: "PawPlanet グループ %G",
+      pastehint: "アプリを開いたら『貼り付け』を押してね"
     },
     "en": {
       title: "Get PawPlanet",
@@ -167,9 +252,21 @@
       about: "About PawPlanet",
       privacy: "Privacy",
       glbl: "Group invite",
-      gbonus: "Compete with your group every week! 🏃",
-      gstep2: "In the app, open Group → Join with a code and paste it",
-      gopenApp: "Already have the app? Join the group now"
+      gbonus: "Walk together with your group! 🏃",
+      gstep2: "After installing, paste it at the “invite code” step while getting started (already have the app? Type the 6 characters above in Group → Join with a code)",
+      gopenApp: "Already have the app? Join the group now",
+      egift: "A gift egg from your friend 🥚",
+      ebonus: "New players get a rare egg when they enter the code",
+      enote: "Only for people starting PawPlanet for the first time",
+      gcopy: "PawPlanet Group %G / Invite %C",
+      gcstep2: "After installing, paste it at the “invite code” step while getting started",
+      nyhead: "A New Year greeting from your friend 🎍",
+      xmhead: "A Christmas card from your friend 🎄",
+      nygreet: "Happy New Year! Let's keep walking together this year",
+      cond: "Conditions: only for new players who join the ranking and enter the code within 14 days of starting. Rewards may change.",
+      nygroup: "You've been invited to a group",
+      gocopy: "PawPlanet Group %G",
+      pastehint: "After opening the app, tap “Paste”"
     },
     "zh-Hans": {
       title: "下载 PawPlanet",
@@ -186,9 +283,21 @@
       about: "关于 PawPlanet",
       privacy: "隐私",
       glbl: "群组邀请",
-      gbonus: "和伙伴们每周比拼步数吧！🏃",
-      gstep2: "在应用的“群组”中选择“用代码加入”并粘贴",
-      gopenApp: "已安装应用？直接加入群组"
+      gbonus: "和伙伴一起走吧！🏃",
+      gstep2: "安装后，在新手引导的“粘贴邀请码”步骤中粘贴（已安装应用的人，请在“群组”→“用代码加入”中输入上面的6个字符）",
+      gopenApp: "已安装应用？直接加入群组",
+      egift: "好友分享给你一颗蛋🥚",
+      ebonus: "首次开始的玩家输入邀请码，即可获得稀有蛋",
+      enote: "仅限首次开始玩 PawPlanet 的人领取",
+      gcopy: "PawPlanet 群组 %G / 邀请 %C",
+      gcstep2: "安装后，在新手引导的“粘贴邀请码”步骤中粘贴",
+      nyhead: "好友的新年祝福🎍",
+      xmhead: "好友的圣诞卡片🎄",
+      nygreet: "新年快乐！今年也一起走路吧",
+      cond: "条件：仅限首次开始的玩家，在开始后14天内加入排行榜并输入邀请码。内容可能会有变动。",
+      nygroup: "你被邀请加入群组",
+      gocopy: "PawPlanet 群组 %G",
+      pastehint: "打开应用后，请点“粘贴”"
     },
     "zh-Hant": {
       title: "下載 PawPlanet",
@@ -205,9 +314,21 @@
       about: "關於 PawPlanet",
       privacy: "隱私",
       glbl: "群組邀請",
-      gbonus: "和夥伴們每週比拼步數吧！🏃",
-      gstep2: "在 App 的「群組」中選擇「用代碼加入」並貼上",
-      gopenApp: "已安裝 App？直接加入群組"
+      gbonus: "和夥伴一起走吧！🏃",
+      gstep2: "安裝後，在新手引導的「貼上邀請碼」步驟中貼上（已安裝 App 的人，請在「群組」→「用代碼加入」中輸入上面的6個字元）",
+      gopenApp: "已安裝 App？直接加入群組",
+      egift: "好友分享給你一顆蛋🥚",
+      ebonus: "首次開始的玩家輸入邀請碼，即可獲得稀有蛋",
+      enote: "僅限首次開始玩 PawPlanet 的人領取",
+      gcopy: "PawPlanet 群組 %G / 邀請 %C",
+      gcstep2: "安裝後，在新手引導的「貼上邀請碼」步驟中貼上",
+      nyhead: "好友的新年祝福🎍",
+      xmhead: "好友的聖誕卡片🎄",
+      nygreet: "新年快樂！今年也一起走路吧",
+      cond: "條件：僅限首次開始的玩家，在開始後14天內加入排行榜並輸入邀請碼。內容可能會有變動。",
+      nygroup: "你被邀請加入群組",
+      gocopy: "PawPlanet 群組 %G",
+      pastehint: "打開 App 後，請點「貼上」"
     },
     "ko": {
       title: "PawPlanet 다운로드",
@@ -224,9 +345,21 @@
       about: "PawPlanet 소개",
       privacy: "개인정보",
       glbl: "그룹 초대",
-      gbonus: "그룹과 매주 걸음 수를 겨뤄요! 🏃",
-      gstep2: "앱의 「그룹」→「코드로 참가」에 붙여넣기",
-      gopenApp: "앱이 있나요? 바로 그룹에 참가"
+      gbonus: "친구들과 함께 걸어요! 🏃",
+      gstep2: "앱을 설치한 뒤, 시작 안내의 「초대 코드」 단계에 붙여넣기 (앱이 이미 있다면 「그룹」→「코드로 참가」에 위의 6글자를 입력)",
+      gopenApp: "앱이 있나요? 바로 그룹에 참가",
+      egift: "친구가 보낸 알 선물🥚",
+      ebonus: "처음 시작하는 분은 코드를 입력하면 레어 알을 받아요",
+      enote: "처음 PawPlanet을 시작하는 분만 받을 수 있어요",
+      gcopy: "PawPlanet 그룹 %G / 초대 %C",
+      gcstep2: "앱을 설치한 뒤, 시작 안내의 「초대 코드」 단계에 붙여넣기",
+      nyhead: "친구가 보낸 새해 인사🎍",
+      xmhead: "친구가 보낸 크리스마스 카드🎄",
+      nygreet: "새해 복 많이 받으세요! 올해도 함께 걸어요",
+      cond: "조건: 처음 시작하는 분이 시작 후 14일 이내에 랭킹에 참가하고 코드를 입력한 경우에만 해당돼요. 내용은 바뀔 수 있어요.",
+      nygroup: "그룹에 초대받았어요",
+      gocopy: "PawPlanet 그룹 %G",
+      pastehint: "앱을 열면 「붙여넣기」를 눌러 주세요"
     },
     "es": {
       title: "Descarga PawPlanet",
@@ -243,9 +376,21 @@
       about: "Sobre PawPlanet",
       privacy: "Privacidad",
       glbl: "Invitación a un grupo",
-      gbonus: "¡Compite cada semana con tu grupo! 🏃",
-      gstep2: "En la app, ve a Grupo → Unirse con código y pégalo",
-      gopenApp: "¿Ya tienes la app? Únete al grupo ahora"
+      gbonus: "¡Camina junto a tu grupo! 🏃",
+      gstep2: "Tras instalar la app, pégalo en el paso del “código de invitación” al empezar (¿ya tienes la app? Escribe los 6 caracteres de arriba en Grupo → Unirse con código)",
+      gopenApp: "¿Ya tienes la app? Únete al grupo ahora",
+      egift: "Un huevo de regalo de tu amigo 🥚",
+      ebonus: "Si empiezas por primera vez, recibes un huevo raro al escribir el código",
+      enote: "Solo para quienes empiezan PawPlanet por primera vez",
+      gcopy: "PawPlanet Grupo %G / Invitación %C",
+      gcstep2: "Tras instalar la app, pégalo en el paso del “código de invitación” al empezar",
+      nyhead: "Un saludo de Año Nuevo de tu amigo 🎍",
+      xmhead: "Una tarjeta de Navidad de tu amigo 🎄",
+      nygreet: "¡Feliz Año Nuevo! Sigamos caminando juntos este año",
+      cond: "Condiciones: solo para quienes empiezan por primera vez, se unen al ranking e introducen el código en los 14 días siguientes. Las recompensas pueden cambiar.",
+      nygroup: "Te han invitado a un grupo",
+      gocopy: "PawPlanet Grupo %G",
+      pastehint: "Al abrir la app, toca “Pegar”"
     },
     "de": {
       title: "PawPlanet herunterladen",
@@ -262,9 +407,21 @@
       about: "Über PawPlanet",
       privacy: "Datenschutz",
       glbl: "Gruppeneinladung",
-      gbonus: "Tritt jede Woche gegen deine Gruppe an! 🏃",
-      gstep2: "In der App: Gruppe → Mit Code beitreten und einfügen",
-      gopenApp: "Du hast die App schon? Jetzt der Gruppe beitreten"
+      gbonus: "Geht gemeinsam mit eurer Gruppe! 🏃",
+      gstep2: "Nach der Installation beim Start im Schritt „Einladungscode“ einfügen (App schon installiert? Die 6 Zeichen oben unter Gruppe → Mit Code beitreten eingeben)",
+      gopenApp: "Du hast die App schon? Jetzt der Gruppe beitreten",
+      egift: "Ein Geschenk-Ei von deinem Freund 🥚",
+      ebonus: "Neue Spieler erhalten mit dem Code ein seltenes Ei",
+      enote: "Nur für alle, die PawPlanet zum ersten Mal starten",
+      gcopy: "PawPlanet Gruppe %G / Einladung %C",
+      gcstep2: "Nach der Installation beim Start im Schritt „Einladungscode“ einfügen",
+      nyhead: "Ein Neujahrsgruß von deinem Freund 🎍",
+      xmhead: "Eine Weihnachtskarte von deinem Freund 🎄",
+      nygreet: "Frohes neues Jahr! Lass uns auch dieses Jahr zusammen gehen",
+      cond: "Bedingungen: nur für neue Spieler, die innerhalb von 14 Tagen nach dem Start der Rangliste beitreten und den Code eingeben. Änderungen vorbehalten.",
+      nygroup: "Du wurdest zu einer Gruppe eingeladen",
+      gocopy: "PawPlanet Gruppe %G",
+      pastehint: "Öffne die App und tippe auf „Einfügen“"
     },
     "fr": {
       title: "Télécharger PawPlanet",
@@ -281,9 +438,21 @@
       about: "À propos de PawPlanet",
       privacy: "Confidentialité",
       glbl: "Invitation de groupe",
-      gbonus: "Affronte ton groupe chaque semaine ! 🏃",
-      gstep2: "Dans l'app : Groupe → Rejoindre avec un code et colle-le",
-      gopenApp: "Tu as déjà l'app ? Rejoins le groupe maintenant"
+      gbonus: "Marchez ensemble avec votre groupe ! 🏃",
+      gstep2: "Après l'installation, colle-le à l'étape « code d'invitation » au démarrage (tu as déjà l'app ? Saisis les 6 caractères ci-dessus dans Groupe → Rejoindre avec un code)",
+      gopenApp: "Tu as déjà l'app ? Rejoins le groupe maintenant",
+      egift: "Un œuf offert par ton ami 🥚",
+      ebonus: "Si tu commences pour la première fois, reçois un œuf rare avec le code",
+      enote: "Réservé aux personnes qui commencent PawPlanet pour la première fois",
+      gcopy: "PawPlanet Groupe %G / Invitation %C",
+      gcstep2: "Après l'installation, colle-le à l'étape « code d'invitation » au démarrage",
+      nyhead: "Les vœux de Nouvel An de ton ami 🎍",
+      xmhead: "Une carte de Noël de ton ami 🎄",
+      nygreet: "Bonne année ! Continuons à marcher ensemble cette année",
+      cond: "Conditions : réservé aux nouveaux joueurs qui rejoignent le classement et saisissent le code dans les 14 jours suivant le début. Les récompenses peuvent changer.",
+      nygroup: "On t'invite à rejoindre un groupe",
+      gocopy: "PawPlanet Groupe %G",
+      pastehint: "Une fois l'app ouverte, appuie sur « Coller »"
     }
   };
   function pickLang() {
@@ -301,16 +470,39 @@
     return "en";
   }
   var LANG = pickLang();
+  // COPY_TEXT（コピーする文字）は上の script で決めた招待リンク（USE_LINK のとき）。MEMO_TEXT はコード
+  //   （グループ＋招待は言語ごとの1行 gcopy・グループだけは gocopy）＝コピーできなかったときに見せる文字・USE_LINK でないときにコピーする文字。
+  var MEMO_TEXT = CODE || GROUP;
   function apply(lang) {
     LANG = lang;
     var t = T[lang];
     document.documentElement.lang = lang;
-    document.title = t.title;
+    document.title = NY ? (t.nyhead + " — PawPlanet") : (XM ? (t.xmhead + " — PawPlanet") : t.title);
+    // あけおめ（?ny=1）：見出しを「友だちからのあけおめ🎍」、その下にあいさつ。名前はリンクに無いので出さない
+    // クリスマス（?xm=1）：見出しだけ「友だちからのクリスマスカード🎄」（あいさつの行・グループの行は足さない）
+    document.getElementById("head").textContent = NY ? t.nyhead : (XM ? t.xmhead : "PawPlanet");
+    var ng = document.getElementById("nyGreet");
+    ng.hidden = !NY;
+    ng.textContent = NY ? t.nygreet : "";
+    // 1.6.7：グループにも誘うあけおめは「グループに誘われています」の一行（グループ名・人の名前は出さない＝リンクに無い）
+    var nyg = document.getElementById("nyGroup");
+    nyg.hidden = !(NY && GROUP);
+    nyg.textContent = (NY && GROUP) ? t.nygroup : "";
     var els = document.querySelectorAll("[data-i]");
     for (var i = 0; i < els.length; i++) {
-      var k = (GROUP && els[i].getAttribute("data-g")) || els[i].getAttribute("data-i");
+      // 1.6.4：グループ＋招待（?g=&c=）は data-gc → data-g、おすそわけたまご（?c=&e=1）は data-e を先に使う
+      var k = (MODE === "group" && CODE && els[i].getAttribute("data-gc")) || (MODE === "group" && els[i].getAttribute("data-g"))
+              || (MODE === "egg" && els[i].getAttribute("data-e")) || els[i].getAttribute("data-i");
       els[i].textContent = t[k] || "";
     }
+    // 1.6.7：グループだけ（?g=G）は「PawPlanet グループ G」（アプリの合図の語＝iOS groupKeywords・Android extractCodes で読める）
+    MEMO_TEXT = (GROUP && CODE) ? t.gcopy.replace("%G", GROUP).replace("%C", CODE) : (GROUP ? t.gocopy.replace("%G", GROUP) : CODE);
+    var cl = document.getElementById("copyLine");
+    cl.hidden = !(GROUP && CODE);
+    cl.textContent = (GROUP && CODE) ? MEMO_TEXT : "";
+    // 1.6.7：アプリで開く の飛び先はグループがあれば joingroup＝文もグループ（たまごの案内でもフレンド追加とは書かない）
+    if (GROUP) document.getElementById("openApp").textContent = t.gopenApp;
+    if (!USE_LINK) COPY_TEXT = MEMO_TEXT;   // iPhone（IOS_LINK_COPY=false）・グループだけ：今までどおり
     var bs = document.querySelectorAll("#langs button");
     for (var j = 0; j < bs.length; j++) bs[j].setAttribute("aria-pressed", bs[j].getAttribute("data-l") === lang ? "true" : "false");
   }
@@ -320,6 +512,13 @@
   });
   apply(LANG);
 
+  if (NY) document.body.className += " ny";
+  if (XM) document.body.className += " xm";
+  // ?ny=1／?xm=1 だけ（コード無し）のスマホ：自動では移らないので、その端末のストアのボタンだけを出す（PC は両方）
+  if ((NY || XM) && !CODE) {
+    if (isIOS) document.getElementById("playBtn").hidden = true;
+    else if (isAndroid) document.getElementById("appStoreBtn").hidden = true;
+  }
   if (!ANDROID_LIVE) {
     document.getElementById("playBtn").hidden = true;
     document.getElementById("androidSoon").hidden = false;
@@ -327,11 +526,18 @@
   // 招待コードがあるときは、PC などで見えるストアのボタンにも同じ印（キャンペーン・リファラ）を付ける
   document.getElementById("appStoreBtn").href = IOS_LINK;
   document.getElementById("playBtn").href = ANDROID_LINK;
-  var SHOWN = CODE || GROUP;
+  var SHOWN = MODE === "egg" ? CODE : (GROUP || CODE);   // 大きく見せるコード（グループの招待はグループのコード・あけおめのたまごはフレンドコード）
   if (SHOWN) {
     document.getElementById("invite").hidden = false;
     document.getElementById("code").textContent = SHOWN;
-    document.getElementById("openApp").href = CODE ? ("pawplanet://addfriend?code=" + CODE) : ("pawplanet://joingroup?code=" + GROUP);
+    document.getElementById("eggNote").hidden = (MODE !== "egg");
+    // 1.6.7：iPhone でグループがあるときは、貼り付けの一言（コピーしたあとアプリの「貼り付け」を押す）
+    document.getElementById("pasteHint").hidden = !(isIOS && GROUP);
+    // 1.6.6 点検 W-5：特典を書いている見た目（招待・たまご）には条件も出す（グループの見た目は特典を書いていない）
+    document.getElementById("cond").hidden = (MODE !== "invite" && MODE !== "egg");
+    // アプリで開く：グループ（招待コードつきなら &c=）→ 招待。古いアプリは joingroup の code= だけを読む＝グループには今までどおり入れる
+    document.getElementById("openApp").href = GROUP ? ("pawplanet://joingroup?code=" + GROUP + (CODE ? "&c=" + CODE : ""))
+                                                     : ("pawplanet://addfriend?code=" + CODE);
     // スマホではストアのボタンを「コピーしてストアへ」1つにまとめる（PC は両方のストアを残す）
     if (isIOS || isAndroid) document.getElementById("stores").hidden = true;
     if (isAndroid && !ANDROID_LIVE) {
@@ -342,12 +548,12 @@
     var store = isIOS ? IOS_LINK : (isAndroid && ANDROID_LIVE ? ANDROID_LINK : null);
     document.getElementById("copyGo").addEventListener("click", function () {
       var done = function (ok) {
-        document.getElementById("toast").textContent = (ok ? T[LANG].copied : T[LANG].memo) + SHOWN;
+        document.getElementById("toast").textContent = ok ? (T[LANG].copied + COPY_TEXT) : (T[LANG].memo + MEMO_TEXT);
         if (store) setTimeout(function () { location.href = store; }, ok ? 600 : 1800);
       };
       try {
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(SHOWN).then(function () { done(true); }, function () { done(false); });
+          navigator.clipboard.writeText(COPY_TEXT).then(function () { done(true); }, function () { done(false); });
         } else { done(false); }
       } catch (e) { done(false); }
     });

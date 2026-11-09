@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>友だちからのクリスマスカード🎄 — PawPlanet</title>
+<meta name="description" content="メリークリスマス！ いっしょに歩こう。歩いて育てる、世界一周ペット PawPlanet（iPhone / Android）">
+<!-- 1.6.7 クリスマスカード（クリスマス2026 ③）：LINE・X などのプレビュー用の入口。作りは /get/ny/ と同じ。中身は /get/ と同じで、検査した引数（c・e）に xm=1 を付けて移る。
+     プレビューの取得（JS を動かさない）はこのページの og を読む。画像は web/get/img/og_xm.png（1200×630・本物の絵〔2026-11-06 よしてつ様選定・og_xm A〕）。 -->
+<meta property="og:title" content="メリークリスマス🎄 — PawPlanet">
+<meta property="og:description" content="いっしょに歩こう。歩いて育てる、世界一周ペット。iPhone / Android 対応の無料アプリ。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PawPlanet">
+<meta property="og:image" content="https://pawplanet.01-infinity.com/get/img/og_xm.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PawPlanet — メリークリスマス。いっしょに歩こう">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="strict-origin">
+<script>
+  // /get/xm/?c=XXXX&e=1 → /get/?c=XXXX&e=1&xm=1。参加していない人は /get/xm/?xm=1 → /get/?xm=1。
+  // グループのコード g は扱わない（クリスマスのカードにグループは付けない＝c・e・xm の順だけ）。
+  // /get/ny/ の点検 W-7 と同じ：移る先はパスから組み立てない（/get/xm/index で同じ URL を読み直し続ける・//get/xm/ で //get/ へ移る、を防ぐ）。
+  //   旧 URL（…github.io/pawplanet/get/xm/）だけ /pawplanet を残し、それ以外はいつも /get/。
+  //   引数は検査したものだけを付け直す（c＝8文字のフレンドコード・e=1・xm=1）。#以降は付けない。
+  (function () {
+    var q = location.search || "";
+    var m = /[?&]c=([^&#]*)/.exec(q), c = "";
+    if (m) { try { c = decodeURIComponent(m[1]); } catch (e) { c = ""; } }
+    c = c.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (!/^[A-HJ-NP-Z2-9]{8}$/.test(c)) c = "";
+    var egg = !!c && /[?&]e=1(?:[&#]|$)/.test(q);
+    var base = /^\/pawplanet\/get\/xm(?:\/(?:index(?:\.html)?)?)?$/.test(location.pathname) ? "/pawplanet/get/" : "/get/";
+    var to = base + "?" + (c ? "c=" + c + "&" : "") + (egg ? "e=1&" : "") + "xm=1";
+    window.PAW_XM_TARGET = to;   // 試験用（移る先）
+    location.replace(to);
+  })();
+</script>
+<style>
+  :root{--bg:#F6FBF4;--ink:#2E2A27;color-scheme:light}
+  @media (prefers-color-scheme: dark){:root{--bg:#171D1A;--ink:#EFE8E2;color-scheme:dark}}
+  body{margin:0;min-height:100svh;display:grid;place-items:center;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;padding:16px}
+  a{color:inherit}
+</style>
+</head>
+<body>
+  <p><a id="go" href="../?xm=1">PawPlanet 🎄</a></p>
+  <script>if (window.PAW_XM_TARGET) document.getElementById("go").href = window.PAW_XM_TARGET;   // 予備のリンクにもコードを残す</script>
+</body>
+</html>
