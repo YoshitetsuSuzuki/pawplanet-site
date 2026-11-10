@@ -64,6 +64,41 @@
   var EGG = !!CODE && /[?&]e=1(?:[&#]|$)/.test(location.search) && (!GROUP || NY);
   // 見た目：group（?g= だけ・?g=&c=）／egg（?c=&e=1）／invite（?c= だけ）
   var MODE = (NY && EGG) ? "egg" : (GROUP ? "group" : (EGG ? "egg" : (CODE ? "invite" : "")));
+  // ── 1.7.1 招待の名前＋ペット（設計 2026-11-10-pawplanet-1.7.1-invite-name-design.md「招待ページ」）──
+  //   ?n=招待用の名前・pn=ペットの名前（それぞれ最大12文字）・p=ペットの種類の鍵（下の PET_KEYS にあるものだけ）。
+  //   ・n が無い／きれいにしたら空 → 今までと同じ表示（pn・p も使わない）。
+  //   ・出すのは招待・グループ・あけおめ・クリスマスの見た目のときだけ（コード無しの /get/?n=… は今までどおり）。
+  //   ・名前は textContent でだけ入れる（HTML として読まない）。制御文字・< >・文字の向きを変える記号・改行は取り除く。
+  //   ・アプリ（Android の Uri）は空白を + にするので、n・pn だけ + を空白に戻してから読む（本物の + は %2B で来る）。
+  function cleanName(s) {
+    s = String(s || "")
+      .replace(/[\t\n\v\f\r\u2028\u2029]/g, " ")                              // 改行・タブは空白に
+      .replace(/[\u0000-\u001F\u007F-\u009F]/g, "")                         // ほかの制御文字は取り除く
+      .replace(/[\u200B\u200E\u200F\u202A-\u202E\u2066-\u2069\u061C\uFEFF]/g, "")   // 見えない記号・向きの記号
+      .replace(/[<>]/g, "")
+      .replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
+    var a = Array.from ? Array.from(s) : s.split("");                       // 絵文字（サロゲートペア）を途中で切らない
+    if (a.length > 12) s = a.slice(0, 12).join("").replace(/\s+$/, "");
+    return s;
+  }
+  function qpName(name) {
+    var m = new RegExp("[?&]" + name + "=([^&#]*)").exec(location.search || "");
+    if (!m) return "";
+    try { return cleanName(decodeURIComponent(m[1].replace(/\+/g, " "))); } catch (e) { return ""; }
+  }
+  // 公開済みの種類（PetCatalog.all の第1弾 id 1〜50 ＋招待限定の3種）。web/get/img/pets/<鍵>.webp がある。
+  //   第2弾（遠隔スイッチで隠している id 51〜100）・期間限定イベントの子（fukumee・xmas_*）は入れない＝知らない鍵は今の3匹。
+  var PET_KEYS = ("pauwan nyanti foxy whoppy pandan draco piyorin slimy ghoston mystel cameron koalala unicorn haririn mofurun irukan lion shikarin penpen mecapoo " +
+    "tiger elephant camel giraffe gorilla polarbear alpaca kangaroo moai quokka redpanda snowleopard fennec flamingo owl poodle wolf beaver seaotter kiwi " +
+    "kirin phoenix frostdragon nessie tsuchinoko dino griffon ryujin kyubi orochi maneki inari komamori").split(" ");
+  var INV_NAME = (CODE || GROUP || NY || XM) ? qpName("n") : "";
+  var INV_PET_NAME = INV_NAME ? qpName("pn") : "";
+  var INV_PET = (function () {
+    if (!INV_NAME) return "";
+    var p = qp("p");
+    for (var i = 0; i < PET_KEYS.length; i++) if (PET_KEYS[i] === p) return p;
+    return "";
+  })();
   // 1.6.6 点検 W-3：「コピーしてストアへ」でコピーするのは招待リンクそのもの（設計 2026-11-02-invite-one-tap-ios-design.md §A）。
   //   iPhone 1.6.6 のはじめての起動は、リンクらしいもの（.probableWebURL）がコピーされているときだけ「🎁 招待を受け取る」を出す。
   //   ・形は /get/（/get/ny/ はアプリが招待ページと見なさない＝点検 C-3）。ホストは独自ドメインに固定（どちらの Pages で開いても同じ）。
@@ -128,6 +163,15 @@
   .pets img{position:relative;z-index:1;width:88px;height:88px;object-fit:contain;animation:pop .7s cubic-bezier(.3,1.4,.5,1) both}
   .pets img:nth-child(2){width:102px;height:102px;margin:0 -4px;animation-delay:.12s}
   .pets img:nth-child(3){animation-delay:.24s}
+  /* 1.7.1 招待の名前＋ペット：招待した人の子を大きく1匹（星を少し下げて背を高く）と、その子の名前を下に小さく */
+  .pets.solo{height:158px;padding-bottom:24px}
+  .pets.solo::before{top:126px}
+  .pets.solo::after{top:138px}
+  .pets.solo img{width:124px;height:124px;margin:0}
+  /* その子の名前：星の上の小さな名札（1行・長ければ …） */
+  .pets.solo .petname{position:absolute;z-index:2;left:50%;bottom:3px;transform:translateX(-50%);margin:0;max-width:calc(100% - 32px);
+    padding:1px 10px;border-radius:999px;background:rgba(255,255,255,.88);color:var(--ink);font-family:var(--round);font-weight:800;font-size:.8rem;line-height:1.35;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;unicode-bidi:plaintext}
   @keyframes pop{0%{opacity:0;transform:translateY(18px) scale(.9)}100%{opacity:1;transform:none}}
   @media (prefers-reduced-motion: reduce){.pets img{animation:none}}
 
@@ -135,6 +179,9 @@
     background:var(--soft);color:var(--pink-ink);font-weight:700;font-size:.9rem;line-height:1.35}
   .hello::before{content:"";flex:none;width:18px;height:18px;
     background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23CC4467'%3E%3Ccircle cx='5' cy='10.5' r='2.4'/%3E%3Ccircle cx='9.4' cy='5.6' r='2.4'/%3E%3Ccircle cx='14.6' cy='5.6' r='2.4'/%3E%3Ccircle cx='19' cy='10.5' r='2.4'/%3E%3Cpath d='M12 11.2c-3.3 0-6.6 3.6-6.6 6.6 0 2 1.6 2.9 3.4 2.9 1.4 0 2.1-.7 3.2-.7s1.8.7 3.2.7c1.8 0 3.4-.9 3.4-2.9 0-3-3.3-6.6-6.6-6.6z'/%3E%3C/svg%3E") center/contain no-repeat}
+  /* 1.7.1：名前の入った一行（.named）は長い名前でもはみ出さない（名前が無いときの見た目は今のまま） */
+  .hello.named{max-width:100%;overflow-wrap:anywhere;text-align:left}
+  :lang(ja) .hello.named{word-break:auto-phrase}
   h1{font-family:var(--round);font-size:2.15rem;line-height:1.15;font-weight:800;letter-spacing:-.01em;margin:.25rem 0 .35rem;color:var(--ink)}
   .tag{color:var(--muted);margin:0 auto 1.1rem;max-width:21rem;font-size:.95rem;line-height:1.6}
 
@@ -234,10 +281,15 @@
 <body>
   <main class="page">
     <header>
-      <div class="pets" aria-hidden="true">
+      <div class="pets" id="pets3" aria-hidden="true">
         <img src="img/pauwan.webp" alt="" width="84" height="84">
         <img src="img/draco.webp" alt="" width="96" height="96">
         <img src="img/nyanti.webp" alt="" width="84" height="84">
+      </div>
+      <!-- 1.7.1 招待の名前＋ペット：?n= があり p= が公開済みの種類のときだけ、3匹の代わりにその子を大きく1匹（src は下の script で入れる） -->
+      <div class="pets solo" id="petSolo" aria-hidden="true" hidden>
+        <img id="petImg" alt="" width="124" height="124">
+        <p class="petname" id="petName" hidden></p>
       </div>
       <p class="hello" id="hello" hidden></p>
       <h1 id="head">PawPlanet</h1>
@@ -349,7 +401,9 @@
       devices: "iPhone / Android 対応",
       operator: "提供：インフィニティゲームズ\n（運営会社：株式会社インフィニティ）",
       support: "サポート",
-      shotalt: "PawPlanet のホーム画面"
+      shotalt: "PawPlanet のホーム画面",
+      nhello: "%Nさんから招待状が届きました",
+      nphello: "%Nさんの %P から招待状が届きました"
     },
     "en": {
       title: "Get PawPlanet",
@@ -393,7 +447,9 @@
       devices: "For iPhone and Android",
       operator: "By Infinity games\n(Infinity Inc., Tokyo, Japan)",
       support: "Support",
-      shotalt: "PawPlanet home screen"
+      shotalt: "PawPlanet home screen",
+      nhello: "An invitation from %N",
+      nphello: "An invitation from %N’s %P"
     },
     "zh-Hans": {
       title: "下载 PawPlanet",
@@ -437,7 +493,9 @@
       devices: "支持 iPhone / Android",
       operator: "提供：Infinity games\n（运营公司：Infinity Inc.，日本东京）",
       support: "帮助",
-      shotalt: "PawPlanet 主页画面"
+      shotalt: "PawPlanet 主页画面",
+      nhello: "%N发来了邀请",
+      nphello: "%N的%P发来了邀请"
     },
     "zh-Hant": {
       title: "下載 PawPlanet",
@@ -481,7 +539,9 @@
       devices: "支援 iPhone / Android",
       operator: "提供：Infinity games\n（營運公司：Infinity Inc.，日本東京）",
       support: "幫助",
-      shotalt: "PawPlanet 主畫面"
+      shotalt: "PawPlanet 主畫面",
+      nhello: "%N寄來了邀請",
+      nphello: "%N的%P寄來了邀請"
     },
     "ko": {
       title: "PawPlanet 다운로드",
@@ -525,7 +585,9 @@
       devices: "iPhone / Android 지원",
       operator: "제공: Infinity games\n(운영사: Infinity Inc., 일본 도쿄)",
       support: "고객 지원",
-      shotalt: "PawPlanet 홈 화면"
+      shotalt: "PawPlanet 홈 화면",
+      nhello: "%N님에게서 초대장이 왔어요",
+      nphello: "%N님의 %P에게서 초대장이 왔어요"
     },
     "es": {
       title: "Descarga PawPlanet",
@@ -569,7 +631,9 @@
       devices: "Para iPhone y Android",
       operator: "De Infinity games\n(Infinity Inc., Tokio, Japón)",
       support: "Ayuda",
-      shotalt: "Pantalla de inicio de PawPlanet"
+      shotalt: "Pantalla de inicio de PawPlanet",
+      nhello: "Una invitación de %N",
+      nphello: "Una invitación de %P, la mascota de %N"
     },
     "de": {
       title: "PawPlanet herunterladen",
@@ -613,7 +677,9 @@
       devices: "Für iPhone und Android",
       operator: "Von Infinity games\n(Infinity Inc., Tokio, Japan)",
       support: "Hilfe",
-      shotalt: "PawPlanet-Startbildschirm"
+      shotalt: "PawPlanet-Startbildschirm",
+      nhello: "Eine Einladung von %N",
+      nphello: "Eine Einladung von %P, dem Haustier von %N"
     },
     "fr": {
       title: "Télécharger PawPlanet",
@@ -657,7 +723,9 @@
       devices: "Pour iPhone et Android",
       operator: "Par Infinity games\n(Infinity Inc., Tokyo, Japon)",
       support: "Aide",
-      shotalt: "Écran d'accueil de PawPlanet"
+      shotalt: "Écran d'accueil de PawPlanet",
+      nhello: "%N t’invite",
+      nphello: "%N et son compagnon %P t’invitent"
     }
   };
   function pickLang() {
@@ -714,6 +782,14 @@
     var hl = document.getElementById("hello");
     hl.hidden = NY || XM;
     hl.textContent = (NY || XM) ? "" : (MODE === "group" ? t.ghello : (MODE ? t.hello : t.welcome));
+    // 1.7.1：?n= があれば「◯◯さんの △△ から招待状が届きました」に差し替える（あけおめ・クリスマスでも出す）。
+    //   名前は文字の向きを閉じ込める記号（U+2068…U+2069）で囲む＝アラビア文字などの名前でも文の並びが崩れない。
+    //   置き換えは split/join（String.replace だと名前の中の $& などが特別な意味になる）。
+    if (INV_NAME) {
+      var isoN = "\u2068" + INV_NAME + "\u2069", isoP = "\u2068" + INV_PET_NAME + "\u2069";
+      hl.textContent = (INV_PET_NAME ? t.nphello : t.nhello).split("%N").join(isoN).split("%P").join(isoP);
+      hl.hidden = false;
+    }
     // 「コピーしたあと App Store／Google Play が開きます」（コピーのあと実際にストアへ移る端末だけ）
     var gt = document.getElementById("goesTo");
     gt.hidden = !STORE_NAME;
@@ -730,6 +806,24 @@
     if (l && T[l]) apply(l);
   });
   apply(LANG);
+
+  // 1.7.1：名前の一行の見た目（長い名前でもはみ出さない）と、招待した人の子を大きく1匹（絵が読めなければ今の3匹に戻す）
+  if (INV_NAME) document.getElementById("hello").className += " named";
+  if (INV_PET) {
+    var petImg = document.getElementById("petImg");
+    var showThree = function () {
+      document.getElementById("petSolo").hidden = true;
+      document.getElementById("petName").hidden = true;
+      document.getElementById("pets3").hidden = false;
+    };
+    petImg.addEventListener("error", showThree);
+    petImg.setAttribute("src", "img/pets/" + INV_PET + ".webp");
+    document.getElementById("pets3").hidden = true;
+    document.getElementById("petSolo").hidden = false;
+    var pnEl = document.getElementById("petName");
+    pnEl.textContent = INV_PET_NAME;
+    pnEl.hidden = !INV_PET_NAME;
+  }
 
   if (NY) document.body.className += " ny";
   if (XM) document.body.className += " xm";

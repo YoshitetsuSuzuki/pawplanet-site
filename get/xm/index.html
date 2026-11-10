@@ -31,8 +31,22 @@
     c = c.toUpperCase().replace(/[^A-Z0-9]/g, "");
     if (!/^[A-HJ-NP-Z2-9]{8}$/.test(c)) c = "";
     var egg = !!c && /[?&]e=1(?:[&#]|$)/.test(q);
+    // 1.7.1 招待の名前＋ペット：n（招待用の名前）・pn（ペットの名前）・p（ペットの種類の鍵）も /get/ へ引き継ぐ（設計 2026-11-10「リンクの形」）。
+    //   /get/ と同じ決まりで掃除してから付け直す（制御文字・< >・向きの記号を除く・最大12文字・空なら付けない）。n が無ければ pn・p も付けない。
+    //   p は形（英小文字・数字・_）だけ見る。公開済みの種類かどうかは /get/ の PET_KEYS が決める。順番は既存の引数のあと（既存の形は変えない）。
+    function nm(name) {
+      var r = new RegExp("[?&]" + name + "=([^&#]*)").exec(q), s = "";
+      if (r) { try { s = decodeURIComponent(r[1].replace(/\+/g, " ")); } catch (e) { s = ""; } }
+      s = s.replace(/[\t\n\v\f\r\u2028\u2029]/g, " ").replace(/[\u0000-\u001F\u007F-\u009F]/g, "").replace(/[\u200B\u200E\u200F\u202A-\u202E\u2066-\u2069\u061C\uFEFF]/g, "")
+           .replace(/[<>]/g, "").replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
+      var a = Array.from ? Array.from(s) : s.split("");
+      if (a.length > 12) s = a.slice(0, 12).join("").replace(/\s+$/, "");
+      return s;
+    }
+    var n = nm("n"), pn = n ? nm("pn") : "", pm = /[?&]p=([a-z0-9_]{1,32})(?:[&#]|$)/.exec(q), p = (n && pm) ? pm[1] : "";
+    var who = (n ? "&n=" + encodeURIComponent(n) : "") + (pn ? "&pn=" + encodeURIComponent(pn) : "") + (p ? "&p=" + p : "");
     var base = /^\/pawplanet\/get\/xm(?:\/(?:index(?:\.html)?)?)?$/.test(location.pathname) ? "/pawplanet/get/" : "/get/";
-    var to = base + "?" + (c ? "c=" + c + "&" : "") + (egg ? "e=1&" : "") + "xm=1";
+    var to = base + "?" + (c ? "c=" + c + "&" : "") + (egg ? "e=1&" : "") + "xm=1" + who;
     window.PAW_XM_TARGET = to;   // 試験用（移る先）
     location.replace(to);
   })();
