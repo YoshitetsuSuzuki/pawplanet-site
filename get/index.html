@@ -77,14 +77,39 @@
       .replace(/[\u200B\u200E\u200F\u202A-\u202E\u2066-\u2069\u061C\uFEFF]/g, "")   // 見えない記号・向きの記号
       .replace(/[<>]/g, "")
       .replace(/\s+/g, " ").replace(/^\s+|\s+$/g, "");
-    var a = Array.from ? Array.from(s) : s.split("");                       // 絵文字（サロゲートペア）を途中で切らない
+    // 見た目の1文字で12まで（アプリと同じ数え方・家族の絵文字などを途中で切らない）。Intl.Segmenter が無い環境だけ今までどおり。
+    var a;
+    try { a = Array.from(new Intl.Segmenter("und", { granularity: "grapheme" }).segment(s), function (x) { return x.segment; }); }
+    catch (e) { a = Array.from ? Array.from(s) : s.split(""); }
     if (a.length > 12) s = a.slice(0, 12).join("").replace(/\s+$/, "");
     return s;
+  }
+  // 1.7.2 ズル対策 B6：アプリと同じ禁止語（iOS SocialModeration.isBlocked・Android moderation.dart と同じ一覧）。
+  //   リンクの n=・pn= は誰でも手で書けるので、ページの側でも確かめる。当たれば名前を出さない（名前なしの今までの表示）。
+  //   日本語などは部分一致・英語は独立した単語のときだけ（"yoshitetest" の中の語を誤検知しない）。見えない結合記号（ZWJ/ZWNJ）は除いて判定。
+  var BANNED_LATIN = ["fuck", "shit", "bitch", "cunt", "asshole", "dick", "pussy", "nigger", "nigga",
+    "faggot", "slut", "whore", "rape", "retard", "bastard"];
+  var BANNED_CJK = ["しね", "死ね", "殺す", "ころす", "きもい", "ぶす", "ちんこ", "まんこ", "うんこ"];
+  var RESERVED = ["運営", "公式", "pawplanet", "パウプラネット", "ぱうぷらねっと", "infinity", "インフィニティ", "official", "admin", "support", "サポート", "staff", "スタッフ"];
+  function isBlockedName(s) {
+    var lower = String(s || "").replace(/[\u200C\u200D]/g, "").toLowerCase();
+    var i;
+    for (i = 0; i < BANNED_CJK.length; i++) { if (lower.indexOf(BANNED_CJK[i]) >= 0) return true; }
+    // 運営・公式を名乗る名前も出さない（招待ページは運営の名前で出るので、なりすましに使わせない）。
+    for (i = 0; i < RESERVED.length; i++) { if (lower.replace(/\s+/g, "").indexOf(RESERVED[i]) >= 0) return true; }
+    var folded = lower;
+    try { folded = lower.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); } catch (e) {}
+    for (i = 0; i < BANNED_LATIN.length; i++) {
+      if (new RegExp("(^|[^a-z0-9_])" + BANNED_LATIN[i] + "($|[^a-z0-9_])").test(folded)) return true;
+    }
+    return false;
   }
   function qpName(name) {
     var m = new RegExp("[?&]" + name + "=([^&#]*)").exec(location.search || "");
     if (!m) return "";
-    try { return cleanName(decodeURIComponent(m[1].replace(/\+/g, " "))); } catch (e) { return ""; }
+    var v;
+    try { v = cleanName(decodeURIComponent(m[1].replace(/\+/g, " "))); } catch (e) { return ""; }
+    return (v.replace(/[\u200C\u200D]/g, "").replace(/^\s+|\s+$/g, "") === "" || isBlockedName(v)) ? "" : v;
   }
   // 公開済みの種類（PetCatalog.all の第1弾 id 1〜50 ＋招待限定の3種）。web/get/img/pets/<鍵>.webp がある。
   //   第2弾（遠隔スイッチで隠している id 51〜100）・期間限定イベントの子（fukumee・xmas_*）は入れない＝知らない鍵は今の3匹。
