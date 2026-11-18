@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>歩数診断 — あなたは上位何%？ | PawPlanet</title>
+<meta name="description" content="1日の歩数を入れるだけ。PawPlanet のランキング参加者と比べて、あなたが上位何%かを判定します。">
+<meta property="og:title" content="あなたの1日の歩数、上位何%？">
+<meta property="og:description" content="歩数を入れるだけで判定。結果はシェアできます。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PawPlanet">
+<meta property="og:image" content="https://pawplanet.01-infinity.com/walk/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{--bg:#FBF6F0;--panel:#fff;--ink:#2E2A27;--muted:#79706A;--line:#ECE2D8;--pink:#C15E77;--soft:#FFF1F4;--gold:#B7862B;--bar:#F0E6DC;color-scheme:light}
+  @media (prefers-color-scheme: dark){:root{--bg:#1B1817;--panel:#252120;--ink:#EFE8E2;--muted:#A79C94;--line:#37302C;--pink:#FFAFC2;--soft:#3a2a2e;--gold:#E9C46A;--bar:#3a332f;color-scheme:dark}}
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Segoe UI",sans-serif;padding:16px}
+  main{max-width:26rem;margin:0 auto}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:20px 18px;margin:0 0 14px;text-align:center}
+  .pets{display:flex;justify-content:center;align-items:flex-end;height:96px;margin:-4px 0 4px}
+  .pets img{width:84px;height:84px;object-fit:contain;animation:hop 2.6s ease-in-out infinite}
+  .pets img:nth-child(2){width:96px;height:96px;animation-delay:.35s}
+  .pets img:nth-child(3){animation-delay:.7s}
+  @keyframes hop{0%,70%,100%{transform:translateY(0)}80%{transform:translateY(-7px)}90%{transform:translateY(0)}}
+  @media (prefers-reduced-motion: reduce){.pets img{animation:none}}
+  h1{font-size:1.45rem;margin:.1rem 0 .2rem;line-height:1.35}
+  h1 em{font-style:normal;color:var(--pink)}
+  .lead{color:var(--muted);font-size:.92rem;margin:0 0 1rem}
+  label{display:block;font-weight:700;margin:0 0 .4rem}
+  .row{display:flex;gap:8px;align-items:center;justify-content:center}
+  input[type=number]{width:11rem;font-size:1.6rem;font-weight:700;text-align:center;padding:.45rem .5rem;border-radius:14px;
+    border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+  input[type=number]:focus{outline:none;border-color:var(--pink)}
+  .unit{font-weight:700}
+  .hint{color:var(--muted);font-size:.8rem;margin:.5rem 0 1rem}
+  button,.btn{display:block;width:100%;border:0;border-radius:14px;padding:.85rem 1rem;font-size:1.02rem;font-weight:700;cursor:pointer;
+    text-decoration:none;text-align:center;font-family:inherit}
+  .primary{background:var(--pink);color:#fff}
+  @media (prefers-color-scheme: dark){.primary{color:#2a1a1f}}
+  .ghost{background:var(--soft);color:var(--pink);margin-top:8px}
+  .x{background:#111;color:#fff;margin-top:8px}
+  @media (prefers-color-scheme: dark){.x{background:#f2f2f2;color:#111}}
+  .err{color:var(--pink);font-size:.85rem;min-height:1.2em;margin:.4rem 0 0}
+  .res-top{color:var(--muted);font-size:.9rem;margin:0}
+  .pct{font-size:3.4rem;font-weight:800;line-height:1.1;margin:.1rem 0;color:var(--pink)}
+  .pct small{font-size:1.4rem}
+  .tier{font-size:1.35rem;font-weight:800;margin:.2rem 0 .3rem}
+  .msg{margin:0 0 .9rem}
+  .ratio{margin:.1rem 0 .2rem;font-size:1.05rem}
+  .ratio b{color:var(--pink);font-size:1.3rem}
+  .buddy{position:relative;width:150px;margin:.2rem auto 0}
+  .buddy img{width:150px;height:150px;object-fit:contain;display:block}
+  .rar{position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);white-space:nowrap;background:var(--pink);color:#fff;font-size:.72rem;font-weight:700;border-radius:999px;padding:.1rem .6rem}
+  @media (prefers-color-scheme: dark){.rar{color:#2a1a1f}}
+  .lv{display:inline-block;font-size:.8rem;font-weight:800;color:var(--gold);letter-spacing:.05em}
+  .meter{position:relative;height:12px;background:var(--bar);border-radius:6px;margin:1.2rem 4px .3rem}
+  .meter i{position:absolute;inset:0 auto 0 0;border-radius:6px;background:linear-gradient(90deg,#F3B7C6,var(--pink))}
+  .meter b{position:absolute;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:var(--panel);border:3px solid var(--pink)}
+  .ends{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin:0 2px .8rem}
+  .next{background:var(--soft);border-radius:14px;padding:.6rem .8rem;font-size:.92rem;margin:0 0 1rem}
+  .next strong{color:var(--pink)}
+  h2{font-size:1.15rem;margin:.2rem 0 .8rem}
+  ul.perks{list-style:none;padding:0;margin:0 0 1rem;text-align:left}
+  ul.perks li{display:flex;gap:10px;padding:.55rem 0;border-top:1px solid var(--line)}
+  ul.perks li:first-child{border-top:0}
+  ul.perks span{font-size:1.4rem;line-height:1.3}
+  ul.perks p{margin:0;font-size:.92rem}
+  ul.perks strong{display:block}
+  .free{color:var(--muted);font-size:.78rem;margin:.5rem 0 0}
+  .note{color:var(--muted);font-size:.74rem;text-align:left;margin:0 4px 24px}
+</style>
+</head>
+<body>
+<main>
+  <section class="card" id="ask">
+    <div class="pets" aria-hidden="true">
+      <img src="img/pauwan.webp" alt="" width="84" height="84">
+      <img src="img/draco.webp" alt="" width="96" height="96">
+      <img src="img/nyanti.webp" alt="" width="84" height="84">
+    </div>
+    <h1>あなたの1日の歩数、<br><em>上位何%？</em></h1>
+    <p class="lead">歩数を入れるだけで判定します。</p>
+    <form id="f" novalidate>
+      <label for="steps">ふだんの1日の歩数</label>
+      <div class="row"><input id="steps" type="number" inputmode="numeric" min="0" max="100000" step="1" placeholder="6000" autocomplete="off"><span class="unit">歩</span></div>
+      <p class="hint">iPhone は「ヘルスケア」、Android は「Google Fit」などで1日の平均が見られます。</p>
+      <button class="primary" type="submit">判定する</button>
+      <p class="err" id="err" role="alert"></p>
+    </form>
+  </section>
+
+  <section class="card" id="result" hidden aria-live="polite">
+    <p class="res-top">1日 <b id="r-steps"></b> 歩のあなたは</p>
+    <p class="pct">上位 <span id="r-pct"></span><small>%</small></p>
+    <div class="buddy"><img id="r-pet" alt="" width="150" height="150"><span class="rar" id="r-rar"></span></div>
+    <p class="tier"><span class="lv" id="r-lv"></span><br><span id="r-tier"></span></p>
+    <p class="ratio" id="r-ratio"></p>
+    <p class="msg" id="r-msg"></p>
+    <div class="meter" aria-hidden="true"><i id="r-fill"></i><b id="r-dot"></b></div>
+    <div class="ends" aria-hidden="true"><span>これから</span><span>トップ</span></div>
+    <p class="next" id="r-next"></p>
+    <button class="primary" id="share-img" type="button">結果を画像でシェア</button>
+    <a class="btn x" id="share-x" target="_blank" rel="noopener">𝕏 でポストする</a>
+    <button class="ghost" id="again" type="button">もう一度はかる</button>
+  </section>
+
+  <section class="card" id="app">
+    <h2>その歩数、<em style="font-style:normal;color:var(--pink)">ランキング</em>で競ってみませんか？</h2>
+    <ul class="perks">
+      <li><span>🏆</span><p><strong>毎週の世界ランキング</strong>みんなと1週間の歩数で勝負。上位には毎週ごほうびのパウ。</p></li>
+      <li><span>🥇</span><p><strong>年間メダルがプロフィールに輝く</strong>1年の総歩数トップ3には金・銀・銅のメダル。友だちからも見えます。</p></li>
+      <li><span>🐉</span><p><strong>歩くほど、珍しい子に出会える</strong>8,000歩ごとに野生の出会いのチャンス。色違いやエピックの子も。</p></li>
+      <li><span>🌏</span><p><strong>歩いた分だけ世界一周</strong>ペットと一緒に、日本から世界の街へ旅をします。</p></li>
+    </ul>
+    <a class="btn primary" id="store" href="https://pawplanet.01-infinity.com/get/">PawPlanet を無料ではじめる</a>
+    <p class="free">iPhone / Android 対応・基本無料</p>
+  </section>
+
+  <p class="note">※ 判定は PawPlanet のランキング参加者の直近3週間（2026年10月26日〜11月15日、約480件）の1日平均歩数と比べたものです。1日1,000歩未満の週は除いています。入力した歩数はこの端末の中だけで計算し、どこにも送りません。</p>
+</main>
+
+<script>
+(function () {
+  // [1日の歩数, 上位%]（2026-W44〜W46 の確定週・1日平均＝週の歩数÷7）
+  var P = [[0,100],[1767,90],[2641,80],[3532,70],[4484,60],[5540,50],[6610,40],[7661,30],[9659,20],[11781,10],[14295,5],[25427,1]];
+  var TIERS = [
+    {max:1,  lv:7, pet:"ryujin",  pn:"リュウジン", r:"★5 まぼろし", e:"👑", name:"伝説の健脚",   msg:"ランキングの頂点が、あなたを待っています。"},
+    {max:5,  lv:6, pet:"phoenix", pn:"ニックス",   r:"★5 まぼろし", e:"🔥", name:"神脚",         msg:"週間ランキングで表彰台を狙える脚です。"},
+    {max:10, lv:5, pet:"nessie",  pn:"ネッシー",   r:"★4 でんせつ", e:"⚡", name:"健脚エリート", msg:"まわりが思わず二度見する歩数です。"},
+    {max:25, lv:4, pet:"draco",   pn:"ドラコ",     r:"★3 エピック", e:"🌟", name:"歩きの達人",   msg:"立派な上級者。エリートまで、あと少し。"},
+    {max:50, lv:3, pet:"foxy",    pn:"フォクシー", r:"★2 レア",     e:"👟", name:"しっかり歩く人", msg:"平均より上！ 毎日のコツコツが、ちゃんと形になっています。"},
+    {max:75, lv:2, pet:"pauwan",  pn:"コロポチ",   r:"★1 ふつう",   e:"🌱", name:"のびしろ王",   msg:"伸びしろたっぷり。1日あと少しで、半分より上へ。"},
+    {max:100,lv:1, pet:"piyorin", pn:"ピーヨ",     r:"★1 ふつう",   e:"🐣", name:"これからの人", msg:"ここからが一番伸びるところ。まずは今日、ひと駅ぶん歩いてみよう。"}
+  ];
+  var PAGE = "https://pawplanet.01-infinity.com/walk/";
+
+  function topPct(s) {
+    if (s >= P[P.length-1][0]) return 1;
+    for (var i = 1; i < P.length; i++) {
+      if (s < P[i][0]) {
+        var a = P[i-1], b = P[i];
+        return a[1] + (b[1]-a[1]) * (s-a[0]) / (b[0]-a[0]);
+      }
+    }
+    return 1;
+  }
+  function stepsFor(pct) {            // 上位 pct% に入る最少の歩数
+    for (var i = 1; i < P.length; i++) {
+      if (pct >= P[i][1]) {
+        var a = P[i-1], b = P[i];
+        return Math.ceil(a[0] + (b[0]-a[0]) * (a[1]-pct) / (a[1]-b[1]));
+      }
+    }
+    return P[P.length-1][0];
+  }
+  function show(p) { return p < 1.5 ? 1 : Math.round(p); }
+  function tierOf(p) { for (var i = 0; i < TIERS.length; i++) if (p <= TIERS[i].max) return i; return TIERS.length-1; }
+  function oneIn(p) {                 // 上位 p% ＝ 何人に1人（小数1桁・.0 は省く）
+    var r = Math.round(1000 / p) / 10;
+    return (r % 1 === 0 ? String(r) : r.toFixed(1)) + "人に1人";
+  }
+  function fmt(n) { return n.toLocaleString("ja-JP"); }
+  var $ = function (id) { return document.getElementById(id); };
+  var last = null;
+
+  $("f").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var raw = $("steps").value.trim();
+    var s = Math.round(Number(raw));
+    if (raw === "" || !isFinite(s) || s < 0) { $("err").textContent = "歩数を数字で入れてください。"; return; }
+    if (s > 100000) { $("err").textContent = "10万歩までで入れてください。"; return; }
+    $("err").textContent = "";
+    var p = show(topPct(s)), ti = tierOf(p), t = TIERS[ti];
+    last = {s:s, p:p, t:t};
+    $("r-steps").textContent = fmt(s);
+    $("r-pct").textContent = p;
+    $("r-tier").textContent = t.e + " " + t.name;
+    $("r-lv").textContent = "Lv." + t.lv + " / 7";
+    $("r-pet").src = "img/" + t.pet + ".webp";
+    $("r-pet").alt = t.pn;
+    $("r-rar").textContent = t.r + " " + t.pn;
+    $("r-msg").textContent = t.msg;
+    $("r-ratio").hidden = p > 50;
+    $("r-ratio").innerHTML = "<b>" + oneIn(p) + "</b> の歩き手";
+    var pos = Math.max(2, Math.min(98, 100 - p));
+    $("r-fill").style.width = pos + "%";
+    $("r-dot").style.left = pos + "%";
+    if (ti > 0) {
+      var nt = TIERS[ti-1], need = Math.max(1, stepsFor(nt.max) - s);
+      $("r-next").innerHTML = "1日 <strong>あと " + fmt(need) + " 歩</strong> で Lv." + nt.lv + "「" + nt.e + " " + nt.name + "」<br><small>相棒が " + nt.r + " の" + nt.pn + " に！</small>";
+    } else {
+      $("r-next").innerHTML = "<strong>最高ランク！</strong> 週間ランキングで1位を狙えます。";
+    }
+    var text = "わたしの1日の歩数は【上位" + p + "%】Lv." + t.lv + "「" + t.name + "」でした" + t.e + "\nあなたは何%？ #歩数診断 #PawPlanet";
+    $("share-x").href = "https://x.com/intent/post?text=" + encodeURIComponent(text) + "&url=" + encodeURIComponent(PAGE);
+    $("result").hidden = false;
+    $("result").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+
+  $("again").addEventListener("click", function () {
+    $("result").hidden = true; $("steps").value = ""; $("steps").focus();
+    $("ask").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+
+  function loadImg(src) {
+    return new Promise(function (ok, ng) { var im = new Image(); im.onload = function () { ok(im); }; im.onerror = ng; im.src = src; });
+  }
+  function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x+r,y); c.arcTo(x+w,y,x+w,y+h,r); c.arcTo(x+w,y+h,x,y+h,r); c.arcTo(x,y+h,x,y,r); c.arcTo(x,y,x+w,y,r); c.closePath(); }
+
+  async function makeCard(d) {
+    var W = 1080, H = 1350, cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+    var c = cv.getContext("2d"), F = '-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif';
+    c.fillStyle = "#FBF6F0"; c.fillRect(0,0,W,H);
+    c.fillStyle = "#fff"; rr(c,60,60,W-120,H-120,56); c.fill();
+    c.textAlign = "center"; c.fillStyle = "#79706A"; c.font = "600 44px " + F;
+    c.fillText("わたしの1日の歩数は", W/2, 165);
+    c.fillStyle = "#C15E77"; c.textAlign = "left";
+    var big = "800 230px " + F, small = "800 96px " + F, num = String(d.p);
+    c.font = small; var w1 = c.measureText("上位 ").width, w3 = c.measureText("%").width;
+    c.font = big; var w2 = c.measureText(num).width;
+    var x0 = (W - (w1 + w2 + w3)) / 2;
+    c.font = small; c.fillText("上位 ", x0, 430);
+    c.font = big; c.fillText(num, x0 + w1, 430);
+    c.font = small; c.fillText("%", x0 + w1 + w2, 430);
+    c.textAlign = "center";
+    c.fillStyle = "#B7862B"; c.font = "800 40px " + F; c.fillText("Lv." + d.t.lv + " / 7", W/2, 510);
+    c.fillStyle = "#2E2A27"; c.font = "800 80px " + F; c.fillText(d.t.e + " " + d.t.name, W/2, 595);
+    c.fillStyle = "#79706A"; c.font = "600 40px " + F; c.fillText("1日 " + fmt(d.s) + " 歩" + (d.p <= 50 ? "・" + oneIn(d.p) : ""), W/2, 660);
+    try {
+      var pet = await loadImg("img/" + d.t.pet + ".webp");
+      c.drawImage(pet, W/2 - 150, 680, 300, 300);
+    } catch (e) {}
+    c.font = "800 34px " + F; var tag = d.t.r + " " + d.t.pn, tw = c.measureText(tag).width + 56;
+    c.fillStyle = "#C15E77"; rr(c, W/2 - tw/2, 968, tw, 56, 28); c.fill();
+    c.fillStyle = "#fff"; c.fillText(tag, W/2, 1008);
+    c.fillStyle = "#FFF1F4"; rr(c,140,1050,W-280,135,40); c.fill();
+    c.fillStyle = "#C15E77"; c.font = "800 50px " + F; c.fillText("あなたは何%？", W/2, 1110);
+    c.fillStyle = "#79706A"; c.font = "600 32px " + F; c.fillText("pawplanet.01-infinity.com/walk", W/2, 1157);
+    c.fillStyle = "#2E2A27"; c.font = "800 38px " + F; c.fillText("🐾 PawPlanet 歩数診断", W/2, 1235);
+    return new Promise(function (ok) { cv.toBlob(ok, "image/png"); });
+  }
+
+  $("share-img").addEventListener("click", async function () {
+    if (!last) return;
+    var btn = this; btn.disabled = true;
+    try {
+      var blob = await makeCard(last);
+      var file = new File([blob], "pawplanet-walk.png", {type:"image/png"});
+      var text = "わたしの1日の歩数は【上位" + last.p + "%】でした" + last.t.e + " あなたは何%？ #歩数診断 #PawPlanet " + PAGE;
+      if (navigator.canShare && navigator.canShare({files:[file]})) {
+        await navigator.share({files:[file], text:text});
+      } else {
+        var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = file.name;
+        document.body.appendChild(a); a.click(); a.remove();
+      }
+    } catch (e) { /* シェアを閉じた時など */ }
+    btn.disabled = false;
+  });
+
+  // ストアへ（端末を見て直接）。PC は /get/ のまま。
+  var ua = navigator.userAgent || "";
+  if (/iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1)) $("store").href = "https://apps.apple.com/app/id6808814090";
+  else if (/Android/i.test(ua)) $("store").href = "https://play.google.com/store/apps/details?id=com.pawplanet.app";
+})();
+</script>
+</body>
+</html>
