@@ -41,13 +41,29 @@
     if (!m) return "";
     try { return decodeURIComponent(m[1]); } catch (e) { return ""; }
   }
-  var CODE = (function () {
+  // ── 1.7.6 フレンド QR（/get/?c=<CODE>&f=1）：フレンドリンクのときだけ「フレンドの見た目」。友だち追加だけで、招待にしない ──
+  //   形はアプリの FriendQR.classify と同じ：/get/ そのもの・c=有効な8文字・f=1 ちょうど・e=1 無し・有効な g（6文字）無し（同じ名前は最初の値）。
+  //   下の CODE・GROUP・NY・XM（招待の材料）を空にする＝招待のリファラ・ct=invite・リンクのコピー・招待の名前・特典の文は、どれも作られない。
+  var FRIEND = (function () {
+    if (!/^(\/pawplanet)?\/get\/?$/.test(location.pathname)) return "";
+    var pairs = (location.search || "").replace(/^\?/, "").split("&"), q = Object.create(null);
+    for (var i = 0; i < pairs.length; i++) {
+      var at = pairs[i].indexOf("="), k = at < 0 ? pairs[i] : pairs[i].slice(0, at), v = at < 0 ? "" : pairs[i].slice(at + 1);
+      try { k = decodeURIComponent(k); } catch (e) { continue; }
+      try { v = decodeURIComponent(v.replace(/\+/g, " ")); } catch (e) { v = "%"; }   // 壊れた値は、どの形にも当たらない
+      if (!(k in q)) q[k] = v.trim();
+    }
+    var c = (q.c || "").toUpperCase(), g = (q.g || "").toUpperCase();
+    if (q.f !== "1" || q.e === "1" || /^[A-HJ-NP-Z2-9]{6}$/.test(g)) return "";
+    return /^[A-HJ-NP-Z2-9]{8}$/.test(c) ? c : "";
+  })();
+  var CODE = FRIEND ? "" : (function () {
     var c = qp("c").toUpperCase().replace(/[^A-Z0-9]/g, "");
     return /^[A-HJ-NP-Z2-9]{8}$/.test(c) ? c : "";   // フレンドコードの形（8文字・紛らわしい0/O/1/I なし）だけ受け付ける
   })();
   // グループ招待（?g=XXXXXX）：グループコード（6文字・同じ文字種）。
   //   1.6.4：?g=G&c=C（グループの招待に送った人の招待コードつき）は、グループの見た目のまま、リファラにも両方を入れる。
-  var GROUP = (function () {
+  var GROUP = FRIEND ? "" : (function () {
     var g = qp("g").toUpperCase().replace(/[^A-Z0-9]/g, "");
     return /^[A-HJ-NP-Z2-9]{6}$/.test(g) ? g : "";
   })();
@@ -57,10 +73,10 @@
   // 1.6.7：グループがあっても ny=1 を見て、お正月の見た目のまま「グループに誘われています」の一行を足す（グループ名・人の名前は出さない）。
   //   ・?g=G&ny=1 → グループの案内／?c=&e=1&g=&ny=1 → たまごの案内を残す（コードはフレンドコードを大きく）／?c=&g=&ny=1 → グループの案内。
   //   ・ny=1 の無いグループの招待（?g=・?g=&c=・e=1 つきでも）は今までどおり（NY=false・グループの見た目）。
-  var NY = /[?&]ny=1(?:[&#]|$)/.test(location.search);
+  var NY = !FRIEND && /[?&]ny=1(?:[&#]|$)/.test(location.search);
   // クリスマス2026 ③（?xm=1）：見出しを「友だちからのクリスマスカード🎄」にして、赤と緑を少しだけ足す。中身（おすそわけたまご・入手ボタン）は今までどおり・ごほうびは足さない。
   //   グループ（?g=）か ny=1 があれば XM は立てない＝そちらの見た目のまま。?xm=1 だけ（コード無し）のスマホは ny=1 と同じく自動では移らずボタンを出す。
-  var XM = !GROUP && !NY && /[?&]xm=1(?:[&#]|$)/.test(location.search);
+  var XM = !FRIEND && !GROUP && !NY && /[?&]xm=1(?:[&#]|$)/.test(location.search);
   var EGG = !!CODE && /[?&]e=1(?:[&#]|$)/.test(location.search) && (!GROUP || NY);
   // 見た目：group（?g= だけ・?g=&c=）／egg（?c=&e=1）／invite（?c= だけ）
   var MODE = (NY && EGG) ? "egg" : (GROUP ? "group" : (EGG ? "egg" : (CODE ? "invite" : "")));
@@ -156,7 +172,7 @@
     ANDROID_LINK = ANDROID + "&referrer=" + encodeURIComponent("group=" + GROUP);
   }
   // コード無しはストアへ自動で移る。ただし ?ny=1／?xm=1 だけのときは、あいさつを見せるため移らずにボタンを出す。
-  if (!CODE && !GROUP && !NY && !XM) {
+  if (!FRIEND && !CODE && !GROUP && !NY && !XM) {   // フレンドリンクは自動では移らない
     if (isIOS) location.replace(IOS);
     else if (isAndroid && ANDROID_LIVE) location.replace(ANDROID);
   }
@@ -242,6 +258,9 @@
   a.btn.sub{background:var(--paper);color:var(--ink);border:1.5px solid var(--line);box-shadow:none;font-weight:700;font-size:.9rem;min-height:46px;margin-top:10px}
   .toast{font-size:.85rem;color:var(--pink-ink);font-weight:700;min-height:1.4em;margin-top:8px;text-align:center;overflow-wrap:anywhere}
   .invite #pasteHint{text-align:center}
+  /* 1.7.6 フレンド QR：フレンドの見た目（#friend）だけに当たる */
+  #friend #friendCopy{background:var(--paper);color:var(--ink);border:1.5px solid var(--line);box-shadow:none;font-weight:700;font-size:.9rem;min-height:46px}
+  #friend .note{text-align:center;margin-top:10px}
 
   /* ストアのバッジ（黒の公式ふう・画像は読み込まない） */
   .stores{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:4px 0 22px}
@@ -753,6 +772,238 @@
       nphello: "%N et son compagnon %P t’invitent"
     }
   };
+  // ── 1.7.6 フレンド QR：フレンドの見た目の文（15言語）。FRIEND のときだけ T に足す＝ほかのページの言語は今までどおり8つ ──
+  //   ページに無かった7言語（name があるもの）は、フレンドの見た目で使う文だけ（招待の文は入れない）。画面の絵は英語版。
+  var FRIEND_LANGS = [];
+  if (FRIEND) {
+    var FT = {
+      "ja": {
+        fhead: "フレンドを追加",
+        flbl: "フレンドコード",
+        fopen: "アプリで開く",
+        fcopy: "コードをコピー",
+        fnote: "開かないときは、アプリを最新版に更新するか、「フレンド」の「コードで追加」にこのコードを入力してください。"
+      },
+      "en": {
+        fhead: "Add friends",
+        flbl: "Friend code",
+        fopen: "Open in the app",
+        fcopy: "Copy code",
+        fnote: "If it doesn’t open, update the app to the latest version, or enter this code in Friends → “Add by code”."
+      },
+      "zh-Hans": {
+        fhead: "添加好友",
+        flbl: "好友码",
+        fopen: "在应用中打开",
+        fcopy: "复制代码",
+        fnote: "如果无法打开，请将应用更新到最新版本，或在“好友”→“用代码添加”中输入此代码。"
+      },
+      "zh-Hant": {
+        fhead: "新增好友",
+        flbl: "好友碼",
+        fopen: "在 App 中開啟",
+        fcopy: "複製代碼",
+        fnote: "如果無法開啟，請將 App 更新到最新版本，或在「好友」→「用代碼新增」中輸入此代碼。"
+      },
+      "ko": {
+        fhead: "친구 추가",
+        flbl: "친구 코드",
+        fopen: "앱에서 열기",
+        fcopy: "코드 복사",
+        fnote: "열리지 않으면 앱을 최신 버전으로 업데이트하거나 「친구」→「코드로 추가」에서 이 코드를 입력해 주세요."
+      },
+      "es": {
+        fhead: "Añadir amigos",
+        flbl: "Código de amigo",
+        fopen: "Abrir en la app",
+        fcopy: "Copiar código",
+        fnote: "Si no se abre, actualiza la app a la última versión o escribe este código en Amigos → “Añadir con código”."
+      },
+      "de": {
+        fhead: "Freunde hinzufügen",
+        flbl: "Freundescode",
+        fopen: "In der App öffnen",
+        fcopy: "Code kopieren",
+        fnote: "Falls sich die App nicht öffnet, aktualisiere sie auf die neueste Version oder gib diesen Code unter Freunde → „Mit Code hinzufügen“ ein."
+      },
+      "fr": {
+        fhead: "Ajouter des amis",
+        flbl: "Code ami",
+        fopen: "Ouvrir dans l’app",
+        fcopy: "Copier le code",
+        fnote: "Si l’app ne s’ouvre pas, mets-la à jour vers la dernière version ou saisis ce code dans Amis → « Ajouter avec un code »."
+      },
+      "pt-BR": {
+        name: "Português",
+        title: "Baixe o PawPlanet",
+        tag: "Um app grátis em que seus passos fazem um pet crescer e levam você numa volta pelo Japão ou pelo mundo.",
+        copied: "Copiado: ",
+        memo: "Anote o código: ",
+        soon: "A versão para Android chega em breve!",
+        about: "Sobre o PawPlanet",
+        privacy: "Privacidade",
+        f1: "Seus passos fazem seu pet crescer",
+        f2: "Viaje pelo Japão ou pelo mundo",
+        f3: "Caminhe junto com os amigos",
+        free: "Download grátis (com compras no app)",
+        devices: "Para iPhone e Android",
+        operator: "Por Infinity games\n(Infinity Inc., Tóquio, Japão)",
+        support: "Suporte",
+        shotalt: "Tela de Início do PawPlanet",
+        fhead: "Adicionar amigos",
+        flbl: "Código de amigo",
+        fopen: "Abrir no app",
+        fcopy: "Copiar código",
+        fnote: "Se não abrir, atualize o app para a versão mais recente ou digite este código em Amigos → “Adicionar com código”."
+      },
+      "id": {
+        name: "Indonesia",
+        title: "Unduh PawPlanet",
+        tag: "Aplikasi gratis tempat langkahmu membesarkan pet dan membawamu keliling Jepang atau dunia.",
+        copied: "Tersalin: ",
+        memo: "Catat kode ini: ",
+        soon: "Versi Android segera hadir!",
+        about: "Tentang PawPlanet",
+        privacy: "Privasi",
+        f1: "Langkahmu membuat pet-mu tumbuh",
+        f2: "Keliling Jepang atau dunia",
+        f3: "Jalan bareng teman-teman",
+        free: "Gratis diunduh (ada pembelian dalam aplikasi)",
+        devices: "Untuk iPhone dan Android",
+        operator: "Oleh Infinity games\n(Infinity Inc., Tokyo, Jepang)",
+        support: "Dukungan",
+        shotalt: "Layar beranda PawPlanet",
+        fhead: "Tambah teman",
+        flbl: "Kode teman",
+        fopen: "Buka di aplikasi",
+        fcopy: "Salin kode",
+        fnote: "Jika tidak terbuka, perbarui aplikasi ke versi terbaru atau masukkan kode ini di Teman → “Tambah dengan kode”."
+      },
+      "th": {
+        name: "ไทย",
+        title: "ดาวน์โหลด PawPlanet",
+        tag: "แอปฟรีที่ก้าวเดินของคุณช่วยเลี้ยงสัตว์เลี้ยง และพาคุณเดินทางรอบญี่ปุ่นหรือรอบโลก",
+        copied: "คัดลอกแล้ว: ",
+        memo: "โปรดจดรหัสไว้: ",
+        soon: "เวอร์ชัน Android กำลังจะมาเร็ว ๆ นี้!",
+        about: "เกี่ยวกับ PawPlanet",
+        privacy: "ความเป็นส่วนตัว",
+        f1: "ก้าวของคุณช่วยให้สัตว์เลี้ยงเติบโต",
+        f2: "เดินทางรอบญี่ปุ่นหรือรอบโลก",
+        f3: "เดินไปด้วยกันกับเพื่อน ๆ",
+        free: "ดาวน์โหลดฟรี (มีการซื้อในแอป)",
+        devices: "สำหรับ iPhone และ Android",
+        operator: "โดย Infinity games\n(Infinity Inc., โตเกียว ญี่ปุ่น)",
+        support: "ฝ่ายสนับสนุน",
+        shotalt: "หน้าหลักของ PawPlanet",
+        fhead: "เพิ่มเพื่อน",
+        flbl: "รหัสเพื่อน",
+        fopen: "เปิดในแอป",
+        fcopy: "คัดลอกรหัส",
+        fnote: "หากเปิดไม่ได้ โปรดอัปเดตแอปเป็นเวอร์ชันล่าสุด หรือใส่รหัสนี้ที่ “เพื่อน” → “เพิ่มด้วยรหัส”"
+      },
+      "vi": {
+        name: "Tiếng Việt",
+        title: "Tải PawPlanet",
+        tag: "Ứng dụng miễn phí: bước chân của bạn giúp thú cưng lớn lên và đưa bạn đi vòng quanh Nhật Bản hoặc thế giới.",
+        copied: "Đã sao chép: ",
+        memo: "Hãy ghi lại mã: ",
+        soon: "Phiên bản Android sắp ra mắt!",
+        about: "Về PawPlanet",
+        privacy: "Quyền riêng tư",
+        f1: "Bước chân của bạn giúp thú cưng lớn lên",
+        f2: "Du lịch vòng quanh Nhật Bản hoặc thế giới",
+        f3: "Cùng bạn bè đi bộ",
+        free: "Tải miễn phí (có mua hàng trong ứng dụng)",
+        devices: "Dành cho iPhone và Android",
+        operator: "Phát triển bởi Infinity games\n(Infinity Inc., Tokyo, Nhật Bản)",
+        support: "Hỗ trợ",
+        shotalt: "Màn hình Trang chủ PawPlanet",
+        fhead: "Thêm bạn",
+        flbl: "Mã kết bạn",
+        fopen: "Mở trong ứng dụng",
+        fcopy: "Sao chép mã",
+        fnote: "Nếu không mở được, hãy cập nhật ứng dụng lên phiên bản mới nhất hoặc nhập mã này tại Bạn bè → “Thêm bằng mã”."
+      },
+      "it": {
+        name: "Italiano",
+        title: "Scarica PawPlanet",
+        tag: "Un'app gratuita in cui i tuoi passi fanno crescere un animaletto e ti portano in giro per il Giappone o per il mondo.",
+        copied: "Copiato: ",
+        memo: "Annota il codice: ",
+        soon: "La versione per Android arriverà presto!",
+        about: "Info su PawPlanet",
+        privacy: "Privacy",
+        f1: "I tuoi passi fanno crescere il tuo animaletto",
+        f2: "Viaggia per il Giappone o per il mondo",
+        f3: "Cammina insieme agli amici",
+        free: "Download gratuito (acquisti in-app)",
+        devices: "Per iPhone e Android",
+        operator: "Di Infinity games\n(Infinity Inc., Tokyo, Giappone)",
+        support: "Assistenza",
+        shotalt: "Schermata Home di PawPlanet",
+        fhead: "Aggiungi amici",
+        flbl: "Codice amico",
+        fopen: "Apri nell’app",
+        fcopy: "Copia codice",
+        fnote: "Se non si apre, aggiorna l’app all’ultima versione o inserisci questo codice in Amici → «Aggiungi con codice»."
+      },
+      "hi": {
+        name: "हिन्दी",
+        title: "PawPlanet डाउनलोड करें",
+        tag: "एक मुफ़्त ऐप, जिसमें आपके कदमों से पालतू बड़ा होता है और आप जापान या दुनिया की सैर पर निकलते हैं।",
+        copied: "कॉपी हो गया: ",
+        memo: "कोड लिख लें: ",
+        soon: "Android वर्शन जल्द आ रहा है!",
+        about: "PawPlanet के बारे में",
+        privacy: "निजता",
+        f1: "आपके कदमों से पालतू बड़ा होता है",
+        f2: "जापान या दुनिया की सैर करें",
+        f3: "दोस्तों के साथ मिलकर चलें",
+        free: "डाउनलोड मुफ़्त (इन-ऐप खरीदारी के साथ)",
+        devices: "iPhone और Android के लिए",
+        operator: "Infinity games की ओर से\n(Infinity Inc., टोक्यो, जापान)",
+        support: "सहायता",
+        shotalt: "PawPlanet की होम स्क्रीन",
+        fhead: "दोस्त जोड़ें",
+        flbl: "फ़्रेंड कोड",
+        fopen: "ऐप में खोलें",
+        fcopy: "कोड कॉपी करें",
+        fnote: "अगर न खुले, तो ऐप को नए वर्शन पर अपडेट करें या “दोस्त” → “कोड से जोड़ें” में यह कोड डालें।"
+      },
+      "ms": {
+        name: "Melayu",
+        title: "Dapatkan PawPlanet",
+        tag: "Aplikasi percuma di mana langkah anda membesarkan pet dan membawa anda menjelajah Jepun atau dunia.",
+        copied: "Disalin: ",
+        memo: "Sila catat kod ini: ",
+        soon: "Versi Android akan tiba tidak lama lagi!",
+        about: "Tentang PawPlanet",
+        privacy: "Privasi",
+        f1: "Langkah anda membantu pet membesar",
+        f2: "Jelajah Jepun atau dunia",
+        f3: "Berjalan bersama kawan-kawan",
+        free: "Percuma untuk dimuat turun (ada pembelian dalam aplikasi)",
+        devices: "Untuk iPhone dan Android",
+        operator: "Oleh Infinity games\n(Infinity Inc., Tokyo, Jepun)",
+        support: "Sokongan",
+        shotalt: "Skrin utama PawPlanet",
+        fhead: "Tambah rakan",
+        flbl: "Kod rakan",
+        fopen: "Buka dalam apl",
+        fcopy: "Salin kod",
+        fnote: "Jika tidak dibuka, kemas kini apl kepada versi terkini atau masukkan kod ini di Kawan → “Tambah dengan kod”."
+      }
+    };
+    for (var fl in FT) {
+      if (!T[fl]) {
+        T[fl] = { shot: "en" };
+        for (var ek in T.en) T[fl][ek] = "";
+        FRIEND_LANGS.push(fl);
+      }
+      for (var fk in FT[fl]) T[fl][fk] = FT[fl][fk];
+    }
+  }
   function pickLang() {
     var list = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "ja"]);
     for (var i = 0; i < list.length; i++) {
@@ -764,6 +1015,10 @@
       if (l.indexOf("es") === 0) return "es";
       if (l.indexOf("de") === 0) return "de";
       if (l.indexOf("fr") === 0) return "fr";
+      for (var j = 0; j < FRIEND_LANGS.length; j++) {   // フレンドの見た目だけ：残りの7言語（in＝古い端末のインドネシア語の印）
+        var two = FRIEND_LANGS[j].slice(0, 2).toLowerCase();
+        if (l.indexOf(two) === 0 || (two === "id" && l.indexOf("in") === 0)) return FRIEND_LANGS[j];
+      }
     }
     return "en";
   }
@@ -821,10 +1076,54 @@
     gt.textContent = STORE_NAME ? t.opens.replace("%S", STORE_NAME) : "";
     // アプリの画面（ストアの画像と同じもの・言語ごと）
     var sh = document.getElementById("shot");
-    sh.setAttribute("src", "img/shot_" + lang + ".webp");
+    sh.setAttribute("src", "img/shot_" + (t.shot || lang) + ".webp");
     sh.setAttribute("alt", t.shotalt);
+    if (FRIEND) applyFriend(t);
     var bs = document.querySelectorAll("#langs button");
     for (var j = 0; j < bs.length; j++) bs[j].setAttribute("aria-pressed", bs[j].getAttribute("data-l") === lang ? "true" : "false");
+  }
+  // 1.7.6 フレンドの見た目：見出し・コード・「アプリで開く」・コードのコピー・一言だけ。
+  function applyFriend(t) {
+    document.title = t.fhead + " — PawPlanet";
+    document.getElementById("hello").textContent = t.fhead;
+    document.getElementById("friendLbl").textContent = t.flbl;
+    document.getElementById("friendOpen").textContent = t.fopen;
+    document.getElementById("friendCopy").textContent = t.fcopy;
+    document.getElementById("friendNote").textContent = t.fnote;
+    // 隠れている招待のカードにも文を残さない
+    var iv = document.querySelectorAll("#invite [data-i], #goesTo");
+    for (var i = 0; i < iv.length; i++) iv[i].textContent = "";
+  }
+  if (FRIEND) {
+    var card = document.createElement("section");
+    card.id = "friend";
+    card.className = "invite";
+    card.innerHTML = '<div class="ticket"><div class="lbl" id="friendLbl"></div><div class="code" id="friendCode"></div></div>'
+      + '<a class="btn" id="friendOpen"></a><button class="btn" type="button" id="friendCopy"></button>'
+      + '<div class="note" id="friendNote"></div><div class="toast" id="friendToast" role="status"></div>';
+    var inviteCard = document.getElementById("invite");
+    inviteCard.parentNode.insertBefore(card, inviteCard);
+    document.getElementById("friendCode").textContent = FRIEND;
+    document.getElementById("friendOpen").href = "pawplanet://friend?code=" + FRIEND;
+    // 押した時だけ、コードだけをコピーする（ストアへは移らない）
+    document.getElementById("friendCopy").addEventListener("click", function () {
+      var show = function (ok) { document.getElementById("friendToast").textContent = (ok ? T[LANG].copied : T[LANG].memo) + FRIEND; };
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(FRIEND).then(function () { show(true); }, function () { show(false); });
+        } else { show(false); }
+      } catch (e) { show(false); }
+    });
+    for (var n = 0; n < FRIEND_LANGS.length; n++) {
+      var lb = document.createElement("button");
+      lb.type = "button";
+      lb.setAttribute("data-l", FRIEND_LANGS[n]);
+      lb.textContent = T[FRIEND_LANGS[n]].name;
+      document.getElementById("langs").appendChild(lb);
+    }
+    // スマホはその端末のストアだけ（PC は両方）。リンクは印の無い素のストア
+    if (isIOS) document.getElementById("playBtn").hidden = true;
+    else if (isAndroid) document.getElementById("appStoreBtn").hidden = true;
   }
   document.getElementById("langs").addEventListener("click", function (e) {
     var l = e.target && e.target.getAttribute && e.target.getAttribute("data-l");
