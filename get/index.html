@@ -173,6 +173,19 @@
   }
   // コード無しはストアへ自動で移る。ただし ?ny=1／?xm=1 だけのときは、あいさつを見せるため移らずにボタンを出す。
   if (!FRIEND && !CODE && !GROUP && !NY && !XM) {   // フレンドリンクは自動では移らない
+    // QR の回数（paw_154）：印刷物と同じ「引数なし・参照元なし」のスマホだけ +1。送るのは OS の別だけ。失敗しても移動は止めない。
+    //   同じタブの読み直しは30秒に1回まで。見出しの先読みボットは数えない。キーは公開用（アプリに入っているものと同じ）。
+    try {
+      if (!location.search && !document.referrer && (isIOS || (isAndroid && ANDROID_LIVE)) && navigator.sendBeacon
+          && location.hostname === "pawplanet.01-infinity.com" && !/bot[\/-]|crawler|spider|facebookexternalhit|preview/i.test(ua)) {
+        var last = 0;
+        try { last = Number(sessionStorage.getItem("paw.qr") || 0); sessionStorage.setItem("paw.qr", String(Date.now())); } catch (e) {}
+        if (Date.now() - last > 30000) {
+          navigator.sendBeacon("https://pprkgpgjwgrmxslghpvo.supabase.co/rest/v1/rpc/paw_qr_hit?apikey=sb_publishable_I8GUJKUXjkYJ7o6avDbxGw_Hhb-KjJ7",
+            new Blob(["p_os=" + (isIOS ? "ios" : "android")], { type: "application/x-www-form-urlencoded" }));
+        }
+      }
+    } catch (e) {}
     if (isIOS) location.replace(IOS);
     else if (isAndroid && ANDROID_LIVE) location.replace(ANDROID);
   }
