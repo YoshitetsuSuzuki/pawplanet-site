@@ -84,7 +84,7 @@
     </div>
     <div class="meta">
       <span><b>アプリ / App</b> PawPlanet — iOS / Android (com.pawplanet.app)</span>
-      <span><b id="upd-ja">最終更新</b><b id="upd-en" hidden>Last updated</b> 2026-11-22</span>
+      <span><b id="upd-ja">最終更新</b><b id="upd-en" hidden>Last updated</b> 2026-11-23</span>
     </div>
   </header>
 
@@ -204,9 +204,9 @@
 
     <section class="item">
       <h2><span class="no">12</span>アプリの不具合の自動報告</h2>
-      <p>1.6.6 から、アプリが落ちたり固まったりしたときに、原因を調べて直すため、<b>技術的な要約</b>を当社サーバーへ自動で送ります。</p>
+      <p>1.6.6 から、アプリが落ちたり固まったりしたとき（iPhone 版は、CPU や保存領域への書き込みを使いすぎたときも）に、原因を調べて直すため、<b>技術的な要約</b>を当社サーバーへ自動で送ります。</p>
       <ul class="facts">
-        <li><span>送るのは、<b>アプリの版・ビルド番号・OS の版・機種・落ち方の種類・落ちたプログラムの場所</b>だけです。<b>氏名・表示名・歩数・ヘルスケアのデータ・位置情報は含みません</b></span></li>
+        <li><span>送るのは、<b>アプリの版・ビルド番号・OS の版・機種・CPU の種類・落ち方の種類・落ちたプログラムの場所</b>だけです。落ち方の種類には、例外やシグナルの番号、固まっていた時間、OS が記録した終了の理由の文（先頭 200 字まで。処理の番号やプログラムの中の場所を含むことがあります）が入ります。<b>氏名・表示名・歩数・ヘルスケアのデータ・位置情報は含みません</b></span></li>
         <li>ランキングへの参加の有無にかかわらず送ります。iPhone 版は匿名IDにも紐づけません。Android 版は、ランキングやフレンド機能を使っている場合に限り匿名IDに紐づけます</li>
         <li class="no"><span>不具合の調査と修正にだけ使い、広告やトラッキングには使わず、第三者へ提供することもありません。<b>7日</b>で自動的に削除します</span></li>
       </ul>
@@ -352,9 +352,9 @@
 
     <section class="item">
       <h2><span class="no">12</span>Automatic crash reports</h2>
-      <p>Starting with version 1.6.6, when the app crashes or freezes, it automatically sends a <b>technical summary</b> to our server so we can find and fix the cause.</p>
+      <p>Starting with version 1.6.6, when the app crashes or freezes (and, on iPhone, when it uses too much CPU or writes too much to storage), it automatically sends a <b>technical summary</b> to our server so we can find and fix the cause.</p>
       <ul class="facts">
-        <li><span>It contains only the <b>app version, build number, OS version, device model, type of crash and where in the program it happened</b>. It <b>does not include your name, display name, steps, health data or location</b></span></li>
+        <li><span>It contains only the <b>app version, build number, OS version, device model, CPU type, type of crash and where in the program it happened</b>. The type of crash includes exception and signal numbers, how long the app was frozen, and the termination reason recorded by the OS (up to the first 200 characters, which may include process numbers or locations in the program). It <b>does not include your name, display name, steps, health data or location</b></span></li>
         <li>It is sent whether or not you join the leaderboards. On iPhone it is not linked to your anonymous ID. On Android it is linked to your anonymous ID only if you use the leaderboards or friends features</li>
         <li class="no"><span>It is used only to investigate and fix problems, never for advertising or tracking, and is not shared with third parties. It is deleted automatically after <b>7 days</b></span></li>
       </ul>
